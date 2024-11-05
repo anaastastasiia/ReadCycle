@@ -6,6 +6,8 @@ import Banner from "./components/Banner/Banner";
 import Img1 from "./assets/banner1.png";
 import Img2 from "./assets/banner2.png";
 import SubjectCard from "./components/SubjectCard/SubjectCard";
+import Feedback from "./components/Feedback/Feedback";
+import Footer from "./components/Footer/Footer";
 
 const BannerData = {
   image: Img1,
@@ -35,6 +37,8 @@ const App = () => {
       <Banner {...BannerData} reverse={false} />
       <Banner {...BannerData2} reverse />
       <SubjectCard />
+      <Feedback />
+      <Footer />
     </main>
   );
 };
