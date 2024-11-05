@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { GrYoga } from "react-icons/gr";
 import { FaDumbbell } from "react-icons/fa6";
 import { GiGymBag } from "react-icons/gi";
+import { SlideLeft } from "../../utils/animations";
 
 const BenefitsData = [
   {
@@ -55,12 +56,20 @@ const Benefits = () => {
           {BenefitsData.map((item) => {
             return (
               <motion.div
+                variants={SlideLeft(item.delay)}
+                initial="hidden"
+                whileInView={"visible"}
                 key={item.id}
                 className="space-y-4 p-6 rounded-xl shadow-[0_0_22px_rgba(0,0,0,0.15)]"
               >
-                <div>{item.icon}</div>
-                <p>{item.title}</p>
-                <p>{item.desc}</p>
+                <div
+                  className="w-10 h-10 rounded-lg flex justify-center items-center text-white"
+                  style={{ backgroundColor: item.bgColor }}
+                >
+                  <div className="text-2xl">{item.icon}</div>
+                </div>
+                <p className="font-semibold">{item.title}</p>
+                <p className="text-sm text-gray-500">{item.desc}</p>
               </motion.div>
             );
           })}
