@@ -33,10 +33,10 @@ const App = () => {
       <Navbar />
       <GetStarted />
       <NumberCounter />
-      <Benefits />
+      <SubjectCard />
       <Banner {...BannerData} reverse={false} />
       <Banner {...BannerData2} reverse />
-      <SubjectCard />
+      <Benefits />
       <Feedback />
       <Footer />
     </main>
