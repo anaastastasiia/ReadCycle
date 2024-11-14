@@ -1,5 +1,4 @@
 import GirlImg from "../../assets/education.jpg";
-import { FaPlay } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { SlideRight } from "../../utils/animations";
 
@@ -15,17 +14,15 @@ const GetStarted = () => {
               animate="visible"
               className="text-5xl font-semibold lg:text-6xl !leading-tight"
             >
-              Unlock Your Potential with{" "}
-              <span className="text-primary">SkillWave!</span>
+              Easily Sell Your Books with Read
+              <span className="text-primary">Cycle!</span>
             </motion.h1>
             <motion.p
               variants={SlideRight(0.8)}
               initial="hidden"
               animate="visible"
             >
-              Grow with us! Our platform’s courses, blogs, and resources will
-              help you gain new skills and build the career of your dreams.
-              Start your journey to success today!
+              Find new books for yourself or pass on your favorites to others.
             </motion.p>
             <motion.div
               variants={SlideRight(1.0)}
@@ -34,12 +31,9 @@ const GetStarted = () => {
               className="flex gap-8 justify-center md:justify-start !mt-8 items-center"
             >
               <button className="primary-btn">Get Started</button>
-              <button className="flex justify-end items-center gap-2 font-semibold">
-                <span className="w-10 h-10 bg-secondary/15 rounded-full flex justify-center items-center">
-                  <FaPlay className="text-secondary" />
-                </span>
-                See how it works
-              </button>
+              <span className="text-primary font-semibold text-xl">
+                Simple, fast, and cost-effective!
+              </span>
             </motion.div>
           </div>
         </div>

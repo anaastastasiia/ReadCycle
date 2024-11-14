@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { NavbarMenu } from "../../mockData/data.js";
+import { NavbarMenu } from "../../mockData/data.ts";
 import { MdMenu } from "react-icons/md";
 import { motion } from "framer-motion";
 import ResponsiveMenu from "./ResponsiveMenu.js";
-import Logo from "../../assets/back-to-school.png";
+import Logo from "../../assets/logo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,10 +14,13 @@ const Navbar = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.5 }}
       >
-        <div className="container flex justify-between items-center py-6">
+        <div className="container flex justify-between items-center pb-6">
           <div className="text-2xl flex items-center gap-2 font-bold">
-            <img src={Logo} alt="logo" width={"70px"} height={"70px"} />
-            <p>SkillWave</p>
+            <img src={Logo} alt="logo" width={"120px"} height={"120px"} />
+            <p>
+              <span className="text-secondary">Read</span>
+              <span className="text-primary">Cycle</span>
+            </p>
           </div>
           <div className="hidden lg:block">
             <ul className="flex items-center gap-6">
