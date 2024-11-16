@@ -45,7 +45,7 @@ const BenefitsData = [
 const Benefits = () => {
   return (
     <div className="bg-[#f9f9f9]">
-      <div className="container py-24">
+      <div className="container pb-24">
         <div className="space-y-4 p-6 text-center max-w-[550px] mx-auto mb-5">
           <h1 className="uppercase font-semibold text-orange-500">Choose Us</h1>
           <p className="font-semibold text-3xl">

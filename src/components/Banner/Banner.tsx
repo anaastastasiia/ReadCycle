@@ -42,7 +42,7 @@ const Banner = ({
       >
         <motion.img src={image} alt="" className="w-full h-full object-cover" />
         {discount ? (
-          <div className="absolute top-0 left-0  bg-red-500 text-white md:text-lg  font-bold rounded-full px-2 py-1">
+          <div className="absolute m-1 top-0 left-0  bg-red-500 text-white md:text-lg  font-bold rounded-full px-2 py-1">
             -{discount}%
           </div>
         ) : null}

@@ -1,137 +1,42 @@
-import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
-import { HiLocationMarker } from "react-icons/hi";
-import FooterImg from "../../assets/footer1.jpg";
-import Logo from "../../assets/back-to-school.png";
-
-const FooterBg = {
-  backgroundImage: `url(${FooterImg})`,
-  backgroundRepeat: "no-repeat",
-  backgroundSize: "cover",
-  backgroundPosition: "bottom center",
-};
+import Logo from "../../assets/logo.png";
+import { NavbarMenu } from "../../mockData/data";
 
 const Footer = () => {
   return (
-    <div style={FooterBg} className="rounded-t-3xl">
-      <div className="bg-primary/5">
+    <div>
+      <div>
         <div className="container">
-          <div className="grid md:grid-cols-4 md:gap-4 py-5 border-t-2 border-gray-300/10 text-black">
-            <div className="py-8 px-4 space-y-4">
+          <div className="grid grid-cols-2 md:gap-4 py-5 border-t-2 border-gray-300/10 text-black">
+            <div className="py-4 px-4 space-y-4">
               <div className="text-2xl flex items-center gap-2 font-bold uppercase">
                 <img src={Logo} alt="logo" width={"70px"} height={"70px"} />
-                <p>SkillWave</p>
-              </div>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque
-                accusamus nulla labore cumque id ipsum molestias architecto
-                voluptatum saepe ab.
-              </p>
-              <div className="flex items-center justify-start gap-5 !mt-6">
-                <a href="#" className="hover:text-secondary duration-200">
-                  <HiLocationMarker className="text-3xl" />
-                </a>
-                <a href="#" className="hover:text-secondary duration-200">
-                  <FaInstagram className="text-3xl" />
-                </a>
-                <a href="#" className="hover:text-secondary duration-200">
-                  <FaFacebook className="text-3xl" />
-                </a>
-                <a href="#" className="hover:text-secondary duration-200">
-                  <FaLinkedin className="text-3xl" />
-                </a>
+                <p>
+                  <span className="text-secondary">Read</span>
+                  <span className="text-primary">Cycle</span>
+                </p>
               </div>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 md:col-span-3 md:ml-14">
-              <div className="py-8 px-4">
-                <h1 className="sm:text-xl text-xl font-bold sm:text-left text-justify mb-5">
-                  Important Links
-                </h1>
-                <ul className="flex flex-col gap-3">
-                  <li>
-                    <a href="#" className="hover:text-secondary duration-200">
-                      Home
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-secondary duration-200">
-                      About
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-secondary duration-200">
-                      Services
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-secondary duration-200">
-                      Login
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div className="py-8 px-4">
-                <h1 className="sm:text-xl text-xl font-bold sm:text-left text-justify mb-5">
-                  Resources
-                </h1>
-                <ul className="flex flex-col gap-3">
-                  <li>
-                    <a href="#" className="hover:text-secondary duration-200">
-                      Home
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-secondary duration-200">
-                      About
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-secondary duration-200">
-                      Services
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-secondary duration-200">
-                      Login
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div className="py-8 px-4">
-                <h1 className="sm:text-xl text-xl font-bold sm:text-left text-justify mb-5">
-                  Company Links
-                </h1>
-                <ul className="flex flex-col gap-3">
-                  <li>
-                    <a href="#" className="hover:text-secondary duration-200">
-                      Home
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-secondary duration-200">
-                      About
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-secondary duration-200">
-                      Services
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-secondary duration-200">
-                      Login
-                    </a>
-                  </li>
-                </ul>
-              </div>
+            <div className="flex md:ml-14">
+              <ul className="flex items-center gap-6">
+                {NavbarMenu.map((item) => {
+                  return (
+                    <li key={item.id}>
+                      <a
+                        href={item.link}
+                        className="inline-block text-gray-600 text-sm xl:text-base py-1 px-2 xl:px-3 hover:text-secondary transition-all duration-300 font-semibold"
+                      >
+                        {item.title}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
           </div>
-          <div className="mt-8">
-            <div className="text-center py-6 border-t-2 border-gray-800/10">
-              <span className="text-sm text-black/60">
-                {" "}
-                @copyright 2024 The Coding Journey
-              </span>
-            </div>
+          <div className="text-center py-4 border-t-2 border-gray-800/10">
+            <span className="text-sm text-black/60">
+              @copyright 2024 The Coding Journey
+            </span>
           </div>
         </div>
       </div>

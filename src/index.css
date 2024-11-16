@@ -8,6 +8,9 @@
   .primary-btn {
     @apply bg-primary font-semibold px-6 py-3 rounded-full hover:!scale-110 hover:!shadow-xl duration-300;
   }
+  .secondary-btn {
+    @apply bg-secondary font-semibold px-6 py-3 rounded-full hover:!scale-110 hover:!shadow-xl duration-300 text-white;
+  }
 }
 
 body {

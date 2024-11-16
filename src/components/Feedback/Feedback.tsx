@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 import Slider from "react-slick";
 
 const FeedBacksData = [
@@ -7,6 +9,7 @@ const FeedBacksData = [
     text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque reiciendis inventore iste ratione ex alias quis magni at optio",
     img: "https://picsum.photos/101/101",
     delay: 0.2,
+    stars: 4,
   },
   {
     id: 2,
@@ -14,6 +17,7 @@ const FeedBacksData = [
     text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque reiciendis inventore iste ratione ex alias quis magni at optio",
     img: "https://picsum.photos/102/102",
     delay: 0.5,
+    stars: 5,
   },
   {
     id: 3,
@@ -21,6 +25,7 @@ const FeedBacksData = [
     text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque reiciendis inventore iste ratione ex alias quis magni at optio",
     img: "https://picsum.photos/104/104",
     delay: 0.8,
+    stars: 5,
   },
   {
     id: 5,
@@ -28,6 +33,7 @@ const FeedBacksData = [
     text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque reiciendis inventore iste ratione ex alias quis magni at optio",
     img: "https://picsum.photos/103/103",
     delay: 1.1,
+    stars: 5,
   },
 ];
 
@@ -71,11 +77,13 @@ const Feedback = () => {
   };
 
   return (
-    <div className="py-14 mb-10 bg-[#f9f9f9]">
+    <div className="py-14 bg-[#f9f9f9]">
       <div className="container">
         <div className="space-y-4 p-6 text-center max-w-[600px] mx-auto mb-6">
           <h1 className="uppercase font-semibold text-orange-600">Feedbacks</h1>
-          <p className="font-semibold text-3xl">What our students say</p>
+          <p className="font-semibold text-3xl">
+            What do our users think about us?
+          </p>
         </div>
         <div>
           <Slider {...setting}>
@@ -98,7 +106,13 @@ const Feedback = () => {
                     </div>
                     <div className="py-6 space-y-4">
                       <p className="text-sm text-gray-500">{item.text}</p>
-                      <p>⭐⭐⭐⭐⭐</p>
+                      {Array.from({ length: item.stars }, (_, index) => (
+                        <FontAwesomeIcon
+                          icon={faStar}
+                          className="text-yellow-300"
+                          key={index}
+                        />
+                      ))}
                     </div>
                   </div>
                 </div>
