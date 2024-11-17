@@ -7,8 +7,8 @@ const NumberCounter = () => {
         <div className="flex flex-col items-center justify-center">
           <p className="font-semibold text-3xl">
             <CountUp
-              start={0}
-              end={3450}
+              suffix="+"
+              end={2000}
               duration={3}
               enableScrollSpy
               scrollSpyOnce
