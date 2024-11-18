@@ -1,6 +1,6 @@
-# 📚 BookCycle - A Marketplace for Used Books
+# 📚 ReadCycle - A Marketplace for Used Books
 
-**BookCycle** is an eco-friendly online platform where people can sell their read books, find new owners for their favorite stories, and contribute to sustainable living.
+**ReadCycle** is an eco-friendly online platform where people can sell their read books, find new owners for their favorite stories, and contribute to sustainable living.
 
 ---
 
@@ -26,6 +26,32 @@
 
 ## 🚀 How to Run
 
+### Running the Backend (Express.js)
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/anaastastasiia/ReadCycle
+   ```
+2. Navigate to the backend folder:
+
+   ```bash
+   cd back-end
+   ```
+3. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. Start the backend server:
+
+   ```bash
+   npm start
+   ```
+
+5. The backend will be available at http://localhost:3000.
+
+### Running the Frontend (React + Vite)
 1. Clone the repository:
 
    ```bash
@@ -35,10 +61,10 @@
 2. Navigate to the project directory:
 
    ```bash
-   cd read-cycle
+   cd front-end
    ```
 
-3. Install dependencie:
+3. Install dependencies:
 
    ```bash
    npm install
@@ -54,3 +80,8 @@
    ```arduino
    http://localhost:5173
    ```
+
+---
+
+## 🌱 Join the Green Movement
+By selling or buying books on **ReadCycle**, you’re helping to reduce waste and contribute to a more sustainable future. Let’s make the planet a better place together!
