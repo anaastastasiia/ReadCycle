@@ -13,8 +13,24 @@ const {Category} = require('../models/category');
 //     res.send(bookList);
 // })
 
+// router.get('/', async (req, res) => {
+//     const bookList = await Book.find().select('name author -_id');
+
+//     if(!bookList) {
+//         res.status(500).json({success: false})
+//     }
+//     res.send(bookList);
+// })
+
 router.get('/', async (req, res) => {
-    const bookList = await Book.find().select('name author -_id');
+    let filter = {}
+    if(req.query.categories) {
+        filter = {category: req.query.categories.split(',')}
+    }
+
+    // const bookList = await Book.find({category: "333344"}).populate('category');
+    // const bookList = await Book.find({category: filter}).populate('category')
+    const bookList = await Book.find(filter).populate('category')
 
     if(!bookList) {
         res.status(500).json({success: false})
@@ -112,6 +128,17 @@ router.delete('/:id', (req, res) => {
         }
     }).catch((err) => {
         return res.status(400).json({success: false, error: err})
+    });
+})
+
+router.get('/get/count', async (req, res) => {
+    const bookCount = await Book.countDocuments().then(count => count);
+
+    if(!bookCount) {
+        res.status(500).json({success: false})
+    }
+    res.send({
+        bookCount: bookCount
     });
 })
 
