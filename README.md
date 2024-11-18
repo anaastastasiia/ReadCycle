@@ -13,10 +13,14 @@
 ---
 
 ## 🛠️ Technologies
-
+### Frontend
 - **React**: For building UI components.
 - **Vite**: A fast development tool.
 - **TypeScript**: Ensures type safety and robust code.
+
+### Backend
+- **Express.js:** A fast and minimalist web framework for building the backend API.
+- **Node.js:** Server-side JavaScript runtime to handle requests and manage data.
 
 ---
 
