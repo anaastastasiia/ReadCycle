@@ -44,6 +44,15 @@ const bookSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    category: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category',
+        required: true
+    },
+    numReviews: {
+        type: Number,
+        default: 0
+    }
 })
 
 exports.Book = mongoose.model('Book', bookSchema);
