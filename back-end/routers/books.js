@@ -3,13 +3,40 @@ const router = express.Router();
 const {Book} = require('../models/book');
 const {Category} = require('../models/category');
 
-router.get(`/`, async (req, res) => {
-    const bookList = await Book.find();
+// router.get(`/`, async (req, res) => {
+//     const bookList = await Book.find();
+
+//     if(!bookList) {
+//         res.status(500).json({success: false})
+//     }
+//     res.send(bookList);
+// })
+
+router.get('/', async (req, res) => {
+    const bookList = await Book.find().select('name author -_id');
 
     if(!bookList) {
         res.status(500).json({success: false})
     }
     res.send(bookList);
+})
+
+// router.get(`/:id`, async (req, res) => {
+//     const book = await Book.findById(req.params.id);
+//.populate('category')
+//     if(!book) {
+//         res.status(500).json({success: false})
+//     }
+//     res.send(book);
+// })
+
+router.get(`/:id`, async (req, res) => {
+    const book = await Book.findById(req.params.id).populate('category');
+
+    if(!book) {
+        res.status(500).json({success: false})
+    }
+    res.send(book);
 })
 
 router.post(`/`, async (req, res) => {
@@ -39,6 +66,48 @@ router.post(`/`, async (req, res) => {
     }
 
     res.send(newBook);
+})
+
+router.put('/:id', async (req, res) => {
+    const category = await Category.findById(req.body.category);
+    if(!category) return res.status(400).send('Invalid category');
+
+    const book = await Book.findByIdAndUpdate(
+        req.params.id,
+        {
+            name: req.body.name,
+            author: req.body.author,
+            image: req.body.image,
+            images: req.body.images,
+            pages: req.body.pages,
+            description: req.body.description,
+            edition: req.body.edition,
+            price: req.body.price,
+            discount: req.body.discount,
+            year: req.body.year,
+            dateCreated: req.body.dateCreated,
+            category: req.body.category,
+            numReviews: req.body.numReviews,
+        }, 
+        { new: true }
+    )
+
+    if (!book) {
+        return res.status(500).send('The book cannot be updated');
+    } 
+    res.send(book);
+})
+
+router.delete('/:id', (req, res) => {
+    Book.findByIdAndDelete(req.params.id).then(book => {
+        if (book) {
+            return res.status(200).json({success: true, message: 'The book is deleted'})
+        } else {
+            return res.status(404).json({success: false, message: 'Book not found'})
+        }
+    }).catch((err) => {
+        return res.status(400).json({success: false, error: err})
+    });
 })
 
 module.exports = router;
