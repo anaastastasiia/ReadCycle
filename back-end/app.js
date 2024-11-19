@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const authJwt = require('./helper/jwt');
 
 require('dotenv/config');
 
@@ -13,6 +14,12 @@ app.options('*', cors());
 //middleware
 app.use(bodyParser.json());
 app.use(morgan(':method :url :status :response-time ms - :res[content-length]'));
+app.use(authJwt);
+app.use((err, req, res, next) => {
+  if (err) {
+    res.status(500).json({message: 'Error in the server'})
+  }
+})
 
 //routers
 const booksRouter = require('./routers/books');
