@@ -137,4 +137,19 @@ router.get('/get/count', async (req, res) => {
     });
 });
 
+router.get('/get/userorders/:userid', async (req, res) => {
+    const userOrderList = await Order.find({ user: req.params.userid })
+        .populate('user', 'name email')
+        .populate({
+            path: 'orderItems',
+            populate: { path: 'book', populate: 'category' }
+        })
+        .sort({ dateOrdered: -1 });
+
+    if (!userOrderList) {
+        res.status(500).json({ success: false });
+    }
+    res.send(userOrderList);
+});
+
 module.exports = router;
