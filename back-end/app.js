@@ -18,6 +18,7 @@ app.use(
     morgan(':method :url :status :response-time ms - :res[content-length]')
 );
 app.use(authJwt());
+app.use('/public/uploads', express.static(__dirname + '/public/uploads'));
 app.use(errorHandler);
 
 //routers
