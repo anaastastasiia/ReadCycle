@@ -4,7 +4,10 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-    const orderList = await Order.find();
+    const orderList = await Order.find()
+        .populate('user', 'name email')
+        .sort({ dateOrdered: -1 });
+    // .sort('dateOrdered');
 
     if (!orderList) {
         res.status(500).json({ success: false });
@@ -12,12 +15,26 @@ router.get('/', async (req, res) => {
     res.send(orderList);
 });
 
+router.get('/:id', async (req, res) => {
+    const order = await Order.findById(req.params.id)
+        .populate('user', 'name email')
+        .populate({
+            path: 'orderItems',
+            populate: { path: 'book', populate: 'category' }
+        });
+
+    if (!order) {
+        res.status(500).json({ success: false });
+    }
+    res.send(order);
+});
+
 router.post('/', async (req, res) => {
-    const orderItemsIds = Promise.all(
+    const orderItemsIds = await Promise.all(
         req.body.orderItems.map(async (item) => {
             let newItem = new OrderItem({
                 quantity: item.quantity,
-                product: item.product
+                book: item.book
             });
 
             newItem = await newItem.save();
@@ -25,10 +42,22 @@ router.post('/', async (req, res) => {
         })
     );
 
-    const orderIdsResolved = await orderItemsIds;
+    // const orderIdsResolved = await orderItemsIds;
+    const totalPrices = await Promise.all(
+        orderItemsIds.map(async (orderItemId) => {
+            const item = await OrderItem.findById(orderItemId).populate(
+                'book',
+                'price'
+            );
+            const totalPrice = item.book.price * item.quantity;
+            return totalPrice;
+        })
+    );
+
+    const totalOrderPrice = totalPrices.reduce((a, b) => a + b, 0);
 
     let order = new Order({
-        orderItems: orderIdsResolved,
+        orderItems: orderItemsIds,
         shippingAddress1: req.body.shippingAddress1,
         shippingAddress2: req.body.shippingAddress2,
         city: req.body.city,
@@ -36,7 +65,7 @@ router.post('/', async (req, res) => {
         country: req.body.country,
         phone: req.body.phone,
         status: req.body.status,
-        totalPrice: req.body.totalPrice,
+        totalPrice: totalOrderPrice,
         user: req.body.user
     });
 
@@ -48,4 +77,41 @@ router.post('/', async (req, res) => {
 
     res.send(order);
 });
+
+router.put('/:id', async (req, res) => {
+    const order = await Order.findByIdAndUpdate(
+        req.params.id,
+        {
+            status: req.body.status
+        },
+        { new: true }
+    );
+
+    if (!order) {
+        return res.status(404).send('The order status cannot be updated');
+    }
+    res.send(order);
+});
+
+router.delete('/:id', (req, res) => {
+    Order.findByIdAndDelete(req.params.id)
+        .then(async (order) => {
+            if (order) {
+                await order.orderItems.map(async (item) => {
+                    await OrderItem.findByIdAndDelete(item);
+                });
+                return res
+                    .status(200)
+                    .json({ success: true, message: 'The order is deleted' });
+            } else {
+                return res
+                    .status(404)
+                    .json({ success: false, message: 'Order not found' });
+            }
+        })
+        .catch((err) => {
+            return res.status(400).json({ success: false, error: err });
+        });
+});
+
 module.exports = router;
