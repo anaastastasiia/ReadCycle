@@ -1,2 +1,16 @@
+node_modules/
+
 .env
-.idea
+.env.local
+*.log
+
+.idea/
+.vscode/
+
+*.tmp
+*.out
+*.class
+*.o
+*.obj
+
+.git/

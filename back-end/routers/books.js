@@ -1,8 +1,35 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const { Book } = require('../models/Book');
-const { Category } = require('../models/Category');
+const multer = require('multer');
+const { Book } = require('../models/book');
+const { Category } = require('../models/category');
+
+const FILE_TYPE_MAP = {
+    'image/png': 'png',
+    'image/jpeg': 'jpeg',
+    'image/jpg': 'jpg'
+};
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        const isValid = FILE_TYPE_MAP[file.mimetype];
+        let uploadError = new Error('invalid image type');
+
+        if (isValid) {
+            uploadError = null;
+        }
+        cb(uploadError, 'public/uploads');
+    },
+    filename: function (req, file, cb) {
+        const fileName = file.originalname.replace(' ', '-');
+        console.log('fileName: ', fileName);
+        const extension = FILE_TYPE_MAP[file.mimetype];
+        cb(null, `${fileName}-${Date.now()}.${extension}`);
+    }
+});
+
+const upload = multer({ storage: storage });
 
 // router.get(`/`, async (req, res) => {
 //     const bookList = await Book.find();
@@ -56,14 +83,20 @@ router.get(`/:id`, async (req, res) => {
     res.send(book);
 });
 
-router.post(`/`, async (req, res) => {
+router.post(`/`, upload.single('image'), async (req, res) => {
     const category = await Category.findById(req.body.category);
     if (!category) return res.status(400).send('Invalid category');
+
+    const file = req.file;
+    if (!file) return res.status(400).send('No image in the request');
+
+    const fileName = file.filename;
+    const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
 
     const book = new Book({
         name: req.body.name,
         author: req.body.author,
-        image: req.body.image,
+        image: `${basePath}${fileName}`,
         images: req.body.images,
         pages: req.body.pages,
         description: req.body.description,
@@ -147,5 +180,40 @@ router.get('/get/count', async (req, res) => {
         bookCount: bookCount
     });
 });
+
+router.put(
+    '/gallery-images/:id',
+    upload.array('images', 10),
+    async (req, res) => {
+        if (!mongoose.isValidObjectId(req.params.id)) {
+            return res.status(400).send('Invalid Book ID');
+        }
+
+        const files = req.files;
+        let imgPathes = [];
+        const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
+
+        if (files) {
+            files.map((item) => {
+                if (item) {
+                    imgPathes.push(`${basePath}${item.filename}`);
+                }
+            });
+        }
+
+        const book = await Book.findByIdAndUpdate(
+            req.params.id,
+            {
+                images: imgPathes
+            },
+            { new: true }
+        );
+
+        if (!book) {
+            return res.status(500).send('The book cannot be updated');
+        }
+        res.send(book);
+    }
+);
 
 module.exports = router;
