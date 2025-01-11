@@ -5,10 +5,6 @@
         "fast": "Prosto, szybko i opłacalno!"
     },
     "navbar": {
-        "home": "Strona główna",
-        "aboutUs": "O Nas",
-        "library": "Biblioteka",
-        "help": "Pomóc",
         "signIn": "Zalogować się",
         "register": "Zarejestrować się"
     },
@@ -16,5 +12,9 @@
         "users": "Użytkowników",
         "orders": "Zamówień",
         "books": "Książek"
+    },
+    "booksTypes": {
+        "title": "Znajdź książki w dowolnym gatunku",
+        "subtitle": "Nasza księgarnia ma wszystko!"
     }
 }

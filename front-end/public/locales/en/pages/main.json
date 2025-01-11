@@ -5,10 +5,6 @@
         "fast": "Simple, fast, and cost-effective!"
     },
     "navbar": {
-        "home": "Main",
-        "aboutUs": "About Us",
-        "library": "Library",
-        "help": "Help",
         "signIn": "Sign in",
         "register": "Register"
     },
@@ -16,5 +12,9 @@
         "users": "Users",
         "orders": "Orders",
         "books": "Books"
+    },
+    "booksTypes": {
+        "title": "Find Books in Any Genre",
+        "subtitle": "Our Bookstore Has It All!"
     }
 }

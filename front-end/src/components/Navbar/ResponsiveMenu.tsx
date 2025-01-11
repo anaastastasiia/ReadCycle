@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { NavbarMenuProps } from '../../mockData/data';
+import { NavbarMenuProps } from '../../utils/types';
 import { useTranslation } from 'react-i18next';
 
 interface ResponsiveMenuProps {
@@ -23,7 +23,7 @@ const ResponsiveMenu = ({ open, options }: ResponsiveMenuProps) => {
                         <ul className="flex flex-col justify-center items-center gap-10">
                             {options.map((item) => {
                                 return (
-                                    <li>{t(`mainPage:navbar.${item.key}`)}</li>
+                                    <li>{t(`enums:NavbarEnum.${item.key}`)}</li>
                                 );
                             })}
                         </ul>

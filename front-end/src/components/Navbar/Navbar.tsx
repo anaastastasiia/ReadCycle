@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
-import { NavbarMenu } from '../../mockData/data.ts';
+import { NavbarMenu } from '../../utils/data.ts';
 import { MdMenu } from 'react-icons/md';
 import { motion } from 'framer-motion';
 import ResponsiveMenu from './ResponsiveMenu.js';
@@ -44,7 +44,7 @@ const Navbar = () => {
                                             href={item.link}
                                             className="inline-block text-gray-600 text-sm xl:text-base py-1 px-2 xl:px-3 hover:text-secondary transition-all duration-300 font-semibold"
                                         >
-                                            {t(`mainPage:navbar.${item.key}`)}
+                                            {t(`enums:NavbarEnum.${item.key}`)}
                                         </a>
                                     </li>
                                 );

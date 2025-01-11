@@ -1,0 +1,83 @@
+import { BooksTypeEnum, NavbarEnum } from "./enums";
+
+export const NavbarMenu = [
+  {
+    id: 1,
+    key: NavbarEnum.HOME,
+    link: "/",
+  },
+  {
+    id: 2,
+    key: NavbarEnum.LIBRARY,
+    link: "#",
+  },
+  {
+    id: 3,
+    key: NavbarEnum.ABOUT_US,
+    link: "#",
+  },
+  {
+    id: 5,
+    key: NavbarEnum.HELP,
+    link: "#",
+  },
+];
+
+export const BooksTypesList = [
+  {
+    id: 1,
+    key: BooksTypeEnum.FICTION,
+    icon: "",
+    color: "#0063ff",
+    delay: 0.2,
+  },
+  {
+    id: 2,
+    key: BooksTypeEnum.ROMANCE,
+    icon: "",
+    color: "#00c986",
+    delay: 0.3,
+  },
+  {
+    id: 3,
+    key: BooksTypeEnum.CHAILDREN,
+    icon: "",
+    color: "#922aee",
+    delay: 0.4,
+  },
+  {
+    id: 4,
+    key: BooksTypeEnum.FANTASY,
+    icon: "",
+    color: "#ea7516",
+    delay: 0.5,
+  },
+  {
+    id: 5,
+    key: BooksTypeEnum.MYSTERY,
+    icon: "",
+    color: "#d9e00b",
+    delay: 0.6,
+  },
+  {
+    id: 6,
+    key: BooksTypeEnum.BUSINESS,
+    icon: "",
+    color: "#986d1d",
+    delay: 0.7,
+  },
+  {
+    id: 7,
+    key: BooksTypeEnum.PERSONAL,
+    icon: "",
+    color: "#b93838",
+    delay: 0.8,
+  },
+  {
+    id: 8,
+    key: BooksTypeEnum.ALL,
+    icon: "",
+    color: "#464646",
+    delay: 0.9,
+  },
+];

@@ -1,0 +1,18 @@
+{
+    "NavbarEnum": {
+        "home": "Main",
+        "aboutUs": "About Us",
+        "library": "Library",
+        "help": "Help"
+    },
+    "BooksTypeEnum": {
+        "fiction": "Fiction",
+        "romance": "Romance",
+        "children": "Children's Books",
+        "fantasy": "Science Fiction & Fantasy",
+        "mystery": "Mystery & Triller",
+        "business": "Business & Economics",
+        "personal": "Self-Help & Personal Development",
+        "all": "All"
+    }
+}
