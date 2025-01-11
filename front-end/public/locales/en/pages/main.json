@@ -3,5 +3,18 @@
         "title": "Easily Sell Your Books with",
         "description": "Find new books for yourself or sell your books to others.",
         "fast": "Simple, fast, and cost-effective!"
+    },
+    "navbar": {
+        "home": "Main",
+        "aboutUs": "About Us",
+        "library": "Library",
+        "help": "Help",
+        "signIn": "Sign in",
+        "register": "Register"
+    },
+    "statistic": {
+        "users": "Users",
+        "orders": "Orders",
+        "books": "Books"
     }
 }

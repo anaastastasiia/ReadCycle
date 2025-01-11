@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { NavbarMenu } from '../../mockData/data.ts';
 import { MdMenu } from 'react-icons/md';
@@ -6,7 +7,14 @@ import ResponsiveMenu from './ResponsiveMenu.js';
 import Logo from '../../assets/logo.png';
 
 const Navbar = () => {
+    const { i18n } = useTranslation();
+    const { t } = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
+
+    const changeLng = (lng: string) => {
+        i18n.changeLanguage(lng);
+    };
+
     return (
         <>
             <motion.div
@@ -36,17 +44,26 @@ const Navbar = () => {
                                             href={item.link}
                                             className="inline-block text-gray-600 text-sm xl:text-base py-1 px-2 xl:px-3 hover:text-secondary transition-all duration-300 font-semibold"
                                         >
-                                            {item.title}
+                                            {t(`mainPage:navbar.${item.key}`)}
                                         </a>
                                     </li>
                                 );
                             })}
                         </ul>
                     </div>
+                    <div className="lg:block space-x-6">
+                        <button onClick={() => changeLng('en')}>English</button>
+                        <button onClick={() => changeLng('pl')}>Polish</button>
+                        <button onClick={() => changeLng('ua')}>
+                            Ukrainian
+                        </button>
+                    </div>
                     <div className="hidden lg:block space-x-6">
-                        <button className="font-semibold">Sign in</button>
+                        <button className="font-semibold">
+                            {t('mainPage:navbar.signIn')}
+                        </button>
                         <button className="text-white bg-secondary font-semibold rounded-full px-6 py-2 ">
-                            Register
+                            {t('mainPage:navbar.register')}
                         </button>
                     </div>
                     <div
@@ -57,7 +74,7 @@ const Navbar = () => {
                     </div>
                 </div>
             </motion.div>
-            <ResponsiveMenu open={isOpen} />
+            <ResponsiveMenu open={isOpen} options={NavbarMenu} />
         </>
     );
 };
