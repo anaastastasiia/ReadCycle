@@ -16,5 +16,14 @@
     "booksTypes": {
         "title": "Znajdź książki w dowolnym gatunku",
         "subtitle": "Nasza księgarnia ma wszystko!"
+    },
+    "sales": {
+        "title": "Odkryj świetne okazje:",
+        "onSale": "książki w promocji!",
+        "seeAll": "Zobacz wszystkie"
+    },
+    "feedbacks": {
+        "title": "Opinie",
+        "subtitle": "Co nasi użytkownicy myślą o nas?"
     }
 }

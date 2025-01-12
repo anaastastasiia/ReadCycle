@@ -3,7 +3,9 @@ import common from './common.json';
 import enums from './enums.json';
 
 export default {
-    mainPage,
+    pages: {
+        mainPage
+    },
     common,
     enums
 }

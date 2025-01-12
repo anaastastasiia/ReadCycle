@@ -16,5 +16,14 @@
     "booksTypes": {
         "title": "Find Books in Any Genre",
         "subtitle": "Our Bookstore Has It All!"
+    },
+    "sales": {
+        "title": "Discover Great Deals:",
+        "onSale": "Books on Sale!",
+        "seeAll": "See All"
+    },
+    "feedbacks": {
+        "title": "Feedbacks",
+        "subtitle": "What do our users think about us?"
     }
 }

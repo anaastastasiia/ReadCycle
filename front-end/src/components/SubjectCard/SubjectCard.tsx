@@ -10,10 +10,10 @@ const SubjectCard = () => {
                 <div className="py-14 px-20 bg-[#f9f9f9]">
                     <div className="space-y-4 px-6 pb-6 text-center max-w-[600px] mx-auto mb-5">
                         <h1 className="uppercase font-semibold text-orange-500">
-                            {t('mainPage:booksTypes.subtitle')}
+                            {t('pages:mainPage.booksTypes.subtitle')}
                         </h1>
                         <p className="font-semibold text-3xl">
-                            {t('mainPage:booksTypes.title')}
+                            {t('pages:mainPage.booksTypes.title')}
                         </p>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">

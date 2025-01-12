@@ -1,5 +1,6 @@
 {
     "button": {
-        "getStarted": "Rozpocznij"
+        "getStarted": "Rozpocznij",
+        "addToCart": "Dodaj do koszyka"
     }
 }

@@ -60,10 +60,10 @@ const Navbar = () => {
                     </div>
                     <div className="hidden lg:block space-x-6">
                         <button className="font-semibold">
-                            {t('mainPage:navbar.signIn')}
+                            {t('pages:mainPage.navbar.signIn')}
                         </button>
                         <button className="text-white bg-secondary font-semibold rounded-full px-6 py-2 ">
-                            {t('mainPage:navbar.register')}
+                            {t('pages:mainPage.navbar.register')}
                         </button>
                     </div>
                     <div

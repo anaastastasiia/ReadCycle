@@ -1,5 +1,6 @@
 {
     "button": {
-        "getStarted": "Почнімо"
+        "getStarted": "Почнімо",
+        "addToCart": "Додати до кошика"
     }
 }

@@ -16,7 +16,7 @@ const NumberCounter = () => {
                             scrollSpyOnce
                         />
                     </p>
-                    <p>{t('mainPage:statistic.users')}</p>
+                    <p>{t('pages:mainPage.statistic.users')}</p>
                 </div>
                 <div className="flex flex-col items-center justify-center">
                     <p className="font-semibold text-3xl">
@@ -27,7 +27,7 @@ const NumberCounter = () => {
                             enableScrollSpy
                         />
                     </p>
-                    <p>{t('mainPage:statistic.orders')}</p>
+                    <p>{t('pages:mainPage.statistic.orders')}</p>
                 </div>
                 <div className="flex flex-col items-center justify-center">
                     <p className="font-semibold text-3xl">
@@ -38,7 +38,7 @@ const NumberCounter = () => {
                             enableScrollSpy
                         />
                     </p>
-                    <p>{t('mainPage:statistic.books')}</p>
+                    <p>{t('pages:mainPage.statistic.books')}</p>
                 </div>
             </div>
         </div>

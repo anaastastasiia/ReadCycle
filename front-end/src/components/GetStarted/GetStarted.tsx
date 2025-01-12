@@ -16,7 +16,7 @@ const GetStarted = () => {
                             animate="visible"
                             className="text-5xl font-semibold lg:text-6xl !leading-tight"
                         >
-                            {t('mainPage:getStarted.title')} Read
+                            {t('pages:mainPage.getStarted.title')} Read
                             <span className="text-primary">Cycle!</span>
                         </motion.h1>
                         <motion.p
@@ -24,7 +24,7 @@ const GetStarted = () => {
                             initial="hidden"
                             animate="visible"
                         >
-                            {t('mainPage:getStarted.description')}
+                            {t('pages:mainPage.getStarted.description')}
                         </motion.p>
                         <motion.div
                             variants={SlideRight(1.0)}
@@ -36,7 +36,7 @@ const GetStarted = () => {
                                 {t('common:button.getStarted')}
                             </button>
                             <span className="text-primary font-semibold text-xl">
-                                {t('mainPage:getStarted.fast')}
+                                {t('pages:mainPage.getStarted.fast')}
                             </span>
                         </motion.div>
                     </div>
