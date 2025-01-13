@@ -3,20 +3,23 @@ import { useState } from 'react';
 import { NavbarMenu } from '../../utils/data.ts';
 import { MdMenu } from 'react-icons/md';
 import { motion } from 'framer-motion';
-import ResponsiveMenu from './ResponsiveMenu.js';
 import Logo from '../../assets/logo.png';
+import ResponsiveMenu from './ResponsiveMenu.js';
+import { LanguageSwitcher } from '../LanguageSwitcher/LanguageSwitcher.tsx';
 
 const Navbar = () => {
-    const { i18n } = useTranslation();
     const { t } = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
 
-    const changeLng = (lng: string) => {
-        i18n.changeLanguage(lng);
+    const onClickMenu = () => {
+        setIsOpen((prev) => !prev);
     };
 
     return (
         <>
+            {isOpen && (
+                <div className="fixed inset-0 bg-black opacity-5 z-10"></div>
+            )}
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -51,12 +54,8 @@ const Navbar = () => {
                             })}
                         </ul>
                     </div>
-                    <div className="lg:block space-x-6">
-                        <button onClick={() => changeLng('en')}>English</button>
-                        <button onClick={() => changeLng('pl')}>Polish</button>
-                        <button onClick={() => changeLng('ua')}>
-                            Ukrainian
-                        </button>
+                    <div className="hidden lg:block">
+                        <LanguageSwitcher />
                     </div>
                     <div className="hidden lg:block space-x-6">
                         <button className="font-semibold">
@@ -66,15 +65,22 @@ const Navbar = () => {
                             {t('pages:mainPage.navbar.register')}
                         </button>
                     </div>
-                    <div
-                        className="lg:hidden"
-                        onClick={() => setIsOpen(!isOpen)}
-                    >
+                    <div className="lg:hidden z-30" onClick={onClickMenu}>
                         <MdMenu className="text-4xl" />
                     </div>
+                    {isOpen && (
+                        <div
+                            className="fixed inset-0 bg-black opacity-70 z-20"
+                            onClick={onClickMenu}
+                        ></div>
+                    )}
                 </div>
             </motion.div>
-            <ResponsiveMenu open={isOpen} options={NavbarMenu} />
+            <ResponsiveMenu
+                open={isOpen}
+                options={NavbarMenu}
+                closeMenu={onClickMenu}
+            />
         </>
     );
 };
