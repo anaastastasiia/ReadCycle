@@ -1,4 +1,7 @@
 import { BooksTypeEnum, NavbarEnum } from "./enums";
+import Flag_of_Ukraine from '../assets/Flag_of_Ukraine.png';
+import Flag_of_Poland from '../assets/Flag_of_Poland.png';
+import Flag_of_the_United_States from '../assets/Flag_of_the_United_States.png';
 
 export const NavbarMenu = [
   {
@@ -80,4 +83,10 @@ export const BooksTypesList = [
     color: "#464646",
     delay: 0.9,
   },
+];
+
+export const LANGUAGES = [
+  { label: "English", value: "en", img: Flag_of_the_United_States},
+  { label: "Polish", value: "pl", img: Flag_of_Poland },
+  { label: "Ukrainian", value: "ua", img: Flag_of_Ukraine },
 ];

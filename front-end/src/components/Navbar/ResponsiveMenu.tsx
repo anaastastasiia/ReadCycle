@@ -1,14 +1,12 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { NavbarMenuProps } from '../../utils/types';
 import { useTranslation } from 'react-i18next';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ResponsiveMenuProps } from '../../utils/types';
+import { LanguageSwitcher } from '../LanguageSwitcher/LanguageSwitcher';
 
-interface ResponsiveMenuProps {
-    open: boolean;
-    options: NavbarMenuProps[];
-}
-
-const ResponsiveMenu = ({ open, options }: ResponsiveMenuProps) => {
+const ResponsiveMenu = ({ open, options, closeMenu }: ResponsiveMenuProps) => {
     const { t } = useTranslation();
+    console.log(open);
+
     return (
         <AnimatePresence mode="wait">
             {open && (
@@ -19,13 +17,19 @@ const ResponsiveMenu = ({ open, options }: ResponsiveMenuProps) => {
                     transition={{ duration: 0.3 }}
                     className="absolute top-20 left-0 w-full h-screen z-20 lg:hidden"
                 >
-                    <div className="text-xl font-semibold uppercase bg-primary text-black py-10 m-6 rounded-3xl">
+                    <div className="text-xl font-semibold bg-white  py-10 m-6 rounded-3xl">
                         <ul className="flex flex-col justify-center items-center gap-10">
                             {options.map((item) => {
                                 return (
-                                    <li>{t(`enums:NavbarEnum.${item.key}`)}</li>
+                                    <li
+                                        className="uppercase cursor-pointer"
+                                        onClick={closeMenu}
+                                    >
+                                        {t(`enums:NavbarEnum.${item.key}`)}
+                                    </li>
                                 );
                             })}
+                            <LanguageSwitcher />
                         </ul>
                     </div>
                 </motion.div>
