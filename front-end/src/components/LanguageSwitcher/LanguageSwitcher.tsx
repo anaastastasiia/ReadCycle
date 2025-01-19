@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
-import { LanguageType } from '../../utils/types.ts';
-import { LANGUAGES } from '../../utils/data.ts';
+import { LanguageType } from '../../model/types.ts';
+import { LANGUAGES } from '../../model/data.ts';
 
 export const LanguageSwitcher = () => {
     const { i18n } = useTranslation();

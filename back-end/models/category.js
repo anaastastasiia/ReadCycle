@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require('mongoose');
 
 const categorySchema = mongoose.Schema({
     name: {
@@ -10,7 +10,7 @@ const categorySchema = mongoose.Schema({
     },
     icon: {
         type: String
-    },
-})
+    }
+});
 
 exports.Category = mongoose.model('Category', categorySchema);

@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
-import { NavbarMenu } from '../../utils/data.ts';
+import { NavbarMenu } from '../../model/data.ts';
 import { MdMenu } from 'react-icons/md';
 import { motion } from 'framer-motion';
 import Logo from '../../assets/logo.png';

@@ -1,4 +1,7 @@
 import { SingleValue } from "react-select";
+import { BooksTypeEnum } from "./enums";
+
+export type ProduceState<T> = (state: T) => void;
 
 export interface NavbarMenuProps {
     id: number;
@@ -27,4 +30,12 @@ export type LanguageType = {
     value: string;
     label: string;
     img: string;
+}
+
+export type CategoryType = {
+    id: number;
+    key: BooksTypeEnum;
+    color?: string,
+    icon?: string,
+    delay: number
 }
