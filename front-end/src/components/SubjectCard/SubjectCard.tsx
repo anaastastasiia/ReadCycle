@@ -35,10 +35,8 @@ const SubjectCard = () => {
                                             color: item.color,
                                             backgroundColor: item.color + '20'
                                         }}
-                                        className="w-10 h-10 rounded-md flex justify-center items-center"
-                                    >
-                                        {item.icon}
-                                    </div>
+                                        className="w-10 h-10 flex justify-center items-center rounded-full"
+                                    ></div>
                                     <p>
                                         {t(`enums:BooksTypeEnum.${item.key}`)}
                                     </p>
