@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
-import { NavbarMenu } from '../../utils/data.ts';
+import { NavbarMenu } from '../../model/data.ts';
 import { MdMenu } from 'react-icons/md';
 import { motion } from 'framer-motion';
 import Logo from '../../assets/logo.png';
@@ -25,7 +25,7 @@ const Navbar = () => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.5 }}
             >
-                <div className="container flex justify-between items-center pb-6">
+                <div className="container flex justify-between items-center">
                     <div className="text-2xl flex items-center gap-2 font-bold">
                         <img
                             src={Logo}

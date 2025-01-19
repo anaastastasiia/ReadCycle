@@ -1,7 +1,7 @@
 enum BooksTypeEnum {
     FICTION = "fiction",
     ROMANCE = "romance",
-    CHAILDREN = "children",
+    CHILDREN = "children",
     FANTASY = "fantasy",
     MYSTERY = "mystery",
     BUSINESS = "business",

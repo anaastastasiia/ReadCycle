@@ -1,9 +1,17 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { BooksTypesList } from '../../utils/data';
+import { categoriesActions, categoriesStore } from '../../store/useCategories';
+import { useEffect } from 'react';
 
-const SubjectCard = () => {
+const Category = () => {
     const { t } = useTranslation();
+    const { categories } = categoriesStore();
+    const { getCategories } = categoriesActions;
+
+    useEffect(() => {
+        getCategories();
+    }, []);
+
     return (
         <>
             <div>
@@ -17,7 +25,7 @@ const SubjectCard = () => {
                         </p>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-                        {BooksTypesList.map((item) => {
+                        {categories.map((item) => {
                             return (
                                 <motion.div
                                     key={item.id}
@@ -35,10 +43,8 @@ const SubjectCard = () => {
                                             color: item.color,
                                             backgroundColor: item.color + '20'
                                         }}
-                                        className="w-10 h-10 rounded-md flex justify-center items-center"
-                                    >
-                                        {item.icon}
-                                    </div>
+                                        className="w-10 h-10 flex justify-center items-center rounded-full"
+                                    ></div>
                                     <p>
                                         {t(`enums:BooksTypeEnum.${item.key}`)}
                                     </p>
@@ -52,4 +58,4 @@ const SubjectCard = () => {
     );
 };
 
-export default SubjectCard;
+export default Category;

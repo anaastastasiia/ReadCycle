@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const multer = require('multer');
-const { Book } = require('../models/book');
-const { Category } = require('../models/category');
+const { Book } = require('../models/Book');
+const { Category } = require('../models/Category');
 
 const FILE_TYPE_MAP = {
     'image/png': 'png',

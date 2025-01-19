@@ -1,7 +1,7 @@
 import Navbar from './components/Navbar/Navbar';
 import GetStarted from './components/GetStarted/GetStarted';
 import NumberCounter from './components/NumberCounter/NumberCounter';
-import SubjectCard from './components/SubjectCard/SubjectCard';
+import Category from './components/Category/Category';
 import Feedback from './components/Feedback/Feedback';
 import Footer from './components/Footer/Footer';
 import Sales from './components/Sales/Sales';
@@ -13,7 +13,7 @@ const App = () => {
             <Navbar />
             <GetStarted />
             <NumberCounter />
-            <SubjectCard />
+            <Category />
             <Sales />
             <Feedback />
             <Footer />

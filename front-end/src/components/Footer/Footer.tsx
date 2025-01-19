@@ -1,5 +1,5 @@
 import Logo from '../../assets/logo.png';
-import { NavbarMenu } from '../../utils/data';
+import { NavbarMenu } from '../../model/data';
 
 const Footer = () => {
     return (
@@ -30,7 +30,7 @@ const Footer = () => {
                                                 href={item.link}
                                                 className="inline-block text-gray-600 text-sm xl:text-base py-1 px-2 xl:px-3 hover:text-secondary transition-all duration-300 font-semibold"
                                             >
-                                                {item.title}
+                                                {item.key}
                                             </a>
                                         </li>
                                     );

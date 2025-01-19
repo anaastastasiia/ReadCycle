@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ResponsiveMenuProps } from '../../utils/types';
+import { ResponsiveMenuProps } from '../../model/types';
 import { LanguageSwitcher } from '../LanguageSwitcher/LanguageSwitcher';
 
 const ResponsiveMenu = ({ open, options, closeMenu }: ResponsiveMenuProps) => {
