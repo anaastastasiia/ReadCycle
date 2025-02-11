@@ -5,6 +5,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 
 import categoryRoute from './routes/categoryRoutes.js';
+import booksRoute from './routes/bookRoute.js';
 
 const PORT = process.env.PORT || 3000;
 
@@ -18,8 +19,10 @@ app.use(
 );
 
 //routes
-// app.use('api/book', booksRoute);
-app.use('/api', categoryRoute);
+app.use('/api/book', booksRoute);
+app.use('/api/category', categoryRoute);
 
 //server
-app.listen(PORT, () => console.log(`server started on port ${PORT}`));
+app.listen(PORT, '0.0.0.0', () =>
+    console.log(`server started on port ${PORT}`)
+);
