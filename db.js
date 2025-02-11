@@ -10,7 +10,7 @@ const db = new pg.Client({
     port: process.env.PG_PORT,
     database: process.env.PG_DATABASE
 });
-db.connect().then(() => console.log('connected to db'));
+db.connect().then(() => console.log(`connected to db: ${process.env.PG_PORT}`));
 
 db.on('error', (err) => {
     console.error('Unexpected error on idle client', err);
