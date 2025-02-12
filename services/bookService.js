@@ -6,7 +6,6 @@ export const getBooks = async () => {
 };
 
 export const createBook = async (req) => {
-    console.log(req.body);
     const {
         name,
         author,
@@ -40,6 +39,5 @@ export const createBook = async (req) => {
             num_reviews
         ]
     );
-    consolw.log(newBook.rows[0]);
     return newBook.rows[0];
 };
