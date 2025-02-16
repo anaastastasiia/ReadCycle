@@ -1,0 +1,36 @@
+services:
+  app:
+    build: .
+    container_name: app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://postgres:root@db:5432/library
+    volumes:
+      - .:/app
+    networks:
+      - app-network
+  db:
+    image: postgres:13
+    container_name: db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: library
+    ports:
+      - "5433:5432"
+    networks:
+      - app-network
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  pg_data:
+    driver: local
+
+networks:
+  app-network:
+    driver: bridge

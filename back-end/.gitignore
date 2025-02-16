@@ -1,16 +1,11 @@
+.env
 node_modules/
 
-.env
-.env.local
 *.log
 
-.idea/
-.vscode/
-
 *.tmp
-*.out
-*.class
-*.o
-*.obj
 
-.git/
+Thumbs.db  
+
+.idea/      
+.vscode/    

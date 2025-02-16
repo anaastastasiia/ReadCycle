@@ -1,28 +1,27 @@
 {
-  "name": "back-end",
+  "name": "back-end-1",
   "version": "1.0.0",
-  "description": "Backend for BookCycle store",
+  "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.20.3",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "express-jwt": "^8.4.1",
-    "git-filter-repo": "^0.0.30",
-    "jsonwebtoken": "^9.0.2",
-    "mongodb": "^6.10.0",
-    "mongoose": "^8.5.2",
     "morgan": "^1.10.0",
-    "multer": "^1.4.5-lts.1",
-    "nodemon": "^3.1.7",
-    "prettier": "^3.3.3"
+    "pg": "^8.13.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.16.3",
+    "nodemon": "^3.1.9"
   }
 }
