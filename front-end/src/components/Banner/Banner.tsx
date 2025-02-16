@@ -1,61 +1,22 @@
-import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { getLng } from '../../utils/i18nUtils';
 import { motion } from 'framer-motion';
 import { SlideUp } from '../../utils/animations';
-
-interface BannerProps {
-    image: string;
-    title: string;
-    titlePL: string;
-    titleUA: string;
-    subtitle: string;
-    subtitlePL: string;
-    subtitleUA: string;
-    link: string;
-    author: string;
-    reverse?: boolean;
-    price: number;
-    discount?: number;
-}
+import { BookBanner } from '../../model/types';
 
 const Banner = ({
     image,
-    title,
-    titlePL,
-    titleUA,
-    subtitle,
-    subtitlePL,
-    subtitleUA,
+    name,
+    description,
     author,
     reverse,
     price,
-    discount
-}: BannerProps) => {
-    const lang = getLng();
+    discount,
+    category
+}: BookBanner) => {
     const { t } = useTranslation();
-    const [titleLng, setTitleLng] = useState('');
-    const [subtitleLng, setSubtitleLng] = useState('');
-
-    //todo
-    //можна буде зробити, що опис і назва в тій мові, в якій і книжка
-    // так буде менще програмування, менше параметрів і логічніше
-
-    useEffect(() => {
-        if (lang === 'pl') {
-            setTitleLng(titlePL);
-            setSubtitleLng(subtitlePL);
-        } else if (lang === 'ua') {
-            setTitleLng(titleUA);
-            setSubtitleLng(subtitleUA);
-        } else {
-            setTitleLng(title);
-            setSubtitleLng(subtitle);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [lang]);
 
     const getPriceWithDiscount = (price: number, discount?: number): string => {
+        console.log('price: ', price + ', discount: ', discount);
         if (discount) {
             return (price * (1 - discount / 100)).toFixed(2);
         }
@@ -101,7 +62,7 @@ const Banner = ({
                     whileInView={'visible'}
                     className="text-xl lg:text-2xl capitalize font-semibold"
                 >
-                    {titleLng}
+                    {name} cat: {category}
                 </motion.p>
                 <motion.p
                     variants={SlideUp(0.9)}
@@ -109,7 +70,7 @@ const Banner = ({
                     whileInView={'visible'}
                     className="text-sm text-slate-500 overflow-hidden line-clamp-3"
                 >
-                    {subtitleLng} <button>Show more</button>
+                    {description} <button>Show more</button>
                 </motion.p>
                 <motion.p
                     variants={SlideUp(1.0)}
@@ -127,7 +88,7 @@ const Banner = ({
                             </span>
                         </div>
                     ) : (
-                        <span>{price.toFixed(2)} PLN</span>
+                        <span>{price} PLN</span>
                     )}
                 </motion.p>
                 <motion.div

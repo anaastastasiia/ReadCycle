@@ -5,7 +5,6 @@ import { LanguageSwitcher } from '../LanguageSwitcher/LanguageSwitcher';
 
 const ResponsiveMenu = ({ open, options, closeMenu }: ResponsiveMenuProps) => {
     const { t } = useTranslation();
-    console.log(open);
 
     return (
         <AnimatePresence mode="wait">

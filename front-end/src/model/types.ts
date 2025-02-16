@@ -39,3 +39,37 @@ export type CategoryType = {
     icon?: string,
     delay: number
 }
+
+export type Category = {
+    id: number;
+    name: string;
+    color?: string,
+    icon?: string,
+}
+
+export type Book = {
+    name: string,
+    author: string,
+    image?: string,
+    images?: string[],
+    pages: number,
+    description: string,
+    edition?: string,
+    price: number,
+    discount?: number,
+    year: number,
+    date_created: Date,
+    category_id: number,
+    num_reviews: number,
+}
+
+export type BookBanner = {
+    name: string,
+    author: string,
+    image?: string,
+    description: string,
+    price: number,
+    discount?: number,
+    reverse?: boolean,
+    category: string
+}
