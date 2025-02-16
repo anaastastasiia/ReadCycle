@@ -16,9 +16,12 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "morgan": "^1.10.0",
-    "pg": "^8.13.1"
+    "pg": "^8.13.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.16.3",
     "nodemon": "^3.1.9"
   }
 }

@@ -29,6 +29,7 @@ services:
 
 volumes:
   pg_data:
+    driver: local
 
 networks:
   app-network:

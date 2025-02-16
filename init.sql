@@ -34,13 +34,10 @@ CREATE TABLE book (
     FOREIGN KEY (category_id) REFERENCES category(id)
 );
 
--- 4. Додаємо новий стовпець з ENUM-типом
 ALTER TABLE category ADD COLUMN name_enum books_type_enum;
 
--- 5. Копіюємо дані з `name` в `name_enum`
 UPDATE category SET name_enum = name::books_type_enum WHERE name IN ('fiction', 'romance', 'children', 'fantasy', 'mystery', 'business', 'personal', 'all');
 
--- 6. Видаляємо старий стовпець і перейменовуємо новий
 ALTER TABLE category DROP COLUMN name;
 ALTER TABLE category RENAME COLUMN name_enum TO name;
 
