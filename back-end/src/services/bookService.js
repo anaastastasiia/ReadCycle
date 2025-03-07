@@ -1,13 +1,11 @@
 import { query } from '../../db.js';
 import BookResponse from '../models/Book.js';
 
-export const getBooks = async () => {
+export const getBooksOnSale = async () => {
     const { rows } = await query(
-        'SELECT b.name, b.author, b.image, b.description, b.price, c.name as category_name, discount FROM book b JOIN category c ON b.category_id = c.id;'
+        'SELECT b.name, b.author, b.image, b.description, b.price, c.name as category_name, b.discount, b.image FROM book b JOIN category c ON b.category_id = c.id WHERE b.discount IS NOT NULL;'
     );
-    console.log('row: ', rows);
     const books = rows.map((row) => new BookResponse(row));
-    console.log('books: ', books);
     return books;
 };
 
