@@ -71,5 +71,5 @@ export type BookBanner = {
     price: number,
     discount?: number,
     reverse?: boolean,
-    category: string
+    categoryName: string
 }

@@ -1,12 +1,12 @@
 import * as bookService from '../services/bookService.js';
 
-export const getBooks = async (req, res) => {
+export const getBooksOnSale = async (req, res) => {
     try {
-        const books = await bookService.getBooks();
+        const books = await bookService.getBooksOnSale();
         if (books.length) {
             res.status(200).json(books);
         } else {
-            res.status(204).json({ message: 'No books found' });
+            res.status(204).json({ message: 'No books on sale found' });
         }
     } catch (err) {
         console.error('Error fetching books:', err);

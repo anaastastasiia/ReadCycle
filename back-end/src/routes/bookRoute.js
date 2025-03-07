@@ -25,7 +25,7 @@ const router = express.Router();
  *         - author
  *         - description
  *         - price
- *         - category
+ *         - categoryName
  *       properties:
  *         name:
  *           type: string
@@ -63,7 +63,7 @@ const router = express.Router();
  *               items:
  *                 $ref: '#/components/schemas/BookResponse'
  */
-router.get('/all', bookController.getBooks);
+router.get('/all', bookController.getBooksOnSale);
 
 router.post('/book', bookController.createBook);
 

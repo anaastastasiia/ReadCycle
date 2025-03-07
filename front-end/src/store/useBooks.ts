@@ -21,7 +21,7 @@ const getBooksForBanner = async () => {
     try {
         const res = await apiController.callEndpoint((api) => api.apiBookAllGet());
         console.log('data: ', res);
-        if(res) {
+        if(res && res.data) {
             const books = res?.data.map((book, index) => BooksMapper.mapBooksFromDb(book, index));
             console.log('ready books: ', books)
             booksStore.setState(() => ({

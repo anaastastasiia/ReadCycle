@@ -10,8 +10,7 @@ const Banner = ({
     author,
     reverse,
     price,
-    discount,
-    category
+    discount
 }: BookBanner) => {
     const { t } = useTranslation();
 
@@ -62,7 +61,7 @@ const Banner = ({
                     whileInView={'visible'}
                     className="text-xl lg:text-2xl capitalize font-semibold"
                 >
-                    {name} cat: {category}
+                    {name}
                 </motion.p>
                 <motion.p
                     variants={SlideUp(0.9)}
