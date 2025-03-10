@@ -15,7 +15,6 @@ const Banner = ({
     const { t } = useTranslation();
 
     const getPriceWithDiscount = (price: number, discount?: number): string => {
-        console.log('price: ', price + ', discount: ', discount);
         if (discount) {
             return (price * (1 - discount / 100)).toFixed(2);
         }

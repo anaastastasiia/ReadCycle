@@ -26,6 +26,45 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerM
 /**
  * 
  * @export
+ * @interface ApiUploadPost200Response
+ */
+export interface ApiUploadPost200Response {
+    /**
+     * 
+     * @type {string}
+     * @memberof ApiUploadPost200Response
+     */
+    'imageUrl'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ApiUploadPost400Response
+ */
+export interface ApiUploadPost400Response {
+    /**
+     * 
+     * @type {string}
+     * @memberof ApiUploadPost400Response
+     */
+    'error'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ApiUploadPost500Response
+ */
+export interface ApiUploadPost500Response {
+    /**
+     * 
+     * @type {string}
+     * @memberof ApiUploadPost500Response
+     */
+    'error'?: string;
+}
+/**
+ * 
+ * @export
  * @interface BookResponse
  */
 export interface BookResponse {
@@ -70,7 +109,7 @@ export interface BookResponse {
      * @type {BookTypeEnum}
      * @memberof BookResponse
      */
-    'categoryName'?: BookTypeEnum;
+    'categoryName': BookTypeEnum;
 }
 
 
@@ -191,6 +230,131 @@ export class DefaultApi extends BaseAPI {
      */
     public apiBookAllGet(options?: RawAxiosRequestConfig) {
         return DefaultApiFp(this.configuration).apiBookAllGet(options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * UploadApi - axios parameter creator
+ * @export
+ */
+export const UploadApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Uploads a single image file and returns its URL.
+         * @summary Upload an image
+         * @param {File} image The image file to upload
+         * @param {number} bookId The ID of book to associate with the uploaded image
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiUploadPost: async (image: File, bookId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'image' is not null or undefined
+            assertParamExists('apiUploadPost', 'image', image)
+            // verify required parameter 'bookId' is not null or undefined
+            assertParamExists('apiUploadPost', 'bookId', bookId)
+            const localVarPath = `/api/upload`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
+
+
+            if (image !== undefined) { 
+                localVarFormParams.append('image', image as any);
+            }
+    
+            if (bookId !== undefined) { 
+                localVarFormParams.append('bookId', bookId as any);
+            }
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams;
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * UploadApi - functional programming interface
+ * @export
+ */
+export const UploadApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = UploadApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Uploads a single image file and returns its URL.
+         * @summary Upload an image
+         * @param {File} image The image file to upload
+         * @param {number} bookId The ID of book to associate with the uploaded image
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiUploadPost(image: File, bookId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiUploadPost200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiUploadPost(image, bookId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['UploadApi.apiUploadPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * UploadApi - factory interface
+ * @export
+ */
+export const UploadApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = UploadApiFp(configuration)
+    return {
+        /**
+         * Uploads a single image file and returns its URL.
+         * @summary Upload an image
+         * @param {File} image The image file to upload
+         * @param {number} bookId The ID of book to associate with the uploaded image
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiUploadPost(image: File, bookId: number, options?: RawAxiosRequestConfig): AxiosPromise<ApiUploadPost200Response> {
+            return localVarFp.apiUploadPost(image, bookId, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * UploadApi - object-oriented interface
+ * @export
+ * @class UploadApi
+ * @extends {BaseAPI}
+ */
+export class UploadApi extends BaseAPI {
+    /**
+     * Uploads a single image file and returns its URL.
+     * @summary Upload an image
+     * @param {File} image The image file to upload
+     * @param {number} bookId The ID of book to associate with the uploaded image
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UploadApi
+     */
+    public apiUploadPost(image: File, bookId: number, options?: RawAxiosRequestConfig) {
+        return UploadApiFp(this.configuration).apiUploadPost(image, bookId, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

@@ -1,5 +1,6 @@
 import { SingleValue } from "react-select";
 import { BooksTypeEnum } from "./enums";
+import { BookTypeEnum } from "../api";
 
 export type ProduceState<T> = (state: T) => void;
 
@@ -71,5 +72,5 @@ export type BookBanner = {
     price: number,
     discount?: number,
     reverse?: boolean,
-    categoryName: string
+    categoryName: BookTypeEnum
 }

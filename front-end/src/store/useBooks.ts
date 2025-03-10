@@ -20,10 +20,8 @@ export const booksStore = create<BookState>(() => ({
 const getBooksForBanner = async () => {
     try {
         const res = await apiController.callEndpoint((api) => api.apiBookAllGet());
-        console.log('data: ', res);
         if(res && res.data) {
-            const books = res?.data.map((book, index) => BooksMapper.mapBooksFromDb(book, index));
-            console.log('ready books: ', books)
+            const books = res.data.map((book, index) => BooksMapper.mapBooksFromDb(book, index));
             booksStore.setState(() => ({
                 books: books
             }))

@@ -27,13 +27,9 @@ export const uploadImageToS3 = async (file) => {
         ContentType: file.mimetype
     };
 
-    try {
-        await s3Client.send(new PutObjectCommand(params));
-        return `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileKey}`;
-    } catch (error) {
-        console.error('Failed to upload file to S3:', error);
-        throw new Error('Failed to upload file to S3');
-    }
+    await s3Client.send(new PutObjectCommand(params));
+    const image_url = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileKey}`;
+    return image_url;
 };
 
 export const uploadFile = async (req) => {
@@ -44,13 +40,12 @@ export const uploadFile = async (req) => {
     try {
         const imageUrl = await uploadImageToS3(req.file);
         const bookId = req.body.bookId;
-
         const result = await query('UPDATE book SET image = $1 WHERE id = $2', [
             imageUrl,
             bookId
         ]);
 
-        if (result.rows.length === 0) {
+        if (result.rowCount === 0) {
             return res.status(404).json({ error: 'Book not found' });
         }
 

@@ -2,11 +2,9 @@ import { BooksTypeEnum } from "../enums";
 import { Category, CategoryType } from "../types";
 
 const valueToBooksTypeEnum = (value: string): BooksTypeEnum => {
-    console.log('value: ', value)
     const enumValue = BooksTypeEnum[value.toUpperCase() as keyof typeof BooksTypeEnum]
     return enumValue || BooksTypeEnum.ALL
 }
-//change enum
 
 const mapCategoriesFromDb = (category: Category, index: number): CategoryType => {
     return {
