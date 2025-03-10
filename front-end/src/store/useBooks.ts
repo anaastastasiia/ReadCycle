@@ -19,7 +19,7 @@ export const booksStore = create<BookState>(() => ({
 //ACTIONS
 const getBooksForBanner = async () => {
     try {
-        const res = await apiController.callEndpoint((api) => api.apiBookAllGet());
+        const res = await apiController.callEndpoint((api) => api.apiBookOnSaleGet());
         if(res && res.data) {
             const books = res.data.map((book, index) => BooksMapper.mapBooksFromDb(book, index));
             booksStore.setState(() => ({
@@ -33,4 +33,20 @@ const getBooksForBanner = async () => {
     }
 }
 
-export const booksActions = {getBooksForBanner}
+const getBookDetails = async (id: number) => {
+    try {
+        const res = await apiController.callEndpoint((api) => api.apiBookDetailsIdGet(id));
+        if(res && res.data) {
+            //     const books = res.data.map((book, index) => BooksMapper.mapBooksFromDb(book, index));
+        //     booksStore.setState(() => ({
+        //         books: books
+        //     }))
+        //     return books;
+        } 
+        // return null;
+    } catch (err) {
+        console.error('Error while getting books: ', err)
+    }
+}
+
+export const booksActions = {getBooksForBanner, getBookDetails}

@@ -2,6 +2,7 @@ import BookTypeEnum from './bookTypeEnum.js';
 
 class BookResponse {
     constructor({
+        id,
         name,
         author,
         image,
@@ -10,6 +11,7 @@ class BookResponse {
         discount,
         category_name
     }) {
+        this.id = id;
         this.name = name;
         this.author = author;
         this.image = image;

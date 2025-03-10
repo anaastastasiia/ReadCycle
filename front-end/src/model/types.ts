@@ -65,6 +65,7 @@ export type Book = {
 }
 
 export type BookBanner = {
+    id: number,
     name: string,
     author: string,
     image?: string,
