@@ -13,9 +13,9 @@ const Sales = () => {
     }, []);
 
     return (
-        <div className="bg-[#f9f9f9]">
+        <div>
             {books.length ? (
-                <div className="container">
+                <div className="container bg-[#f9f9f9]">
                     <div className="space-y-4 px-6 pb-6 text-center max-w-[700px] mx-auto mb-5">
                         <p className="font-semibold text-3xl ">
                             {t('pages:mainPage.sales.title')}{' '}

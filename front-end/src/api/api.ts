@@ -65,9 +65,108 @@ export interface ApiUploadPost500Response {
 /**
  * 
  * @export
+ * @interface BookDetailsResponse
+ */
+export interface BookDetailsResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof BookDetailsResponse
+     */
+    'id': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof BookDetailsResponse
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof BookDetailsResponse
+     */
+    'author': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof BookDetailsResponse
+     */
+    'image'?: string | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof BookDetailsResponse
+     */
+    'images'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof BookDetailsResponse
+     */
+    'description': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof BookDetailsResponse
+     */
+    'price': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof BookDetailsResponse
+     */
+    'pages'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof BookDetailsResponse
+     */
+    'discount'?: number;
+    /**
+     * 
+     * @type {BookTypeEnum}
+     * @memberof BookDetailsResponse
+     */
+    'categoryName': BookTypeEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof BookDetailsResponse
+     */
+    'edition'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof BookDetailsResponse
+     */
+    'year'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof BookDetailsResponse
+     */
+    'dateCreated'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof BookDetailsResponse
+     */
+    'numReviews'?: number | null;
+}
+
+
+/**
+ * 
+ * @export
  * @interface BookResponse
  */
 export interface BookResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof BookResponse
+     */
+    'id': number;
     /**
      * 
      * @type {string}
@@ -141,13 +240,47 @@ export type BookTypeEnum = typeof BookTypeEnum[keyof typeof BookTypeEnum];
 export const DefaultApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Fetches all books from the database.
-         * @summary Get all books
+         * Fetches book\'s details from the database.
+         * @summary Get book\'s details
+         * @param {number} id ID of the book
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiBookAllGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/book/all`;
+        apiBookDetailsIdGet: async (id: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('apiBookDetailsIdGet', 'id', id)
+            const localVarPath = `/api/book/details/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Fetches books on sale from the database.
+         * @summary Get books on sale
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiBookOnSaleGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/book/onSale`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -181,15 +314,28 @@ export const DefaultApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = DefaultApiAxiosParamCreator(configuration)
     return {
         /**
-         * Fetches all books from the database.
-         * @summary Get all books
+         * Fetches book\'s details from the database.
+         * @summary Get book\'s details
+         * @param {number} id ID of the book
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiBookAllGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<BookResponse>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.apiBookAllGet(options);
+        async apiBookDetailsIdGet(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BookResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiBookDetailsIdGet(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['DefaultApi.apiBookAllGet']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['DefaultApi.apiBookDetailsIdGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Fetches books on sale from the database.
+         * @summary Get books on sale
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiBookOnSaleGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<BookResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiBookOnSaleGet(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DefaultApi.apiBookOnSaleGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -203,13 +349,23 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
     const localVarFp = DefaultApiFp(configuration)
     return {
         /**
-         * Fetches all books from the database.
-         * @summary Get all books
+         * Fetches book\'s details from the database.
+         * @summary Get book\'s details
+         * @param {number} id ID of the book
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiBookAllGet(options?: RawAxiosRequestConfig): AxiosPromise<Array<BookResponse>> {
-            return localVarFp.apiBookAllGet(options).then((request) => request(axios, basePath));
+        apiBookDetailsIdGet(id: number, options?: RawAxiosRequestConfig): AxiosPromise<BookResponse> {
+            return localVarFp.apiBookDetailsIdGet(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Fetches books on sale from the database.
+         * @summary Get books on sale
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiBookOnSaleGet(options?: RawAxiosRequestConfig): AxiosPromise<Array<BookResponse>> {
+            return localVarFp.apiBookOnSaleGet(options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -222,14 +378,26 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
  */
 export class DefaultApi extends BaseAPI {
     /**
-     * Fetches all books from the database.
-     * @summary Get all books
+     * Fetches book\'s details from the database.
+     * @summary Get book\'s details
+     * @param {number} id ID of the book
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public apiBookAllGet(options?: RawAxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).apiBookAllGet(options).then((request) => request(this.axios, this.basePath));
+    public apiBookDetailsIdGet(id: number, options?: RawAxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).apiBookDetailsIdGet(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Fetches books on sale from the database.
+     * @summary Get books on sale
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public apiBookOnSaleGet(options?: RawAxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).apiBookOnSaleGet(options).then((request) => request(this.axios, this.basePath));
     }
 }
 

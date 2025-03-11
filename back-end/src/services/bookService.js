@@ -1,17 +1,22 @@
 import { query } from '../../db.js';
-import BookResponse from '../models/Book.js';
+import { BookResponse, BookDetailsResponse } from '../models/Book.js';
 
 export const getBooksOnSale = async () => {
     const { rows } = await query(
-        'SELECT b.name, b.author, b.image, b.description, b.price, c.name as category_name, b.discount, b.image FROM book b JOIN category c ON b.category_id = c.id WHERE b.discount IS NOT NULL;'
+        'SELECT b.id, b.name, b.author, b.image, b.description, b.price, c.name as category_name, b.discount, b.image FROM book b JOIN category c ON b.category_id = c.id WHERE b.discount IS NOT NULL;'
     );
     const books = rows.map((row) => new BookResponse(row));
     return books;
 };
 
-export const getBookDetails = async () => {
-    const { rows } = await query('SELECT * FROM book');
-    return rows;
+export const getBooksDetails = async (req) => {
+    const bookId = req.params.id;
+    if (!bookId) {
+        return res.status(400).json({ error: 'There is no id' });
+    }
+    const { rows } = await query('SELECT * FROM book WHERE id = $1', [bookId]);
+    const books = rows.map((row) => new BookDetailsResponse(row));
+    return books;
 };
 
 export const createBook = async (req) => {

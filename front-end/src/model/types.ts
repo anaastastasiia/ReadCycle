@@ -65,6 +65,7 @@ export type Book = {
 }
 
 export type BookBanner = {
+    id: number,
     name: string,
     author: string,
     image?: string,
@@ -73,4 +74,21 @@ export type BookBanner = {
     discount?: number,
     reverse?: boolean,
     categoryName: BookTypeEnum
+}
+
+export type BookDetails = {
+    id: number,
+    name: string,
+    author: string,
+    image?: string,
+    images?: string[],
+    pages?: number,
+    description: string,
+    edition?: string,
+    price: number,
+    discount?: number,
+    year?: string,
+    dateCreated?: string,
+    categoryName: BookTypeEnum,
+    numReviews?: number,
 }

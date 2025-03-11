@@ -2,8 +2,11 @@ import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { SlideUp } from '../../utils/animations';
 import { BookBanner } from '../../model/types';
+import { booksActions } from '../../store/useBooks';
+import { useNavigate } from 'react-router-dom';
 
 const Banner = ({
+    id,
     image,
     name,
     description,
@@ -13,12 +16,21 @@ const Banner = ({
     discount
 }: BookBanner) => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
+    const { getBookDetails } = booksActions;
 
     const getPriceWithDiscount = (price: number, discount?: number): string => {
         if (discount) {
             return (price * (1 - discount / 100)).toFixed(2);
         }
         return '';
+    };
+
+    const getDetails = async () => {
+        const res = await getBookDetails(id);
+        if (res) {
+            navigate(`/details/${id}`);
+        }
     };
 
     return (
@@ -37,6 +49,7 @@ const Banner = ({
                     src={image}
                     alt=""
                     className="w-full h-full object-cover"
+                    onClick={getDetails}
                 />
                 {discount ? (
                     <div className="absolute m-1 top-0 left-0  bg-red-500 text-white md:text-lg  font-bold rounded-full px-2 py-1">

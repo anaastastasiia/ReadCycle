@@ -14,6 +14,20 @@ export const getBooksOnSale = async (req, res) => {
     }
 };
 
+export const getBooksDetails = async (req, res) => {
+    try {
+        const books = await bookService.getBooksDetails(req);
+        if (books.length) {
+            res.status(200).json(books[0]);
+        } else {
+            res.status(204).json({ message: `No book with id: ${req.id}` });
+        }
+    } catch (err) {
+        console.error('Error fetching book details:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+};
+
 export const createBook = async (req, res) => {
     try {
         const book = await bookService.createBook(req);
