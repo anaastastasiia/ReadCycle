@@ -42,7 +42,7 @@ const Category = () => {
                     />
                     <button onClick={handleUpload}>Upload Image</button>
                 </div>
-                <div className="py-14 px-20 bg-[#f9f9f9]">
+                <div className="container py-14 bg-[#f9f9f9]">
                     <div className="space-y-4 px-6 pb-6 text-center max-w-[600px] mx-auto mb-5">
                         <h1 className="uppercase font-semibold text-orange-500">
                             {t('pages:mainPage.booksTypes.subtitle')}

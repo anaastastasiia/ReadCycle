@@ -79,56 +79,54 @@ const Feedback = () => {
     };
 
     return (
-        <div className="py-14 bg-[#f9f9f9]">
-            <div className="container">
-                <div className="space-y-4 p-6 text-center max-w-[600px] mx-auto mb-6">
-                    <h1 className="uppercase font-semibold text-orange-600">
-                        {t('pages:mainPage.feedbacks.title')}
-                    </h1>
-                    <p className="font-semibold text-3xl">
-                        {t('pages:mainPage.feedbacks.subtitle')}
-                    </p>
-                </div>
-                <div>
-                    <Slider {...setting}>
-                        {FeedBacksData.map((item) => {
-                            return (
-                                <div key={item.id}>
-                                    <div className="flex flex-col gap-4 p-8 shadow-lg mx-4 rounded-xl bg-secondary/10">
-                                        <div className="flex justify-start gap-6 items-center">
-                                            <img
-                                                alt=""
-                                                src={item.img}
-                                                className="w-16 h-16 rounded-full"
-                                            />
-                                            <div>
-                                                <p className="text-xl font-bold text-black/80">
-                                                    {item.name}
-                                                </p>
-                                                <p>{item.name}</p>
-                                            </div>
-                                        </div>
-                                        <div className="py-6 space-y-4">
-                                            <p className="text-sm text-gray-500">
-                                                {item.text}
+        <div className="container bg-[#f9f9f9]">
+            <div className="space-y-4 p-6 text-center max-w-[600px] mx-auto mb-6">
+                <h1 className="uppercase font-semibold text-orange-600">
+                    {t('pages:mainPage.feedbacks.title')}
+                </h1>
+                <p className="font-semibold text-3xl">
+                    {t('pages:mainPage.feedbacks.subtitle')}
+                </p>
+            </div>
+            <div>
+                <Slider {...setting}>
+                    {FeedBacksData.map((item) => {
+                        return (
+                            <div key={item.id}>
+                                <div className="flex flex-col gap-4 p-8 shadow-lg mx-4 rounded-xl bg-secondary/10">
+                                    <div className="flex justify-start gap-6 items-center">
+                                        <img
+                                            alt=""
+                                            src={item.img}
+                                            className="w-16 h-16 rounded-full"
+                                        />
+                                        <div>
+                                            <p className="text-xl font-bold text-black/80">
+                                                {item.name}
                                             </p>
-                                            {Array.from(
-                                                { length: item.stars },
-                                                (_, index) => (
-                                                    <FontAwesomeIcon
-                                                        icon={faStar}
-                                                        className="text-yellow-300"
-                                                        key={index}
-                                                    />
-                                                )
-                                            )}
+                                            <p>{item.name}</p>
                                         </div>
                                     </div>
+                                    <div className="py-6 space-y-4">
+                                        <p className="text-sm text-gray-500">
+                                            {item.text}
+                                        </p>
+                                        {Array.from(
+                                            { length: item.stars },
+                                            (_, index) => (
+                                                <FontAwesomeIcon
+                                                    icon={faStar}
+                                                    className="text-yellow-300"
+                                                    key={index}
+                                                />
+                                            )
+                                        )}
+                                    </div>
                                 </div>
-                            );
-                        })}
-                    </Slider>
-                </div>
+                            </div>
+                        );
+                    })}
+                </Slider>
             </div>
         </div>
     );
