@@ -1,5 +1,5 @@
-import { BookResponse, BookTypeEnum } from "../../api";
-import { BookBanner } from "../types";
+import { BookDetailsResponse, BookResponse, BookTypeEnum } from "../../api";
+import { BookBanner, BookDetails } from "../types";
 
 const mapBooksFromDb = (book: BookResponse, index: number): BookBanner => {
     return {
@@ -10,5 +10,20 @@ const mapBooksFromDb = (book: BookResponse, index: number): BookBanner => {
         categoryName: book.categoryName ? book.categoryName : BookTypeEnum.All
     }
 }
+
+const mapBookDetailsFromDb = (book: BookDetailsResponse): BookDetails => {
+    return {
+        ...book,
+        id: book.id,
+        image: book.image ? book.image : "",
+        edition: book.edition ? book.edition : "",
+        pages: book.pages ? book.pages : undefined,
+        year: book.year ? book.year : "",
+        dateCreated: book.dateCreated ? book.dateCreated : "",
+        numReviews: book.numReviews ? book.numReviews : undefined,
+        categoryName: book.categoryName ? book.categoryName : BookTypeEnum.All,
+        images: book.images ? book.images : []
+    }
+}
   
-export default {mapBooksFromDb}
+export default {mapBooksFromDb, mapBookDetailsFromDb}

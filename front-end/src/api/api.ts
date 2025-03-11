@@ -65,6 +65,99 @@ export interface ApiUploadPost500Response {
 /**
  * 
  * @export
+ * @interface BookDetailsResponse
+ */
+export interface BookDetailsResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof BookDetailsResponse
+     */
+    'id': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof BookDetailsResponse
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof BookDetailsResponse
+     */
+    'author': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof BookDetailsResponse
+     */
+    'image'?: string | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof BookDetailsResponse
+     */
+    'images'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof BookDetailsResponse
+     */
+    'description': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof BookDetailsResponse
+     */
+    'price': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof BookDetailsResponse
+     */
+    'pages'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof BookDetailsResponse
+     */
+    'discount'?: number;
+    /**
+     * 
+     * @type {BookTypeEnum}
+     * @memberof BookDetailsResponse
+     */
+    'categoryName': BookTypeEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof BookDetailsResponse
+     */
+    'edition'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof BookDetailsResponse
+     */
+    'year'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof BookDetailsResponse
+     */
+    'dateCreated'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof BookDetailsResponse
+     */
+    'numReviews'?: number | null;
+}
+
+
+/**
+ * 
+ * @export
  * @interface BookResponse
  */
 export interface BookResponse {
@@ -116,42 +209,6 @@ export interface BookResponse {
      * @memberof BookResponse
      */
     'categoryName': BookTypeEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof BookResponse
-     */
-    'images'?: string | null;
-    /**
-     * 
-     * @type {number}
-     * @memberof BookResponse
-     */
-    'pages'?: number | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof BookResponse
-     */
-    'edition'?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof BookResponse
-     */
-    'year'?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof BookResponse
-     */
-    'dateCreated'?: string | null;
-    /**
-     * 
-     * @type {number}
-     * @memberof BookResponse
-     */
-    'numReviews'?: number | null;
 }
 
 

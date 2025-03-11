@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { SlideUp } from '../../utils/animations';
 import { BookBanner } from '../../model/types';
 import { booksActions } from '../../store/useBooks';
+import { useNavigate } from 'react-router-dom';
 
 const Banner = ({
     id,
@@ -15,6 +16,7 @@ const Banner = ({
     discount
 }: BookBanner) => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const { getBookDetails } = booksActions;
 
     const getPriceWithDiscount = (price: number, discount?: number): string => {
@@ -25,7 +27,10 @@ const Banner = ({
     };
 
     const getDetails = async () => {
-        await getBookDetails(id);
+        const res = await getBookDetails(id);
+        if (res) {
+            navigate(`/details/${id}`);
+        }
     };
 
     return (

@@ -85,7 +85,7 @@ router.get('/onSale', bookController.getBooksOnSale);
  *         - personal
  *         - all
  *       description: Enum for book categories
- *     BookResponse:
+ *     BookDetailsResponse:
  *       type: object
  *       required:
  *         - id
@@ -109,9 +109,13 @@ router.get('/onSale', bookController.getBooksOnSale);
  *           nullable: true
  *           example: "https://example.com/image.jpg"
  *         images:
- *           type: string
+ *           type: array
+ *           items:
+ *             type: string
  *           nullable: true
- *           example: "https://example.com/image.jpg"
+ *           example:
+ *             - "https://example.com/image1.jpg"
+ *             - "https://example.com/image2.jpg"
  *         description:
  *           type: string
  *           example: "A classic novel set in the 1920s."

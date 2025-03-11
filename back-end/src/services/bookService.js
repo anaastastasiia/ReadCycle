@@ -1,5 +1,5 @@
 import { query } from '../../db.js';
-import BookResponse from '../models/Book.js';
+import { BookResponse, BookDetailsResponse } from '../models/Book.js';
 
 export const getBooksOnSale = async () => {
     const { rows } = await query(
@@ -15,7 +15,8 @@ export const getBooksDetails = async (req) => {
         return res.status(400).json({ error: 'There is no id' });
     }
     const { rows } = await query('SELECT * FROM book WHERE id = $1', [bookId]);
-    return rows;
+    const books = rows.map((row) => new BookDetailsResponse(row));
+    return books;
 };
 
 export const createBook = async (req) => {
