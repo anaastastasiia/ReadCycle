@@ -1,0 +1,12 @@
+{
+    "features": {
+        "header": "Charakterystyka",
+        "author": "Autor",
+        "pages": "Liczba stron",
+        "year": "Rok",
+        "edition": "Wydawnictwo",
+        "showAll": "Zobacz wszystko",
+        "category": "Kategoria",
+        "description": "Opis"
+    }
+}

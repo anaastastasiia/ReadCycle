@@ -1,0 +1,12 @@
+{
+    "features": {
+        "header": "Features",
+        "author": "Author",
+        "pages": "Number of pages",
+        "year": "Year",
+        "edition": "Edition",
+        "showAll": "See all",
+        "category": "Category",
+        "description": "Description"
+    }
+}

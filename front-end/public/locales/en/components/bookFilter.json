@@ -1,0 +1,11 @@
+{
+    "filters": {
+        "header": "Filters" ,
+        "byName": "Search by name",
+        "byGenre": "Genre",
+        "byPrice": "Price",
+        "from": "From",
+        "to": "To",
+        "search": "Search"
+    }
+}
