@@ -1,14 +1,16 @@
 import mainPage from './pages/main.json';
 import common from './common.json';
 import enums from './enums.json';
-import banner from './components/banner.json';
+import bookFilter from './components/bookFilter.json';
+import bookDetails from './pages/bookDetails.json';
 
 export default {
     pages: {
-        mainPage
+        mainPage,
+        bookDetails
     },
     components: {
-        banner
+        bookFilter
     },
     common,
     enums

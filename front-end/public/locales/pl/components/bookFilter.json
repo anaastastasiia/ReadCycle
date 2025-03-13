@@ -1,0 +1,11 @@
+{
+    "filters": {
+        "header": "Filtry" ,
+        "byName": "Wyszukaj według nazwy",
+        "byGenre": "Gatunek",
+        "byPrice": "Cena",
+        "from": "Od",
+        "to": "Do",
+        "search": "Szukaj"
+    }
+}

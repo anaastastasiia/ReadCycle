@@ -17,18 +17,20 @@ export const BookFilters = () => {
 
     return (
         <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Фільтри</h3>
+            <h3 className="text-lg font-semibold">
+                {t('components:bookFilter.filters.header')}
+            </h3>
 
             <input
                 type="text"
-                placeholder="Пошук за назвою"
+                placeholder={t('components:bookFilter.filters.byName')}
                 className="w-full p-2 border rounded"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
             />
 
             <div className="flex gap-2 items-center">
-                Жанр:
+                {t('components:bookFilter.filters.byGenre')}:
                 <select
                     className="w-full p-2 border rounded"
                     value={category}
@@ -46,17 +48,17 @@ export const BookFilters = () => {
             </div>
 
             <div className="flex gap-2 items-center">
-                Ціна:
+                {t('components:bookFilter.filters.byPrice')}:
                 <input
                     type="number"
-                    placeholder="Від"
+                    placeholder={t('components:bookFilter.filters.from')}
                     className="w-1/2 p-2 border rounded"
                     value={minPrice}
                     onChange={(e) => setMinPrice(e.target.value)}
                 />
                 <input
                     type="number"
-                    placeholder="До"
+                    placeholder={t('components:bookFilter.filters.to')}
                     className="w-1/2 p-2 border rounded"
                     value={maxPrice}
                     onChange={(e) => setMaxPrice(e.target.value)}
@@ -64,7 +66,7 @@ export const BookFilters = () => {
             </div>
 
             <button className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
-                Застосувати
+                {t('components:bookFilter.filters.search')}
             </button>
         </div>
     );
