@@ -46,7 +46,7 @@ const Banner = ({
                 className="min-w-[200px] min-h-[300px] max-h-[300px] max-w-[300px] bg-gray-500 flex justify-center items-center relative overflow-hidden"
             >
                 <motion.img
-                    src={image}
+                    src={image ? image : ''}
                     alt=""
                     className="w-full h-full object-cover"
                     onClick={getDetails}

@@ -42,7 +42,7 @@ const router = express.Router();
  *               houseNumber:
  *                 type: string
  *                 example: "10"
- *               apartmentNumber:
+ *               apartment:
  *                 type: string
  *                 example: "15"
  *                 nullable: true
