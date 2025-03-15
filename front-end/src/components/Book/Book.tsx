@@ -14,17 +14,19 @@ export const Book = () => {
             </div>
             <div className="lg:w-1/2 w-full flex flex-col p-2 gap-y-2 sm:pt-6 lg:pt-0">
                 <Breadcrumb paths={[{ name, href: `/details/${book.id}` }]} />
-
                 <div className="text-[28px] text-xl">{name}</div>
                 <div className="mt-4 p-4 bg-gray-100 rounded-lg w-full">
                     <h3 className="font-semibold text-lg mb-2">
-                        {t('pages:bookDetails.features.header')}
+                        {t('pages:bookDetails.characteristics.header')}
                     </h3>
                     <table className="w-full text-sm">
                         <tbody>
                             <tr className="border-b">
                                 <td className="font-medium py-1">
-                                    {t('pages:bookDetails.features.author')}:
+                                    {t(
+                                        'pages:bookDetails.characteristics.author'
+                                    )}
+                                    :
                                 </td>
                                 <td className="py-1 text-right">
                                     {book.author}
@@ -34,7 +36,7 @@ export const Book = () => {
                                 <tr className="border-b">
                                     <td className="font-medium py-1">
                                         {t(
-                                            'pages:bookDetails.features.edition'
+                                            'pages:bookDetails.characteristics.edition'
                                         )}
                                         :
                                     </td>
@@ -45,7 +47,10 @@ export const Book = () => {
                             ) : null}
                             <tr className="border-b">
                                 <td className="font-medium py-1">
-                                    {t('pages:bookDetails.features.pages')}:
+                                    {t(
+                                        'pages:bookDetails.characteristics.pages'
+                                    )}
+                                    :
                                 </td>
                                 <td className="py-1 text-right">
                                     {book.pages}
@@ -53,14 +58,17 @@ export const Book = () => {
                             </tr>
                             <tr>
                                 <td className="font-medium py-1">
-                                    {t('pages:bookDetails.features.year')}:
+                                    {t(
+                                        'pages:bookDetails.characteristics.year'
+                                    )}
+                                    :
                                 </td>
                                 <td className="py-1 text-right">{book.year}</td>
                             </tr>
                         </tbody>
                     </table>
                     <button className="mt-2 text-blue-500 font-medium hover:underline">
-                        {t('pages:bookDetails.features.showAll')}
+                        {t('pages:bookDetails.characteristics.showAll')}
                     </button>
                 </div>
             </div>
