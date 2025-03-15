@@ -51,3 +51,16 @@ INSERT INTO category (name, color, icon) VALUES
 ('personal', '#b93838', NULL),
 ('all', '#464646', NULL);
 
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    city VARCHAR(100) NOT NULL,
+    street VARCHAR(100) NOT NULL,
+    house_number VARCHAR(10) NOT NULL,
+    apartment VARCHAR(10),
+    postal_code VARCHAR(20) NOT NULL,
+    phone_number VARCHAR(20) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password TEXT NOT NULL
+)
