@@ -18,7 +18,7 @@ const Sales = () => {
                 <div className="container bg-[#f9f9f9]">
                     <div className="space-y-4 px-6 pb-6 text-center max-w-[700px] mx-auto mb-5">
                         <p className="font-semibold text-3xl ">
-                            {t('pages:mainPage.sales.title')}{' '}
+                            {t('pages:mainPage.sales.title')}
                             <span className="text-red-600">
                                 {t('pages:mainPage.sales.onSale')}
                             </span>

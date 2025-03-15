@@ -68,7 +68,7 @@ export type BookBanner = {
     id: number,
     name: string,
     author: string,
-    image?: string,
+    image?: string | null,
     description: string,
     price: number,
     discount?: number,

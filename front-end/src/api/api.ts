@@ -26,6 +26,92 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerM
 /**
  * 
  * @export
+ * @interface ApiAuthLoginPostRequest
+ */
+export interface ApiAuthLoginPostRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof ApiAuthLoginPostRequest
+     */
+    'email': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApiAuthLoginPostRequest
+     */
+    'password': string;
+}
+/**
+ * 
+ * @export
+ * @interface ApiAuthRegisterPostRequest
+ */
+export interface ApiAuthRegisterPostRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof ApiAuthRegisterPostRequest
+     */
+    'firstName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApiAuthRegisterPostRequest
+     */
+    'lastName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApiAuthRegisterPostRequest
+     */
+    'city': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApiAuthRegisterPostRequest
+     */
+    'street': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApiAuthRegisterPostRequest
+     */
+    'houseNumber': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApiAuthRegisterPostRequest
+     */
+    'apartment'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApiAuthRegisterPostRequest
+     */
+    'postalCode': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApiAuthRegisterPostRequest
+     */
+    'phoneNumber': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApiAuthRegisterPostRequest
+     */
+    'email': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApiAuthRegisterPostRequest
+     */
+    'password': string;
+}
+/**
+ * 
+ * @export
  * @interface ApiUploadPost200Response
  */
 export interface ApiUploadPost200Response {
@@ -230,6 +316,187 @@ export const BookTypeEnum = {
 } as const;
 
 export type BookTypeEnum = typeof BookTypeEnum[keyof typeof BookTypeEnum];
+
+
+
+/**
+ * AuthenticationApi - axios parameter creator
+ * @export
+ */
+export const AuthenticationApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Loguje użytkownika i zwraca token JWT.
+         * @summary Logowanie użytkownika
+         * @param {ApiAuthLoginPostRequest} apiAuthLoginPostRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiAuthLoginPost: async (apiAuthLoginPostRequest: ApiAuthLoginPostRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'apiAuthLoginPostRequest' is not null or undefined
+            assertParamExists('apiAuthLoginPost', 'apiAuthLoginPostRequest', apiAuthLoginPostRequest)
+            const localVarPath = `/api/auth/login`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(apiAuthLoginPostRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Tworzy nowe konto użytkownika w systemie.
+         * @summary Rejestracja nowego użytkownika
+         * @param {ApiAuthRegisterPostRequest} apiAuthRegisterPostRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiAuthRegisterPost: async (apiAuthRegisterPostRequest: ApiAuthRegisterPostRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'apiAuthRegisterPostRequest' is not null or undefined
+            assertParamExists('apiAuthRegisterPost', 'apiAuthRegisterPostRequest', apiAuthRegisterPostRequest)
+            const localVarPath = `/api/auth/register`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(apiAuthRegisterPostRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * AuthenticationApi - functional programming interface
+ * @export
+ */
+export const AuthenticationApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = AuthenticationApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Loguje użytkownika i zwraca token JWT.
+         * @summary Logowanie użytkownika
+         * @param {ApiAuthLoginPostRequest} apiAuthLoginPostRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiAuthLoginPost(apiAuthLoginPostRequest: ApiAuthLoginPostRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiAuthLoginPost(apiAuthLoginPostRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthenticationApi.apiAuthLoginPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Tworzy nowe konto użytkownika w systemie.
+         * @summary Rejestracja nowego użytkownika
+         * @param {ApiAuthRegisterPostRequest} apiAuthRegisterPostRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiAuthRegisterPost(apiAuthRegisterPostRequest: ApiAuthRegisterPostRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiAuthRegisterPost(apiAuthRegisterPostRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthenticationApi.apiAuthRegisterPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * AuthenticationApi - factory interface
+ * @export
+ */
+export const AuthenticationApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = AuthenticationApiFp(configuration)
+    return {
+        /**
+         * Loguje użytkownika i zwraca token JWT.
+         * @summary Logowanie użytkownika
+         * @param {ApiAuthLoginPostRequest} apiAuthLoginPostRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiAuthLoginPost(apiAuthLoginPostRequest: ApiAuthLoginPostRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.apiAuthLoginPost(apiAuthLoginPostRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Tworzy nowe konto użytkownika w systemie.
+         * @summary Rejestracja nowego użytkownika
+         * @param {ApiAuthRegisterPostRequest} apiAuthRegisterPostRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiAuthRegisterPost(apiAuthRegisterPostRequest: ApiAuthRegisterPostRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.apiAuthRegisterPost(apiAuthRegisterPostRequest, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * AuthenticationApi - object-oriented interface
+ * @export
+ * @class AuthenticationApi
+ * @extends {BaseAPI}
+ */
+export class AuthenticationApi extends BaseAPI {
+    /**
+     * Loguje użytkownika i zwraca token JWT.
+     * @summary Logowanie użytkownika
+     * @param {ApiAuthLoginPostRequest} apiAuthLoginPostRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AuthenticationApi
+     */
+    public apiAuthLoginPost(apiAuthLoginPostRequest: ApiAuthLoginPostRequest, options?: RawAxiosRequestConfig) {
+        return AuthenticationApiFp(this.configuration).apiAuthLoginPost(apiAuthLoginPostRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Tworzy nowe konto użytkownika w systemie.
+     * @summary Rejestracja nowego użytkownika
+     * @param {ApiAuthRegisterPostRequest} apiAuthRegisterPostRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AuthenticationApi
+     */
+    public apiAuthRegisterPost(apiAuthRegisterPostRequest: ApiAuthRegisterPostRequest, options?: RawAxiosRequestConfig) {
+        return AuthenticationApiFp(this.configuration).apiAuthRegisterPost(apiAuthRegisterPostRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+}
 
 
 

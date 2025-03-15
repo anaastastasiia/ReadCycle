@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { NavbarMenu } from '../../model/data.ts';
@@ -9,10 +10,15 @@ import { LanguageSwitcher } from '../LanguageSwitcher/LanguageSwitcher.tsx';
 
 const Navbar = () => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
 
     const onClickMenu = () => {
         setIsOpen((prev) => !prev);
+    };
+
+    const register = () => {
+        navigate('/register');
     };
 
     return (
@@ -61,7 +67,10 @@ const Navbar = () => {
                         <button className="font-semibold">
                             {t('pages:mainPage.navbar.signIn')}
                         </button>
-                        <button className="text-white bg-secondary font-semibold rounded-full px-6 py-2 ">
+                        <button
+                            className="text-white bg-secondary font-semibold rounded-full px-6 py-2 "
+                            onClick={register}
+                        >
                             {t('pages:mainPage.navbar.register')}
                         </button>
                     </div>
