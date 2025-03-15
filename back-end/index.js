@@ -8,6 +8,7 @@ import { swaggerUi, swaggerSpec } from './swagger.js';
 import categoryRoute from './src/routes/categoryRoutes.js';
 import booksRoute from './src/routes/bookRoute.js';
 import uploadRoute from './src/routes/uploadRoute.js';
+import authRoute from './src/routes/authRoute.js';
 
 const PORT = process.env.PORT || 3000;
 
@@ -24,6 +25,7 @@ app.use(
 app.use('/api/book', booksRoute);
 app.use('/api/category', categoryRoute);
 app.use('/api/upload', uploadRoute);
+app.use('/api/auth', authRoute);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.get('/api-docs.json', (req, res) => {
