@@ -4,6 +4,55 @@ const router = express.Router();
 
 /**
  * @swagger
+ * components:
+ *   schemas:
+ *     RegisterRequest:
+ *       type: object
+ *       required:
+ *         - firstName
+ *         - lastName
+ *         - city
+ *         - street
+ *         - houseNumber
+ *         - postalCode
+ *         - phoneNumber
+ *         - email
+ *         - password
+ *       properties:
+ *         firstName:
+ *           type: string
+ *           example: "Jan"
+ *         lastName:
+ *           type: string
+ *           example: "Kowalski"
+ *         city:
+ *           type: string
+ *           example: "Warszawa"
+ *         street:
+ *           type: string
+ *           example: "Marszałkowska"
+ *         houseNumber:
+ *           type: string
+ *           example: "10"
+ *         apartment:
+ *           type: string
+ *           example: "15"
+ *           nullable: true
+ *         postalCode:
+ *           type: string
+ *           example: "00-123"
+ *         phoneNumber:
+ *           type: string
+ *           example: "+48123456789"
+ *         email:
+ *           type: string
+ *           format: email
+ *           example: "jan.kowalski@example.com"
+ *         password:
+ *           type: string
+ *           format: password
+ *           example: "SuperHaslo123!"
+ *
  * /api/auth/register:
  *   post:
  *     summary: Rejestracja nowego użytkownika
@@ -15,61 +64,34 @@ const router = express.Router();
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             required:
- *               - firstName
- *               - lastName
- *               - city
- *               - street
- *               - houseNumber
- *               - postalCode
- *               - phoneNumber
- *               - email
- *               - password
- *             properties:
- *               firstName:
- *                 type: string
- *                 example: "Jan"
- *               lastName:
- *                 type: string
- *                 example: "Kowalski"
- *               city:
- *                 type: string
- *                 example: "Warszawa"
- *               street:
- *                 type: string
- *                 example: "Marszałkowska"
- *               houseNumber:
- *                 type: string
- *                 example: "10"
- *               apartment:
- *                 type: string
- *                 example: "15"
- *                 nullable: true
- *               postalCode:
- *                 type: string
- *                 example: "00-123"
- *               phoneNumber:
- *                 type: string
- *                 example: "+48123456789"
- *               email:
- *                 type: string
- *                 format: email
- *                 example: "jan.kowalski@example.com"
- *               password:
- *                 type: string
- *                 format: password
- *                 example: "SuperHaslo123!"
+ *             $ref: '#/components/schemas/RegisterRequest'
  *     responses:
  *       "201":
  *         description: Użytkownik zarejestrowany pomyślnie
  *       "400":
  *         description: Błąd walidacji lub problem z rejestracją
  */
-router.get('/register', authController.register);
+router.post('/register', authController.register);
 
 /**
  * @swagger
+ *   components:
+ *   schemas:
+ *     LoginRequest:
+ *       type: object
+ *       required:
+ *         - email
+ *         - password
+ *       properties:
+ *         email:
+ *           type: string
+ *           format: email
+ *           example: "jan.kowalski@example.com"
+ *         password:
+ *           type: string
+ *           format: password
+ *           example: "SuperHaslo123!"
+ *
  * /api/auth/login:
  *   post:
  *     summary: Logowanie użytkownika
@@ -81,19 +103,7 @@ router.get('/register', authController.register);
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             required:
- *               - email
- *               - password
- *             properties:
- *               email:
- *                 type: string
- *                 format: email
- *                 example: "jan.kowalski@example.com"
- *               password:
- *                 type: string
- *                 format: password
- *                 example: "SuperHaslo123!"
+ *             $ref: '#/components/schemas/LoginRequest'
  *     responses:
  *       "200":
  *         description: Logowanie pomyślne, zwraca token JWT
