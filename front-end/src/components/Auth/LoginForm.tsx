@@ -1,55 +1,48 @@
-import { useState } from 'react';
+import { authActions, LoginFormData } from '../../store/authStore';
+import { loginSchema } from '../../validation/authSchema';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+import { motion } from 'framer-motion';
+import { Form, FormInput } from '../Form/Form';
 
 export const LoginForm = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [remember, setRemember] = useState(false);
+    const { login } = authActions;
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        console.log({ email, password, remember });
+    const {
+        register: formRegister,
+        handleSubmit,
+        formState: { errors }
+    } = useForm<LoginFormData>({
+        resolver: yupResolver(loginSchema)
+    });
+
+    const handleLogin = (data: LoginFormData) => {
+        console.log('User registered:', data);
+        login(data);
     };
 
     return (
-        <div className="flex-1 p-5">
+        <motion.div
+            className="flex-1 p-5"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+        >
             <h2 className="text-2xl font-semibold mb-5">Welcome!</h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                    <label className="block text-sm font-medium">
-                        Email Address
-                    </label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        className="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
-                    />
-                </div>
-
-                <div>
-                    <label className="block text-sm font-medium">
-                        Password
-                    </label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                        className="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
-                    />
-                </div>
-
+            <Form onSubmit={handleSubmit(handleLogin)} className="space-y-4">
+                <FormInput
+                    label="Email address"
+                    type="email"
+                    register={formRegister('email')}
+                    error={errors.email}
+                />
+                <FormInput
+                    label="Password"
+                    type="password"
+                    register={formRegister('password')}
+                    error={errors.password}
+                />
                 <div className="flex items-center justify-between">
-                    <label className="flex items-center space-x-2">
-                        <input
-                            type="checkbox"
-                            checked={remember}
-                            onChange={(e) => setRemember(e.target.checked)}
-                            className="w-4 h-4"
-                        />
-                        <span className="text-sm">Remember me</span>
-                    </label>
                     <a
                         href="#"
                         className="text-sm text-blue-500 hover:underline"
@@ -64,13 +57,13 @@ export const LoginForm = () => {
                 >
                     Sign in
                 </button>
-            </form>
+            </Form>
             <p className="text-sm text-center mt-4">
                 Don’t have an account?{' '}
                 <a href="#" className="text-blue-500 hover:underline">
                     Sign up
                 </a>
             </p>
-        </div>
+        </motion.div>
     );
 };

@@ -1,110 +1,112 @@
-import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { registerSchema } from '../../validation/authSchema';
+import { authActions, RegisterFormData } from '../../store/authStore';
+import AuthMapper from '../../model/mapper/AuthMapper';
+import { Form, FormInput } from '../Form/Form';
+import { motion } from 'framer-motion';
 
 export const RegisterForm = () => {
-    const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-        confirmPassword: ''
+    const { register } = authActions;
+
+    const {
+        register: formRegister,
+        handleSubmit,
+        formState: { errors }
+    } = useForm<RegisterFormData>({
+        resolver: yupResolver(registerSchema)
     });
 
-    const [error, setError] = useState('');
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-
-        if (formData.password !== formData.confirmPassword) {
-            setError('Passwords do not match');
-            return;
-        }
-
-        console.log('User registered:', formData);
-        setError('');
+    const handleRegister = (data: RegisterFormData) => {
+        console.log('User registered:', data);
+        register(AuthMapper.mapRegisterData(data));
     };
 
     return (
-        <div className="flex-1 p-5">
+        <motion.div
+            className="flex-1 p-5"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+        >
             <h2 className="text-2xl font-semibold mb-5">
                 Welcome! Create an account!
             </h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <Form onSubmit={handleSubmit(handleRegister)} className="space-y-4">
                 <div className="flex gap-x-3">
                     <div className="w-1/2">
-                        <label className="block text-sm font-medium">
-                            First Name
-                        </label>
-                        <input
-                            type="text"
-                            name="firstName"
-                            value={formData.firstName}
-                            onChange={handleChange}
-                            required
-                            className="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+                        <FormInput
+                            label="First name"
+                            register={formRegister('firstName')}
+                            error={errors.firstName}
                         />
                     </div>
-
                     <div className="w-1/2">
-                        <label className="block text-sm font-medium">
-                            Last Name
-                        </label>
-                        <input
-                            type="text"
-                            name="lastName"
-                            value={formData.lastName}
-                            onChange={handleChange}
-                            required
-                            className="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+                        <FormInput
+                            label="Last name"
+                            register={formRegister('lastName')}
+                            error={errors.lastName}
                         />
                     </div>
                 </div>
+                <FormInput
+                    label="Email address"
+                    type="email"
+                    register={formRegister('email')}
+                    error={errors.email}
+                />
+                <FormInput
+                    label="Phone number"
+                    register={formRegister('phoneNumber')}
+                    error={errors.phoneNumber}
+                />
+                <FormInput
+                    label="Password"
+                    type="password"
+                    register={formRegister('password')}
+                    error={errors.password}
+                />
+                <FormInput
+                    label="Confirm password"
+                    type="password"
+                    register={formRegister('confirmPassword')}
+                    error={errors.confirmPassword}
+                />
 
-                <div>
-                    <label className="block text-sm font-medium">
-                        Email Address
-                    </label>
-                    <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        className="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
-                    />
+                <div className="font-medium">Adres do korespondencji</div>
+                <FormInput
+                    label="Miasto"
+                    register={formRegister('city')}
+                    error={errors.city}
+                />
+                <div className="flex lg:gap-x-3 lg:flex-row flex-col">
+                    <div className="lg:w-1/2 w-full">
+                        <FormInput
+                            label="Ulica"
+                            register={formRegister('street')}
+                            error={errors.street}
+                        />
+                    </div>
+                    <div className="lg:w-1/4 w-full">
+                        <FormInput
+                            label="Numer domu"
+                            register={formRegister('houseNumber')}
+                            error={errors.houseNumber}
+                        />
+                    </div>
+                    <div className="lg:w-1/4 w-full">
+                        <FormInput
+                            label="Numer mieszkania"
+                            register={formRegister('apartment')}
+                            error={errors.apartment}
+                        />
+                    </div>
                 </div>
-
-                <div>
-                    <label className="block text-sm font-medium">
-                        Password
-                    </label>
-                    <input
-                        type="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                        className="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
-                    />
-                </div>
-
-                <div>
-                    <label className="block text-sm font-medium">
-                        Confirm Password
-                    </label>
-                    <input
-                        type="password"
-                        name="confirmPassword"
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
-                        required
-                        className="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
-                    />
-                </div>
-                {error && <p className="text-red-500 text-sm">{error}</p>}
+                <FormInput
+                    label="Kod pocztowy"
+                    register={formRegister('postalCode')}
+                    error={errors.postalCode}
+                />
 
                 <button
                     type="submit"
@@ -112,13 +114,13 @@ export const RegisterForm = () => {
                 >
                     Sign up
                 </button>
-            </form>
+            </Form>
             <p className="text-sm text-center mt-4">
                 Already have an account?{' '}
                 <a href="#" className="text-blue-500 hover:underline">
                     Sign in
                 </a>
             </p>
-        </div>
+        </motion.div>
     );
 };
