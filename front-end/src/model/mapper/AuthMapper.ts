@@ -1,5 +1,5 @@
 import { RegisterRequest } from "../../api";
-import { RegisterFormData } from "../../store/authStore";
+import { RegisterFormData, UserData } from "../../store/authStore";
 
 const mapRegisterData = (formData: RegisterFormData): RegisterRequest => {
     return {
@@ -7,5 +7,12 @@ const mapRegisterData = (formData: RegisterFormData): RegisterRequest => {
         apartment: formData.apartment ? formData.apartment : ''
     }
 }
+
+const mapUserData = (formData: RegisterFormData): UserData => {
+    return {
+        ...formData,
+        apartment: formData.apartment ? formData.apartment : ''
+    }
+}
   
-export default {mapRegisterData}
+export default {mapRegisterData, mapUserData}

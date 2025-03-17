@@ -1,17 +1,20 @@
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NavbarMenu } from '../../model/data.ts';
 import { MdMenu } from 'react-icons/md';
 import { motion } from 'framer-motion';
 import Logo from '../../assets/logo.png';
 import ResponsiveMenu from './ResponsiveMenu.js';
 import { LanguageSwitcher } from '../LanguageSwitcher/LanguageSwitcher.tsx';
+import { authActions, authStore } from '../../store/authStore.ts';
 
 const Navbar = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
+    const { user } = authStore();
+    const { clearData } = authActions;
 
     const onClickMenu = () => {
         setIsOpen((prev) => !prev);
@@ -20,6 +23,17 @@ const Navbar = () => {
     const register = () => {
         navigate('/register');
     };
+
+    const login = () => {
+        navigate('/login');
+    };
+
+    useEffect(() => {
+        console.log(user);
+        //robić clear tylko przy pierwszym wejsciu do aplikacji przed logowaniem i po Log Out
+        //dane usera trzemać aż poki nie wygaśni token
+        clearData();
+    }, []);
 
     return (
         <>
@@ -63,17 +77,24 @@ const Navbar = () => {
                     <div className="hidden lg:block">
                         <LanguageSwitcher />
                     </div>
-                    <div className="hidden lg:block space-x-6">
-                        <button className="font-semibold">
-                            {t('pages:mainPage.navbar.signIn')}
-                        </button>
-                        <button
-                            className="text-white bg-secondary font-semibold rounded-full px-6 py-2 "
-                            onClick={register}
-                        >
-                            {t('pages:mainPage.navbar.register')}
-                        </button>
-                    </div>
+                    {user.id != null && user.id != 0 ? (
+                        <div className="hidden lg:block space-x-6">
+                            {user.firstName}
+                        </div>
+                    ) : (
+                        <div className="hidden lg:block space-x-6">
+                            <button className="font-semibold" onClick={login}>
+                                {t('pages:mainPage.navbar.signIn')}
+                            </button>
+                            <button
+                                className="text-white bg-secondary font-semibold rounded-full px-6 py-2 "
+                                onClick={register}
+                            >
+                                {t('pages:mainPage.navbar.register')}
+                            </button>
+                        </div>
+                    )}
+
                     <div className="lg:hidden z-30" onClick={onClickMenu}>
                         <MdMenu className="text-4xl" />
                     </div>

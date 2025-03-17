@@ -1,13 +1,15 @@
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { motion } from 'framer-motion';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Form, FormInput } from '../Form/Form';
 import { registerSchema } from '../../validation/authSchema';
 import { authActions, RegisterFormData } from '../../store/authStore';
 import AuthMapper from '../../model/mapper/AuthMapper';
-import { Form, FormInput } from '../Form/Form';
-import { motion } from 'framer-motion';
 
 export const RegisterForm = () => {
-    const { register } = authActions;
+    const navigate = useNavigate();
+    const { register, getUserData } = authActions;
 
     const {
         register: formRegister,
@@ -17,9 +19,12 @@ export const RegisterForm = () => {
         resolver: yupResolver(registerSchema)
     });
 
-    const handleRegister = (data: RegisterFormData) => {
-        console.log('User registered:', data);
-        register(AuthMapper.mapRegisterData(data));
+    const handleRegister = async (data: RegisterFormData) => {
+        const res = await register(AuthMapper.mapRegisterData(data));
+        if (res) {
+            getUserData();
+            navigate('/');
+        }
     };
 
     return (

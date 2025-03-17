@@ -2,8 +2,13 @@ import { motion } from 'framer-motion';
 import image from '../assets/fly.png';
 import { LoginForm } from '../components/Auth/LoginForm';
 import { RegisterForm } from '../components/Auth/RegisterForm';
+import { AuthEnum } from '../model/types';
 
-export const AuthPage = () => {
+interface AuthPageProps {
+    type: AuthEnum;
+}
+
+export const AuthPage = ({ type }: AuthPageProps) => {
     return (
         <div className="overflow-x-hidden flex container my-8">
             <motion.div
@@ -14,8 +19,7 @@ export const AuthPage = () => {
             >
                 <img src={image} />
             </motion.div>
-            <LoginForm />
-            <RegisterForm />
+            {type === AuthEnum.REGISTER ? <RegisterForm /> : <LoginForm />}
         </div>
     );
 };

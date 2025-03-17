@@ -52,7 +52,15 @@ const router = express.Router();
  *           type: string
  *           format: password
  *           example: "SuperHaslo123!"
- *
+ *     RegisterResponse:
+ *       type: object
+ *       required:
+ *         - token
+ *       properties:
+ *         token:
+ *           type: string
+ *           description: JWT token returned after successful registration
+ *           example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyMzQ1NiIsImVtYWlsIjoiamFuLmtvd2Fsc2tpQGV4YW1wbGUuY29tIiwiaWF0IjoxNjE2NzcxNTgwLCJleHBpcmVkX3N0cmluZ3MiOnsiY2l0eSI6IlNvbWVjdG93biIsInN0cmVldCI6IkZpcnN0IHN0cnJlZXQifX0.VqPlYllbx24URtPLtsrghYyXH6z-Zh2_hkCk0Z-Yydo"
  * /api/auth/register:
  *   post:
  *     summary: Rejestracja nowego użytkownika
@@ -68,6 +76,10 @@ const router = express.Router();
  *     responses:
  *       "201":
  *         description: Użytkownik zarejestrowany pomyślnie
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/RegisterResponse'
  *       "400":
  *         description: Błąd walidacji lub problem z rejestracją
  */
@@ -75,7 +87,7 @@ router.post('/register', authController.register);
 
 /**
  * @swagger
- *   components:
+ * components:
  *   schemas:
  *     LoginRequest:
  *       type: object
@@ -91,7 +103,15 @@ router.post('/register', authController.register);
  *           type: string
  *           format: password
  *           example: "SuperHaslo123!"
- *
+ *     LoginResponse:
+ *       type: object
+ *       required:
+ *         - token
+ *       properties:
+ *         token:
+ *           type: string
+ *           description: JWT token returned after successful login
+ *           example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyMzQ1NiIsImVtYWlsIjoiamFuLmtvd2Fsc2tpQGV4YW1wbGUuY29tIiwiaWF0IjoxNjE2NzcxNTgwLCJleHBpcmVkX3N0cmluZ3MiOnsiY2l0eSI6IlNvbWVjdG93biIsInN0cmVldCI6IkZpcnN0IHN0cnJlZXQifX0.VqPlYllbx24URtPLtsrghYyXH6z-Zh2_hkCk0Z-Yydo"
  * /api/auth/login:
  *   post:
  *     summary: Logowanie użytkownika
@@ -107,9 +127,13 @@ router.post('/register', authController.register);
  *     responses:
  *       "200":
  *         description: Logowanie pomyślne, zwraca token JWT
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/LoginResponse'
  *       "401":
  *         description: Niepoprawne dane logowania
  */
-router.get('/login', authController.login);
+router.post('/login', authController.login);
 
 export default router;
