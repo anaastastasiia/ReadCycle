@@ -1,12 +1,14 @@
 import { authActions, LoginFormData } from '../../store/authStore';
-import { loginSchema } from '../../validation/authSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { motion } from 'framer-motion';
 import { Form, FormInput } from '../Form/Form';
+import { loginSchema } from '../../validation/authSchema';
+import { useNavigate } from 'react-router-dom';
 
 export const LoginForm = () => {
-    const { login } = authActions;
+    const navigate = useNavigate();
+    const { login, getUserData } = authActions;
 
     const {
         register: formRegister,
@@ -16,9 +18,13 @@ export const LoginForm = () => {
         resolver: yupResolver(loginSchema)
     });
 
-    const handleLogin = (data: LoginFormData) => {
-        console.log('User registered:', data);
-        login(data);
+    const handleLogin = async (data: LoginFormData) => {
+        const res = await login(data);
+        console.log('res: ', res);
+        if (res) {
+            getUserData();
+            navigate('/');
+        }
     };
 
     return (

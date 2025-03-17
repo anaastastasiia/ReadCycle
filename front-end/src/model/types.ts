@@ -92,3 +92,8 @@ export type BookDetails = {
     categoryName: BookTypeEnum,
     numReviews?: number,
 }
+
+export enum AuthEnum {
+    REGISTER,
+    LOGIN
+}

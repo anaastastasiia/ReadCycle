@@ -254,6 +254,19 @@ export interface LoginRequest {
 /**
  * 
  * @export
+ * @interface LoginResponse
+ */
+export interface LoginResponse {
+    /**
+     * JWT token returned after successful login
+     * @type {string}
+     * @memberof LoginResponse
+     */
+    'token': string;
+}
+/**
+ * 
+ * @export
  * @interface RegisterRequest
  */
 export interface RegisterRequest {
@@ -317,6 +330,19 @@ export interface RegisterRequest {
      * @memberof RegisterRequest
      */
     'password': string;
+}
+/**
+ * 
+ * @export
+ * @interface RegisterResponse
+ */
+export interface RegisterResponse {
+    /**
+     * JWT token returned after successful registration
+     * @type {string}
+     * @memberof RegisterResponse
+     */
+    'token': string;
 }
 
 /**
@@ -414,7 +440,7 @@ export const AuthenticationApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiAuthLoginPost(loginRequest: LoginRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async apiAuthLoginPost(loginRequest: LoginRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LoginResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiAuthLoginPost(loginRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AuthenticationApi.apiAuthLoginPost']?.[localVarOperationServerIndex]?.url;
@@ -427,7 +453,7 @@ export const AuthenticationApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiAuthRegisterPost(registerRequest: RegisterRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async apiAuthRegisterPost(registerRequest: RegisterRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RegisterResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiAuthRegisterPost(registerRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AuthenticationApi.apiAuthRegisterPost']?.[localVarOperationServerIndex]?.url;
@@ -450,7 +476,7 @@ export const AuthenticationApiFactory = function (configuration?: Configuration,
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiAuthLoginPost(loginRequest: LoginRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        apiAuthLoginPost(loginRequest: LoginRequest, options?: RawAxiosRequestConfig): AxiosPromise<LoginResponse> {
             return localVarFp.apiAuthLoginPost(loginRequest, options).then((request) => request(axios, basePath));
         },
         /**
@@ -460,7 +486,7 @@ export const AuthenticationApiFactory = function (configuration?: Configuration,
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiAuthRegisterPost(registerRequest: RegisterRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        apiAuthRegisterPost(registerRequest: RegisterRequest, options?: RawAxiosRequestConfig): AxiosPromise<RegisterResponse> {
             return localVarFp.apiAuthRegisterPost(registerRequest, options).then((request) => request(axios, basePath));
         },
     };
