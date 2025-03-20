@@ -16,11 +16,9 @@ interface DecodedToken {
 
 export const getUserFromToken = (token: string | null): DecodedToken | null => {
     if (!token) {
-        console.log('No token available');
         return null;
     }
 
-    console.log('Decoding token:', token);
     try {
         const decoded: DecodedToken = jwtDecode(token);
         return decoded;

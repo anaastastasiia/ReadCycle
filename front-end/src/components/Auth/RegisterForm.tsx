@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { motion } from 'framer-motion';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -9,7 +10,8 @@ import AuthMapper from '../../model/mapper/AuthMapper';
 
 export const RegisterForm = () => {
     const navigate = useNavigate();
-    const { register, getUserData } = authActions;
+    const { t } = useTranslation();
+    const { register, loadUserData } = authActions;
 
     const {
         register: formRegister,
@@ -22,7 +24,7 @@ export const RegisterForm = () => {
     const handleRegister = async (data: RegisterFormData) => {
         const res = await register(AuthMapper.mapRegisterData(data));
         if (res) {
-            getUserData();
+            loadUserData();
             navigate('/');
         }
     };
@@ -35,80 +37,88 @@ export const RegisterForm = () => {
             transition={{ duration: 0.5, delay: 0.5 }}
         >
             <h2 className="text-2xl font-semibold mb-5">
-                Welcome! Create an account!
+                {t('pages:authPage.register.welcome')}
             </h2>
             <Form onSubmit={handleSubmit(handleRegister)} className="space-y-4">
                 <div className="flex gap-x-3">
                     <div className="w-1/2">
                         <FormInput
-                            label="First name"
+                            label={t('pages:authPage.register.form.firstName')}
                             register={formRegister('firstName')}
                             error={errors.firstName}
                         />
                     </div>
                     <div className="w-1/2">
                         <FormInput
-                            label="Last name"
+                            label={t('pages:authPage.register.form.lastName')}
                             register={formRegister('lastName')}
                             error={errors.lastName}
                         />
                     </div>
                 </div>
                 <FormInput
-                    label="Email address"
+                    label={t('pages:authPage.register.form.email')}
                     type="email"
                     register={formRegister('email')}
                     error={errors.email}
                 />
                 <FormInput
-                    label="Phone number"
+                    label={t('pages:authPage.register.form.phoneNumber')}
                     register={formRegister('phoneNumber')}
                     error={errors.phoneNumber}
                 />
                 <FormInput
-                    label="Password"
+                    label={t('pages:authPage.register.form.password')}
                     type="password"
                     register={formRegister('password')}
                     error={errors.password}
                 />
                 <FormInput
-                    label="Confirm password"
+                    label={t('pages:authPage.register.form.confirmPassword')}
                     type="password"
                     register={formRegister('confirmPassword')}
                     error={errors.confirmPassword}
                 />
 
-                <div className="font-medium">Adres do korespondencji</div>
+                <div className="font-medium">
+                    {t('pages:authPage.register.form.address.title')}
+                </div>
                 <FormInput
-                    label="Miasto"
+                    label={t('pages:authPage.register.form.address.city')}
                     register={formRegister('city')}
                     error={errors.city}
                 />
                 <div className="flex lg:gap-x-3 lg:flex-row flex-col">
                     <div className="lg:w-1/2 w-full">
                         <FormInput
-                            label="Ulica"
+                            label={t(
+                                'pages:authPage.register.form.address.street'
+                            )}
                             register={formRegister('street')}
                             error={errors.street}
                         />
                     </div>
                     <div className="lg:w-1/4 w-full">
                         <FormInput
-                            label="Numer domu"
+                            label={t(
+                                'pages:authPage.register.form.address.houseNumber'
+                            )}
                             register={formRegister('houseNumber')}
                             error={errors.houseNumber}
                         />
                     </div>
                     <div className="lg:w-1/4 w-full">
                         <FormInput
-                            label="Numer mieszkania"
+                            label={t(
+                                'pages:authPage.register.form.address.apartment'
+                            )}
                             register={formRegister('apartment')}
                             error={errors.apartment}
                         />
                     </div>
                 </div>
                 <FormInput
-                    label="Kod pocztowy"
+                    label={t('pages:authPage.register.form.address.postalCode')}
                     register={formRegister('postalCode')}
                     error={errors.postalCode}
                 />
@@ -117,13 +127,13 @@ export const RegisterForm = () => {
                     type="submit"
                     className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg font-semibold"
                 >
-                    Sign up
+                    {t('common:button.signUp')}
                 </button>
             </Form>
             <p className="text-sm text-center mt-4">
-                Already have an account?{' '}
+                {t('pages:authPage.register.form.haveAccount')}{' '}
                 <a href="#" className="text-blue-500 hover:underline">
-                    Sign in
+                    {t('common:button.signIn')}
                 </a>
             </p>
         </motion.div>

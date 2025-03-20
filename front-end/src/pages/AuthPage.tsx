@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import image from '../assets/fly.png';
+import image from '../../public/assets/fly.png';
 import { LoginForm } from '../components/Auth/LoginForm';
 import { RegisterForm } from '../components/Auth/RegisterForm';
 import { AuthEnum } from '../model/types';

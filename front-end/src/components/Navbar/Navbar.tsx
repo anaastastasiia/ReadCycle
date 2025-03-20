@@ -1,20 +1,22 @@
 import { useNavigate } from 'react-router-dom';
+import { MdMenu } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
-import { NavbarMenu } from '../../model/data.ts';
-import { MdMenu } from 'react-icons/md';
 import { motion } from 'framer-motion';
-import Logo from '../../assets/logo.png';
+import { NavbarMenu } from '../../model/data.ts';
 import ResponsiveMenu from './ResponsiveMenu.js';
 import { LanguageSwitcher } from '../LanguageSwitcher/LanguageSwitcher.tsx';
 import { authActions, authStore } from '../../store/authStore.ts';
+import { UserContext } from '../../contexts/UserContext.ts';
+import LogoutIcon from '@mui/icons-material/Logout';
+import Logo from '../../../public/assets/logo.png';
 
 const Navbar = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
-    const { user } = authStore();
-    const { clearData } = authActions;
+    const { user, token } = authStore();
+    const { clearData, loadUserData, checkTokenExpiration } = authActions;
 
     const onClickMenu = () => {
         setIsOpen((prev) => !prev);
@@ -29,14 +31,19 @@ const Navbar = () => {
     };
 
     useEffect(() => {
-        console.log(user);
-        //robić clear tylko przy pierwszym wejsciu do aplikacji przed logowaniem i po Log Out
-        //dane usera trzemać aż poki nie wygaśni token
+        loadUserData();
+        if (!checkTokenExpiration) {
+            clearData();
+        }
+    }, [loadUserData, checkTokenExpiration, clearData]);
+
+    const logout = () => {
         clearData();
-    }, []);
+        navigate('/');
+    };
 
     return (
-        <>
+        <UserContext.Provider value={{ user, token, login, register, logout }}>
             {isOpen && (
                 <div className="fixed inset-0 bg-black opacity-5 z-10"></div>
             )}
@@ -77,9 +84,12 @@ const Navbar = () => {
                     <div className="hidden lg:block">
                         <LanguageSwitcher />
                     </div>
-                    {user.id != null && user.id != 0 ? (
+                    {user ? (
                         <div className="hidden lg:block space-x-6">
                             {user.firstName}
+                            <button onClick={logout} className="pl-3">
+                                <LogoutIcon />
+                            </button>
                         </div>
                     ) : (
                         <div className="hidden lg:block space-x-6">
@@ -111,7 +121,7 @@ const Navbar = () => {
                 options={NavbarMenu}
                 closeMenu={onClickMenu}
             />
-        </>
+        </UserContext.Provider>
     );
 };
 

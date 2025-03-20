@@ -4,9 +4,10 @@ import { RegisterRequest } from '../api/api.ts';
 import { getUserFromToken } from '../utils/authUtils.ts';
 
 export interface AuthState {
-    registerData: RegisterFormData;
-    loginData: LoginFormData;
-    user: UserData
+    registerData: RegisterFormData,
+    loginData: LoginFormData,
+    user: UserData | null,
+    token: string | null,
 }
 
 export interface RegisterFormData {
@@ -59,17 +60,8 @@ export const authStore = create<AuthState>(() => ({
         email: '',
         password: ''
     },
-    user: {
-        id: 0,
-        firstName: '',
-        lastName: '',
-        email: '',
-        houseNumber: '',
-        phoneNumber: '',
-        postalCode: '',
-        street: '',
-        city: '',
-    },
+    user: null,
+    token: null
 }));
 
 //ACTIONS
@@ -80,7 +72,9 @@ const register = async (formData: RegisterRequest) => {
         );
 
         if (response?.data.token) {
-            localStorage.setItem('token', response?.data.token);
+            authStore.setState(() => ({
+                token: response?.data.token
+            }));
             return true;
         } else {
             console.error('Token not received from API');
@@ -97,9 +91,14 @@ const login = async (formData: LoginFormData) => {
         const response = await authController.callEndpoint((api) =>
             api.apiAuthLoginPost(formData)  
         );
+        console.log('response?.data.token: ', response?.data.token)
         
         if (response?.data.token) {
+            authStore.setState(() => ({
+                token: response?.data.token
+            }));
             localStorage.setItem('token', response?.data.token);
+            console.log('WAPADA')
             return true;
         } else {
             console.error('Token not received from API');
@@ -111,52 +110,87 @@ const login = async (formData: LoginFormData) => {
     }
 };
 
-const setUserData = (formData: UserData) => {
+const setUserData = (formData: UserData, token: string) => {
+    localStorage.setItem('token', token);
+    localStorage.setItem('userData', JSON.stringify(formData));
     authStore.setState(() => ({
-        user: formData
+        user: formData,
+        token: token
     }))
 }
 
-const getUserData = () => {
-    console.log('localStorage: ', localStorage)
-    const token = localStorage.getItem('token');
-    console.log('token: ',token)
-    const user = getUserFromToken(token);
-    console.log('user: ', user)
+const setToken = (token: string) => {
+    localStorage.setItem('token', token);
+    authStore.setState(() => ({
+        token: token
+    }))
+}
 
-    if (user) {
-        authStore.setState(() => ({
-            user: {
-                firstName: user.firstName,
-                lastName: user.lastName,
-                city: user.city,
-                email: user.email,
-                houseNumber: user.houseNumber,
-                phoneNumber: user.phoneNumber,
-                postalCode: user.postalCode,
-                street: user.street,
-                apartment: user.apartment ? user.apartment : '',
-                id: user.id
-            }
-        }))
-    }
+const loadUserData = () => {
+    const token = localStorage.getItem('token');
+    console.log('store token: ', token)
+
+    if(token) {
+        const user = getUserFromToken(token);
+        console.log('store token user: ', user)
+        
+        if (user) {
+            console.log('store user: ', user)
+            authStore.setState(() => ({
+                user: {
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    city: user.city,
+                    email: user.email,
+                    houseNumber: user.houseNumber,
+                    phoneNumber: user.phoneNumber,
+                    postalCode: user.postalCode,
+                    street: user.street,
+                    apartment: user.apartment ? user.apartment : '',
+                    id: user.id
+                },
+                token: token
+            }));
+        }
+        console.log('store getState user: ', authStore.getState().user)
+
+    } 
 };
 
 const clearData = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userData');
     authStore.setState(() => ({
-        user: {
-            firstName: '',
-            lastName: '',
-            city: '',
-            email: '',
-            houseNumber: '',
-            phoneNumber: '',
-            postalCode: '',
-            street: '',
-            apartment: '',
-            id: 0
-        }
-    }))
+        user: null,
+        token: null
+    }));
 }
 
-export const authActions = { register, login, setUserData, getUserData, clearData };
+const checkTokenExpiration = () => {
+    const token = localStorage.getItem('token');
+    if(token) {
+        const decodedToken = JSON.parse(atob(token.split('.')[1]));
+        const currentTime = Math.floor(Date.now() / 1000);
+        if(decodedToken.exp < currentTime) {
+            authStore.setState(() => ({
+                user: null,
+                token: null
+            }));
+            localStorage.removeItem('token');
+            localStorage.removeItem('userData');
+            return false;
+        }
+        return true;
+    }
+    return false;
+}
+
+export const authActions = { 
+    register, 
+    setToken, 
+    login, 
+    setUserData, 
+    loadUserData, 
+    clearData,
+    checkTokenExpiration
+};

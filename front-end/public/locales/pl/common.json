@@ -1,6 +1,8 @@
 {
     "button": {
         "getStarted": "Rozpocznij",
-        "addToCart": "Dodaj do koszyka"
+        "addToCart": "Dodaj do koszyka",
+        "signUp": "Zarejestruj się",
+        "signIn": "Zaloguj się"
     }
 }

@@ -1,7 +1,7 @@
 import { BooksTypeEnum, NavbarEnum } from "../model/enums";
-import Flag_of_Ukraine from '../assets/Flag_of_Ukraine.png';
-import Flag_of_Poland from '../assets/Flag_of_Poland.png';
-import Flag_of_the_United_States from '../assets/Flag_of_the_United_States.png';
+import Flag_of_Ukraine from '../../public/assets/Flag_of_Ukraine.png';
+import Flag_of_Poland from '../../public/assets/Flag_of_Poland.png';
+import Flag_of_the_United_States from '../../public/assets/Flag_of_the_United_States.png';
 
 export const NavbarMenu = [
   {

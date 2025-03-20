@@ -1,14 +1,15 @@
-import { authActions, LoginFormData } from '../../store/authStore';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { motion } from 'framer-motion';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { authActions, authStore, LoginFormData } from '../../store/authStore';
 import { Form, FormInput } from '../Form/Form';
 import { loginSchema } from '../../validation/authSchema';
-import { useNavigate } from 'react-router-dom';
 
 export const LoginForm = () => {
     const navigate = useNavigate();
-    const { login, getUserData } = authActions;
+    const { login, loadUserData } = authActions;
+    const { user } = authStore();
 
     const {
         register: formRegister,
@@ -20,9 +21,9 @@ export const LoginForm = () => {
 
     const handleLogin = async (data: LoginFormData) => {
         const res = await login(data);
-        console.log('res: ', res);
         if (res) {
-            getUserData();
+            loadUserData();
+            console.log(user);
             navigate('/');
         }
     };

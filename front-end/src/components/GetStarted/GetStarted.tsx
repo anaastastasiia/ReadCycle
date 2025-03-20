@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import GirlImg from '../../assets/education.jpg';
+import GirlImg from '../../../public/assets/education.jpg';
 import { motion } from 'framer-motion';
 import { SlideRight } from '../../utils/animations';
 
