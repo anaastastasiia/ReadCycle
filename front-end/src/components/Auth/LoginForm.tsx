@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { motion } from 'framer-motion';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -8,6 +9,7 @@ import { loginSchema } from '../../validation/authSchema';
 
 export const LoginForm = () => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const { login, loadUserData } = authActions;
     const { user } = authStore();
 
@@ -35,16 +37,18 @@ export const LoginForm = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.5 }}
         >
-            <h2 className="text-2xl font-semibold mb-5">Welcome!</h2>
+            <h2 className="text-2xl font-semibold mb-5">
+                {t('pages:authPage.login.welcome')}
+            </h2>
             <Form onSubmit={handleSubmit(handleLogin)} className="space-y-4">
                 <FormInput
-                    label="Email address"
+                    label={t('pages:authPage.login.form.email')}
                     type="email"
                     register={formRegister('email')}
                     error={errors.email}
                 />
                 <FormInput
-                    label="Password"
+                    label={t('pages:authPage.login.form.password')}
                     type="password"
                     register={formRegister('password')}
                     error={errors.password}
@@ -54,7 +58,7 @@ export const LoginForm = () => {
                         href="#"
                         className="text-sm text-blue-500 hover:underline"
                     >
-                        Forgot password?
+                        {t('pages:authPage.login.form.forgotPassword')}
                     </a>
                 </div>
 
@@ -62,13 +66,13 @@ export const LoginForm = () => {
                     type="submit"
                     className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg font-semibold"
                 >
-                    Sign in
+                    {t('common:button.signIn')}
                 </button>
             </Form>
             <p className="text-sm text-center mt-4">
-                Don’t have an account?{' '}
+                {t('pages:authPage.login.form.noAccount')}{' '}
                 <a href="#" className="text-blue-500 hover:underline">
-                    Sign up
+                    {t('common:button.signUp')}
                 </a>
             </p>
         </motion.div>

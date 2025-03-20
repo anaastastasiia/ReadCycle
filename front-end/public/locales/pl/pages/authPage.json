@@ -18,5 +18,14 @@
             "confirmPassword": "Potwierdź hasło",
             "haveAccount": "Masz już konto?"
         }
+    },
+    "login": {
+        "welcome": "Witamy!",
+        "form": {
+            "email": "Adres e-mail",
+            "password": "Hasło",
+            "noAccount": "Nie masz konta?",
+            "forgotPassword": "Zapomniałeś hasła?"
+        }
     }
 }

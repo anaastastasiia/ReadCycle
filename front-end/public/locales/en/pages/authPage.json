@@ -18,5 +18,14 @@
             "confirmPassword": "Confirm password",
             "haveAccount": "Already have an account?"
         }
+    },
+    "login": {
+        "welcome": "Welcome!",
+        "form": {
+            "email": "Email address",
+            "password": "Password",
+            "noAccount": "Don’t have an account?",
+            "forgotPassword": "Forgot password?"
+        }
     }
 }
