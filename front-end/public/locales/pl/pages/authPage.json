@@ -1,0 +1,22 @@
+{
+    "register": {
+        "welcome": "Witamy! Załóż konto!",
+        "form": {
+            "firstName": "Imię",
+            "lastName": "Nazwisko",
+            "email": "Adres e-mail",
+            "phoneNumber": "Numer telefonu",
+            "address": {
+                "title": "Adres",
+                "street": "Ulica",
+                "houseNumber": "Numer domu",
+                "apartment": "Numer mieszkania",
+                "city": "Miasto",
+                "postalCode": "Kod pocztowy" 
+            },
+            "password": "Hasło",
+            "confirmPassword": "Potwierdź hasło",
+            "haveAccount": "Masz już konto?"
+        }
+    }
+}

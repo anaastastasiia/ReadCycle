@@ -1,0 +1,22 @@
+{
+    "register": {
+        "welcome": "Welcome! Create an account!",
+        "form": {
+            "firstName": "First name",
+            "lastName": "Last name",
+            "email": "Email address",
+            "phoneNumber": "Phone number",
+            "address": {
+                "title": "Address",
+                "street": "Street",
+                "houseNumber": "House number",
+                "apartment": "Apartment number",
+                "city": "City",
+                "postalCode": "Postal code"
+            },
+            "password": "Password",
+            "confirmPassword": "Confirm password",
+            "haveAccount": "Already have an account?"
+        }
+    }
+}

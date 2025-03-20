@@ -1,0 +1,22 @@
+{
+    "register": {
+        "welcome": "Ласкаво просимо! Створіть акаунт!",
+        "form": {
+            "firstName": "Ім'я",
+            "lastName": "Прізвище",
+            "email": "Адреса електронної пошти",
+            "phoneNumber": "Номер телефону",
+            "address": {
+                "title": "Адреса",
+                "street": "Вулиця",
+                "houseNumber": "Номер будинку",
+                "apartment": "Номер квартири",
+                "city": "Місто",
+                "postalCode": "Поштовий індекс"
+            },
+            "password": "Пароль",
+            "confirmPassword": "Підтвердьте пароль",
+            "haveAccount": "Вже маєте акаунт?"
+        }
+    }
+}

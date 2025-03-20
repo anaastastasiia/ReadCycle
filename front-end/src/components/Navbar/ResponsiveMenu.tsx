@@ -2,10 +2,14 @@ import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ResponsiveMenuProps } from '../../model/types';
 import { LanguageSwitcher } from '../LanguageSwitcher/LanguageSwitcher';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useUserContext } from '../../contexts/UserContext';
 
 const ResponsiveMenu = ({ open, options, closeMenu }: ResponsiveMenuProps) => {
     const { t } = useTranslation();
+    const { user, login, register, logout } = useUserContext();
 
+    console.log('USER: ', user);
     return (
         <AnimatePresence mode="wait">
             {open && (
@@ -29,6 +33,29 @@ const ResponsiveMenu = ({ open, options, closeMenu }: ResponsiveMenuProps) => {
                                 );
                             })}
                             <LanguageSwitcher />
+                            {user ? (
+                                <div className="block space-x-6">
+                                    {user.firstName}
+                                    <button onClick={logout} className="pl-3">
+                                        <LogoutIcon />
+                                    </button>
+                                </div>
+                            ) : (
+                                <div className="block space-x-6">
+                                    <button
+                                        className="font-semibold"
+                                        onClick={login}
+                                    >
+                                        {t('pages:mainPage.navbar.signIn')}
+                                    </button>
+                                    <button
+                                        className="text-white bg-secondary font-semibold rounded-full px-6 py-2 "
+                                        onClick={register}
+                                    >
+                                        {t('pages:mainPage.navbar.register')}
+                                    </button>
+                                </div>
+                            )}
                         </ul>
                     </div>
                 </motion.div>

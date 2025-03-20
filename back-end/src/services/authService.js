@@ -61,7 +61,6 @@ export const login = async (req, res) => {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
-        console.log(user);
         const tokenPayload = {
             id: user.id,
             email: user.email,
@@ -74,12 +73,10 @@ export const login = async (req, res) => {
             apartment: user.apartment || '',
             postalCode: user.postal_code
         };
-        console.log(tokenPayload);
 
         const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, {
             expiresIn: '2h'
         });
-        console.log('Generated Token:', token);
 
         return token;
     } catch (error) {
