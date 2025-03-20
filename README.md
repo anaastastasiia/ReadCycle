@@ -1,4 +1,4 @@
-# 📚 ReadCycle - A Marketplace for Used Books
+# 📚 ReadCycle - A marketplace for used books
 
 **ReadCycle** is an eco-friendly online platform where people can sell their read books, find new owners for their favorite stories, and contribute to sustainable living.
 
