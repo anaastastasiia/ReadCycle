@@ -82,3 +82,11 @@ export const LANGUAGES = [
   { label: "Polish", value: "pl", img: Flag_of_Poland },
   { label: "Ukrainian", value: "ua", img: Flag_of_Ukraine },
 ];
+
+export const AccountMenu = [
+  {
+    id: 1,
+    key: NavbarEnum.HOME,
+    link: "/",
+  },
+];

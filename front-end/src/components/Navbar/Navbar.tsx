@@ -3,18 +3,20 @@ import { MdMenu } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { NavbarMenu } from '../../model/data.ts';
+import { AccountMenu, NavbarMenu } from '../../model/data.ts';
 import ResponsiveMenu from './ResponsiveMenu.js';
+import { AccountDetails } from './AccountDetails.tsx';
 import { LanguageSwitcher } from '../LanguageSwitcher/LanguageSwitcher.tsx';
 import { authActions, authStore } from '../../store/authStore.ts';
 import { UserContext } from '../../contexts/UserContext.ts';
-import LogoutIcon from '@mui/icons-material/Logout';
 import Logo from '../../../public/assets/logo.png';
+import PersonIcon from '@mui/icons-material/Person';
 
 const Navbar = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
+    const [isOpenAccount, setIsOpenAccount] = useState(false);
     const { user, token } = authStore();
     const { clearData, loadUserData, checkTokenExpiration } = authActions;
 
@@ -22,12 +24,18 @@ const Navbar = () => {
         setIsOpen((prev) => !prev);
     };
 
+    const onClickAccount = () => {
+        setIsOpenAccount((prev) => !prev);
+    };
+
     const register = () => {
         navigate('/register');
+        setIsOpen(false);
     };
 
     const login = () => {
         navigate('/login');
+        setIsOpen(false);
     };
 
     useEffect(() => {
@@ -40,6 +48,7 @@ const Navbar = () => {
     const logout = () => {
         clearData();
         navigate('/');
+        setIsOpen(false);
     };
 
     return (
@@ -86,10 +95,9 @@ const Navbar = () => {
                     </div>
                     {user ? (
                         <div className="hidden lg:block space-x-6">
-                            {user.firstName}
-                            <button onClick={logout} className="pl-3">
-                                <LogoutIcon />
-                            </button>
+                            <div onClick={onClickAccount}>
+                                <PersonIcon />
+                            </div>
                         </div>
                     ) : (
                         <div className="hidden lg:block space-x-6">
@@ -104,7 +112,6 @@ const Navbar = () => {
                             </button>
                         </div>
                     )}
-
                     <div className="lg:hidden z-30" onClick={onClickMenu}>
                         <MdMenu className="text-4xl" />
                     </div>
@@ -120,6 +127,11 @@ const Navbar = () => {
                 open={isOpen}
                 options={NavbarMenu}
                 closeMenu={onClickMenu}
+            />
+            <AccountDetails
+                open={isOpenAccount}
+                options={AccountMenu}
+                closeMenu={onClickAccount}
             />
         </UserContext.Provider>
     );

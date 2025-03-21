@@ -26,6 +26,19 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerM
 /**
  * 
  * @export
+ * @interface ApiBookPost201Response
+ */
+export interface ApiBookPost201Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ApiBookPost201Response
+     */
+    'id'?: number;
+}
+/**
+ * 
+ * @export
  * @interface ApiUploadPost200Response
  */
 export interface ApiUploadPost200Response {
@@ -264,6 +277,81 @@ export interface LoginResponse {
      */
     'token': string;
 }
+/**
+ * 
+ * @export
+ * @interface NewBookRequest
+ */
+export interface NewBookRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof NewBookRequest
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof NewBookRequest
+     */
+    'author': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof NewBookRequest
+     */
+    'image'?: string | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof NewBookRequest
+     */
+    'images'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof NewBookRequest
+     */
+    'description': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof NewBookRequest
+     */
+    'price': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof NewBookRequest
+     */
+    'pages'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof NewBookRequest
+     */
+    'discount'?: number | null;
+    /**
+     * 
+     * @type {BookTypeEnum}
+     * @memberof NewBookRequest
+     */
+    'categoryName': BookTypeEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof NewBookRequest
+     */
+    'edition'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof NewBookRequest
+     */
+    'year'?: string | null;
+}
+
+
 /**
  * 
  * @export
@@ -596,6 +684,42 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Adds a new book to the database.
+         * @summary Create a new book
+         * @param {NewBookRequest} newBookRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiBookPost: async (newBookRequest: NewBookRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'newBookRequest' is not null or undefined
+            assertParamExists('apiBookPost', 'newBookRequest', newBookRequest)
+            const localVarPath = `/api/book`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(newBookRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -631,6 +755,19 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['DefaultApi.apiBookOnSaleGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * Adds a new book to the database.
+         * @summary Create a new book
+         * @param {NewBookRequest} newBookRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiBookPost(newBookRequest: NewBookRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiBookPost201Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiBookPost(newBookRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DefaultApi.apiBookPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -659,6 +796,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         apiBookOnSaleGet(options?: RawAxiosRequestConfig): AxiosPromise<Array<BookResponse>> {
             return localVarFp.apiBookOnSaleGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Adds a new book to the database.
+         * @summary Create a new book
+         * @param {NewBookRequest} newBookRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiBookPost(newBookRequest: NewBookRequest, options?: RawAxiosRequestConfig): AxiosPromise<ApiBookPost201Response> {
+            return localVarFp.apiBookPost(newBookRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -691,6 +838,18 @@ export class DefaultApi extends BaseAPI {
      */
     public apiBookOnSaleGet(options?: RawAxiosRequestConfig) {
         return DefaultApiFp(this.configuration).apiBookOnSaleGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Adds a new book to the database.
+     * @summary Create a new book
+     * @param {NewBookRequest} newBookRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public apiBookPost(newBookRequest: NewBookRequest, options?: RawAxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).apiBookPost(newBookRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

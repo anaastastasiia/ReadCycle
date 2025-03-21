@@ -91,14 +91,12 @@ const login = async (formData: LoginFormData) => {
         const response = await authController.callEndpoint((api) =>
             api.apiAuthLoginPost(formData)  
         );
-        console.log('response?.data.token: ', response?.data.token)
         
         if (response?.data.token) {
             authStore.setState(() => ({
                 token: response?.data.token
             }));
             localStorage.setItem('token', response?.data.token);
-            console.log('WAPADA')
             return true;
         } else {
             console.error('Token not received from API');
@@ -128,14 +126,11 @@ const setToken = (token: string) => {
 
 const loadUserData = () => {
     const token = localStorage.getItem('token');
-    console.log('store token: ', token)
 
     if(token) {
         const user = getUserFromToken(token);
-        console.log('store token user: ', user)
         
         if (user) {
-            console.log('store user: ', user)
             authStore.setState(() => ({
                 user: {
                     firstName: user.firstName,
@@ -152,8 +147,6 @@ const loadUserData = () => {
                 token: token
             }));
         }
-        console.log('store getState user: ', authStore.getState().user)
-
     } 
 };
 

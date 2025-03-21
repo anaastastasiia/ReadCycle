@@ -1,5 +1,3 @@
-import BookTypeEnum from './bookTypeEnum.js';
-
 export class BookResponse {
     constructor({
         id,
@@ -42,6 +40,50 @@ export class BookDetailsResponse {
         num_reviews
     }) {
         this.id = id;
+        this.name = name;
+        this.images = images;
+        this.edition = edition;
+        this.year = year;
+        this.dateCreated = date_created;
+        this.numReviews = num_reviews;
+        this.pages = pages;
+        this.author = author;
+        this.image = image;
+        this.description = description;
+        this.price = Number(price);
+        this.discount = discount;
+        this.categoryName = Object.values(BookTypeEnum).includes(category_name)
+            ? category_name
+            : BookTypeEnum.ALL;
+    }
+}
+
+export const BookTypeEnum = Object.freeze({
+    FICTION: 'fiction',
+    ROMANCE: 'romance',
+    CHILDREN: 'children',
+    FANTASY: 'fantasy',
+    MYSTERY: 'mystery',
+    BUSINESS: 'business',
+    PERSONAL: 'personal',
+    ALL: 'all'
+});
+
+export class NewBookRequest {
+    constructor({
+        name,
+        author,
+        image,
+        description,
+        price,
+        discount,
+        category_name,
+        images,
+        pages,
+        edition,
+        year,
+        num_reviews
+    }) {
         this.name = name;
         this.images = images;
         this.edition = edition;

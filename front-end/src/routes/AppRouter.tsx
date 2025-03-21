@@ -3,6 +3,7 @@ import MainPage from '../pages/MainPage';
 import { BookDetailsPage } from '../pages/BookDetailsPage';
 import { AuthPage } from '../pages/AuthPage';
 import { AuthEnum } from '../model/types';
+import { CreateItemPage } from '../pages/CreateItemPage';
 
 export const AppRouter = () => {
     return (
@@ -14,6 +15,7 @@ export const AppRouter = () => {
                 element={<AuthPage type={AuthEnum.REGISTER} />}
             />
             <Route path="/login" element={<AuthPage type={AuthEnum.LOGIN} />} />
+            <Route path="/create" element={<CreateItemPage />} />
         </Routes>
     );
 };
