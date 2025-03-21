@@ -40,15 +40,15 @@ export const RegisterForm = () => {
                 {t('pages:authPage.register.welcome')}
             </h2>
             <Form onSubmit={handleSubmit(handleRegister)} className="space-y-4">
-                <div className="flex gap-x-3">
-                    <div className="w-1/2">
+                <div className="flex gap-x-3 md:flex-row flex-col">
+                    <div className="md:w-1/2">
                         <FormInput
                             label={t('pages:authPage.register.form.firstName')}
                             register={formRegister('firstName')}
                             error={errors.firstName}
                         />
                     </div>
-                    <div className="w-1/2">
+                    <div className="md:w-1/2">
                         <FormInput
                             label={t('pages:authPage.register.form.lastName')}
                             register={formRegister('lastName')}

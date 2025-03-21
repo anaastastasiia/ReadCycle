@@ -71,7 +71,8 @@ export const login = async (req, res) => {
             street: user.street,
             houseNumber: user.house_number,
             apartment: user.apartment || '',
-            postalCode: user.postal_code
+            postalCode: user.postal_code,
+            role: user.role
         };
 
         const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, {

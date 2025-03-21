@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { motion } from 'framer-motion';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { authActions, authStore, LoginFormData } from '../../store/authStore';
+import { authActions, LoginFormData } from '../../store/authStore';
 import { Form, FormInput } from '../Form/Form';
 import { loginSchema } from '../../validation/authSchema';
 
@@ -11,7 +11,6 @@ export const LoginForm = () => {
     const navigate = useNavigate();
     const { t } = useTranslation();
     const { login, loadUserData } = authActions;
-    const { user } = authStore();
 
     const {
         register: formRegister,
@@ -25,7 +24,6 @@ export const LoginForm = () => {
         const res = await login(data);
         if (res) {
             loadUserData();
-            console.log(user);
             navigate('/');
         }
     };
