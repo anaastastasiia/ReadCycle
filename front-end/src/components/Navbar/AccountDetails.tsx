@@ -21,10 +21,10 @@ export const AccountDetails = ({
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -100 }}
                     transition={{ duration: 0.3 }}
-                    className="absolute top-20"
+                    className="absolute w-full bg-slate-50"
                 >
-                    <div className="text-xl font-semibold bg-white py-10 m-6 rounded-3xl">
-                        <ul className="flex flex-col justify-center items-center gap-10">
+                    <div className="text-xl font-semibold rounded-3xl">
+                        <ul className="flex flex-col justify-center items-center gap-4">
                             {options.map((item) => {
                                 return (
                                     <li
@@ -39,7 +39,6 @@ export const AccountDetails = ({
                             <LanguageSwitcher />
                             {user ? (
                                 <div className="block space-x-6">
-                                    {user.firstName}
                                     <button onClick={logout} className="pl-3">
                                         <LogoutIcon />
                                     </button>

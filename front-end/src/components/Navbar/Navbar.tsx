@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { MdMenu } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { AccountMenu, NavbarMenu } from '../../model/data.ts';
 import ResponsiveMenu from './ResponsiveMenu.js';
@@ -11,6 +11,7 @@ import { authActions, authStore } from '../../store/authStore.ts';
 import { UserContext } from '../../contexts/UserContext.ts';
 import Logo from '../../../public/assets/logo.png';
 import PersonIcon from '@mui/icons-material/Person';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const Navbar = () => {
     const { t } = useTranslation();
@@ -19,6 +20,7 @@ const Navbar = () => {
     const [isOpenAccount, setIsOpenAccount] = useState(false);
     const { user, token } = authStore();
     const { clearData, loadUserData, checkTokenExpiration } = authActions;
+    const accountRef = useRef<HTMLDivElement>(null);
 
     const onClickMenu = () => {
         setIsOpen((prev) => !prev);
@@ -51,6 +53,22 @@ const Navbar = () => {
         navigate('/');
         setIsOpen(false);
     };
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                accountRef.current &&
+                !accountRef.current.contains(event.target as Node)
+            ) {
+                setIsOpenAccount(false);
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () =>
+            document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
     return (
         <UserContext.Provider value={{ user, token, login, register, logout }}>
@@ -95,13 +113,32 @@ const Navbar = () => {
                         <LanguageSwitcher />
                     </div>
                     {user ? (
-                        <div className="hidden lg:block space-x-6">
-                            <div onClick={onClickAccount}>
-                                <PersonIcon />
+                        <div
+                            className="relative hidden lg:block space-x-6 w-1/8"
+                            ref={accountRef}
+                        >
+                            <div
+                                onClick={onClickAccount}
+                                className="cursor-pointer flex items-center"
+                            >
+                                <PersonIcon />{' '}
+                                <div className="text-xl font-semibold px-4">
+                                    {user.firstName}
+                                </div>
+                                <KeyboardArrowDownIcon />
                             </div>
+                            {isOpenAccount && (
+                                <div className="absolute right-0 mt-2 w-full bg-white shadow-lg rounded-lg z-50">
+                                    <AccountDetails
+                                        open={isOpenAccount}
+                                        options={AccountMenu}
+                                        closeMenu={onClickAccount}
+                                    />
+                                </div>
+                            )}
                         </div>
                     ) : (
-                        <div className="hidden lg:block space-x-6">
+                        <div className="relative hidden lg:block space-x-6">
                             <button className="font-semibold" onClick={login}>
                                 {t('pages:mainPage.navbar.signIn')}
                             </button>
@@ -128,11 +165,6 @@ const Navbar = () => {
                 open={isOpen}
                 options={NavbarMenu}
                 closeMenu={onClickMenu}
-            />
-            <AccountDetails
-                open={isOpenAccount}
-                options={AccountMenu}
-                closeMenu={onClickAccount}
             />
         </UserContext.Provider>
     );

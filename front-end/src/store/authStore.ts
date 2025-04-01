@@ -127,11 +127,9 @@ const setToken = (token: string) => {
 
 const loadUserData = () => {
     const token = localStorage.getItem('token');
-    console.log(token)
 
     if(token) {
         const user = getUserFromToken(token);
-    console.log(user)
         
         if (user) {
             authStore.setState(() => ({

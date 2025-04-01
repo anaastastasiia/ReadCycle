@@ -19,7 +19,7 @@ const ResponsiveMenu = ({ open, options, closeMenu }: ResponsiveMenuProps) => {
                     transition={{ duration: 0.3 }}
                     className="absolute top-20 left-0 w-full h-screen z-20 lg:hidden"
                 >
-                    <div className="text-xl font-semibold bg-white  py-10 m-6 rounded-3xl">
+                    <div className="text-xl font-semibold bg-white py-10 m-6 rounded-3xl">
                         <ul className="flex flex-col justify-center items-center gap-10">
                             {options.map((item) => {
                                 return (
