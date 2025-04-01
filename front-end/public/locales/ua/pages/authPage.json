@@ -27,5 +27,11 @@
             "noAccount": "Не маєте акаунта?",
             "forgotPassword": "Забули пароль?"
         }
+    },
+    "accountMenu": {
+        "createItem": "Створити новий товар",
+        "ordersHistory": "Історія замовлень",
+        "cart": "Кошик",
+        "account": "Деталі акаунта"
     }
 }

@@ -27,5 +27,11 @@
             "noAccount": "Don’t have an account?",
             "forgotPassword": "Forgot password?"
         }
+    },
+    "accountMenu": {
+        "createItem": "Create new item",
+        "ordersHistory": "Order history",
+        "cart": "Cart",
+        "account": "Account details"
     }
 }

@@ -5,9 +5,9 @@ import { ResponsiveMenuProps } from '../../model/types';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 export const AccountDetails = ({
-    open
-    // options,
-    // closeMenu
+    open,
+    options,
+    closeMenu
 }: ResponsiveMenuProps) => {
     const { t } = useTranslation();
     const { user, login, register, logout } = useUserContext();
@@ -22,19 +22,21 @@ export const AccountDetails = ({
                     transition={{ duration: 0.3 }}
                     className="absolute w-full bg-slate-50"
                 >
-                    <div className="text-xl font-semibold rounded-3xl">
+                    <div className="text-l rounded-3xl">
                         <ul className="flex flex-col justify-center items-center gap-4">
-                            {/* {options.map((item) => {
+                            {options.map((item) => {
                                 return (
                                     <li
                                         className="cursor-pointer"
                                         onClick={closeMenu}
                                         key={item.id}
                                     >
-                                        {t(`enums:NavbarEnum.${item.key}`)}
+                                        {t(
+                                            `pages:authPage.accountMenu.${item.key}`
+                                        )}
                                     </li>
                                 );
-                            })} */}
+                            })}
                             {user ? (
                                 <div className="block space-x-6">
                                     <button onClick={logout} className="pl-3">

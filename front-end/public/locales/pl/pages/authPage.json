@@ -27,5 +27,11 @@
             "noAccount": "Nie masz konta?",
             "forgotPassword": "Zapomniałeś hasła?"
         }
+    },
+    "accountMenu": {
+        "createItem": "Utwórz nowy product",
+        "ordersHistory": "Historia zamówień",
+        "cart": "Koszyk",
+        "account": "Szczegóły konta"
     }
 }

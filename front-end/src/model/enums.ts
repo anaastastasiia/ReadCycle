@@ -16,4 +16,11 @@ enum NavbarEnum {
     HELP = "help",
 }
 
-export {NavbarEnum, BooksTypeEnum}
+enum AccountMenuEnum {
+    CREATE = "createItem",
+    HISTORY = "ordersHistory",
+    CART = "cart",
+    ACCOUNT = "account",
+}
+
+export {NavbarEnum, BooksTypeEnum, AccountMenuEnum}

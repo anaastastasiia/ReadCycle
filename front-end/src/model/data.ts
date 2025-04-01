@@ -1,4 +1,4 @@
-import { BooksTypeEnum, NavbarEnum } from "../model/enums";
+import { AccountMenuEnum, BooksTypeEnum, NavbarEnum } from "../model/enums";
 import Flag_of_Ukraine from '../../public/assets/Flag_of_Ukraine.png';
 import Flag_of_Poland from '../../public/assets/Flag_of_Poland.png';
 import Flag_of_the_United_States from '../../public/assets/Flag_of_the_United_States.png';
@@ -86,7 +86,22 @@ export const LANGUAGES = [
 export const AccountMenu = [
   {
     id: 1,
-    key: NavbarEnum.HELP,
+    key: AccountMenuEnum.CREATE,
+    link: "/",
+  },
+  {
+    id: 2,
+    key: AccountMenuEnum.HISTORY,
+    link: "/",
+  },
+  {
+    id: 3,
+    key: AccountMenuEnum.CART,
+    link: "/",
+  },
+  {
+    id: 4,
+    key: AccountMenuEnum.ACCOUNT,
     link: "/",
   },
 ];
