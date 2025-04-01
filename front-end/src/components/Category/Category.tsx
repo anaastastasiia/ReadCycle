@@ -25,8 +25,7 @@ const Category = () => {
 
     const handleUpload = async () => {
         if (file) {
-            const imageUrl = await uploadActions.uploadImage(file, 2);
-            console.log('Uploaded image URL:', imageUrl);
+            await uploadActions.uploadImage(file, 2);
         }
     };
 
