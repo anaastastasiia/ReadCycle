@@ -30,6 +30,7 @@ export const AccountDetails = ({
                                     <li
                                         className="uppercase cursor-pointer"
                                         onClick={closeMenu}
+                                        key={item.id}
                                     >
                                         {t(`enums:NavbarEnum.${item.key}`)}
                                     </li>

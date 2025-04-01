@@ -71,10 +71,11 @@ const register = async (formData: RegisterRequest) => {
             api.apiAuthRegisterPost(formData)  
         );
 
-        if (response?.data.token) {
+        if (response && response.data.token) {
             authStore.setState(() => ({
                 token: response?.data.token
             }));
+            localStorage.setItem('token', response?.data.token);
             return true;
         } else {
             console.error('Token not received from API');
@@ -126,9 +127,11 @@ const setToken = (token: string) => {
 
 const loadUserData = () => {
     const token = localStorage.getItem('token');
+    console.log(token)
 
     if(token) {
         const user = getUserFromToken(token);
+    console.log(user)
         
         if (user) {
             authStore.setState(() => ({

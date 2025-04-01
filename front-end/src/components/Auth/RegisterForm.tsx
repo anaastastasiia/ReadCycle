@@ -23,6 +23,7 @@ export const RegisterForm = () => {
 
     const handleRegister = async (data: RegisterFormData) => {
         const res = await register(AuthMapper.mapRegisterData(data));
+        console.log(res);
         if (res) {
             loadUserData();
             navigate('/');

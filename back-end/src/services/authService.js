@@ -35,7 +35,31 @@ export const register = async (req) => {
             hashedPassword
         ]
     );
-    return rows[0];
+
+    const user = rows[0];
+    if (user) {
+        const tokenPayload = {
+            id: user.id,
+            email: user.email,
+            firstName: user.first_name,
+            lastName: user.last_name,
+            phoneNumber: user.phone_number,
+            city: user.city,
+            street: user.street,
+            houseNumber: user.house_number,
+            apartment: user.apartment || '',
+            postalCode: user.postal_code,
+            role: user.role
+        };
+
+        const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, {
+            expiresIn: '2h'
+        });
+
+        return token;
+    } else {
+        return res.status(401).json({ message: 'Invalid credentials' });
+    }
 };
 
 export const login = async (req, res) => {

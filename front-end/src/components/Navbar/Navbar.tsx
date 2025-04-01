@@ -36,6 +36,7 @@ const Navbar = () => {
     const login = () => {
         navigate('/login');
         setIsOpen(false);
+        setIsOpenAccount(false);
     };
 
     useEffect(() => {

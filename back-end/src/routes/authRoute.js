@@ -75,7 +75,7 @@ const router = express.Router();
  *             $ref: '#/components/schemas/RegisterRequest'
  *     responses:
  *       "201":
- *         description: Użytkownik zarejestrowany pomyślnie
+ *         description: Użytkownik zarejestrowany pomyślnie, zwraca token JWT
  *         content:
  *           application/json:
  *             schema:
