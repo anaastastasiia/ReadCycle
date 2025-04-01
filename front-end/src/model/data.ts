@@ -86,7 +86,7 @@ export const LANGUAGES = [
 export const AccountMenu = [
   {
     id: 1,
-    key: NavbarEnum.HOME,
+    key: NavbarEnum.HELP,
     link: "/",
   },
 ];
