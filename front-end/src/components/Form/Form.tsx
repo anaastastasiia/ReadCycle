@@ -1,6 +1,7 @@
-import { ReactNode, useEffect } from 'react';
+import { ReactNode } from 'react';
 import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 import ClearIcon from '@mui/icons-material/Clear';
+import { ErrorMessage } from './ErrorMessage';
 
 interface FormProps {
     children: ReactNode;
@@ -63,7 +64,7 @@ export const FormInput = ({
                     </button>
                 )}
             </div>
-            {error && <p className="text-red-500 text-sm">{error.message}</p>}
+            {error && <ErrorMessage message={error?.message as string} />}
         </div>
     );
 };

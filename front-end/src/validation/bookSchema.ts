@@ -1,28 +1,24 @@
 import * as yup from "yup";
 import { BooksTypeEnum } from "../model/enums";
 
-const messages = {
-    required: 'errors:validation.required'
-}
-
 export const createBookSchema = yup.object().shape({
-  name: yup.string().required(messages.required),
-  author: yup.string().required("Field author is required"),
-  description: yup.string().required("Field description is required"),
+  name: yup.string().required('errors:validation.required'),
+  author: yup.string().required("errors:validation.required"),
+  description: yup.string().required("errors:validation.required"),
   price: yup
     .number()
-    .typeError("Price must be a number")
-    .positive("Price must be positive")
-    .required("Field price is required"),
+    .typeError("errors:validation.createBook.priceNumber")
+    .positive("errors:validation.createBook.pricePositive")
+    .required("errors:validation.required"),
   categoryName: yup
     .mixed<BooksTypeEnum>()
-    .oneOf(Object.values(BooksTypeEnum), "Invalid category")
-    .required("Field categoryName is required"),
+    .oneOf(Object.values(BooksTypeEnum), "errors:validation.createBook.category")
+    .required("errors:validation.required"),
   image: yup.string().nullable(),
-  pages: yup.number().typeError("Pages must be a number").positive("Pages must be positive").nullable(),
+  pages: yup.number().typeError("errors:validation.createBook.pagesNumber").positive("errors:validation.createBook.pagesPositive").nullable(),
   edition: yup.string().nullable(),
   year: yup
     .string()
-    .matches(/^\d{4}$/, "Year must be a valid 4-digit number")
+    .matches(/^\d{4}$/, "errors:validation.createBook.year")
     .nullable(),
 });

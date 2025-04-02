@@ -13,7 +13,7 @@ import { categoriesActions, categoriesStore } from '../store/useCategories';
 
 export const CreateItemPage = () => {
     const navigate = useNavigate();
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const { createBook } = booksActions;
     const { getCategories } = categoriesActions;
     const { categories } = categoriesStore();
@@ -26,7 +26,8 @@ export const CreateItemPage = () => {
         register: formRegister,
         handleSubmit,
         formState: { errors },
-        setValue
+        setValue,
+        trigger
     } = useForm<CreateBookFormData>({
         resolver: yupResolver(createBookSchema)
     });
@@ -50,6 +51,13 @@ export const CreateItemPage = () => {
         value: category.id.toString(),
         label: t(`enums:BooksTypeEnum.${category.key}`)
     }));
+
+    useEffect(() => {
+        const validateForm = async () => {
+            await trigger();
+        };
+        validateForm();
+    }, [i18n.language, trigger]);
 
     return (
         <div className="max-w-3xl mx-auto p-8 bg-white shadow-xl rounded-xl mb-6">
