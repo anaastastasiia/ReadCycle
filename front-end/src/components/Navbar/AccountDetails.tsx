@@ -31,9 +31,14 @@ export const AccountDetails = ({
                                         onClick={closeMenu}
                                         key={item.id}
                                     >
-                                        {t(
-                                            `pages:authPage.accountMenu.${item.key}`
-                                        )}
+                                        <a
+                                            href={item.link}
+                                            className="inline-block text-sm xl:text-base hover:text-secondary transition-all duration-300"
+                                        >
+                                            {t(
+                                                `pages:authPage.accountMenu.${item.key}`
+                                            )}
+                                        </a>
                                     </li>
                                 );
                             })}
