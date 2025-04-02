@@ -1,0 +1,16 @@
+{
+    "title": "Dodaj nową książkę",
+    "form": {
+        "name": "Tytuł",
+        "author": "Autor",
+        "image": "Obrazek",
+        "images": "Dodatkowe obrazki",
+        "pages": "Strony",
+        "discount": "Rabat (%)",
+        "year": "Rok",
+        "edition": "Wydanie",
+        "description": "Opis",
+        "category": "Kategoria",
+        "price": "Cena"
+    }
+}

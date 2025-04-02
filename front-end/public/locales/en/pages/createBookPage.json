@@ -1,0 +1,16 @@
+{
+    "title": "Add new book",
+    "form": {
+        "name": "Title",
+        "author": "Author",
+        "image": "Image",
+        "images": "Additional images",
+        "pages": "Pages",
+        "discount": "Discount (%)",
+        "year": "Yesr",
+        "edition": "Edition",
+        "description": "Description",
+        "category": "Category",
+        "price": "Price"
+    }
+}

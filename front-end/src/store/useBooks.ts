@@ -3,13 +3,28 @@ import { create } from 'zustand';
 import BooksMapper from '../model/mapper/BooksMapper';
 // import { ProduceState } from '../model/types';
 import { apiController } from '../controllers/apiController';
-import { BookResponse } from '../api';
+import { BookResponse, NewBookRequest } from '../api';
 import { BookDetails } from '../model/types';
 import { BooksTypeEnum } from '../model/enums';
 
 export interface BookState {
     books: BookResponse[];
     bookDetails: BookDetails;
+    newBookId?: number;
+}
+
+export interface CreateBookFormData {
+    name: string,
+    author: string,
+    image?: string | null,
+    images?: string[],
+    description: string,
+    price: number,
+    pages?: number | null,
+    discount?: number | null,
+    categoryName: BooksTypeEnum,
+    edition?: string | null,
+    year?: string | null
 }
 
 //STORE
@@ -22,7 +37,8 @@ export const booksStore = create<BookState>(() => ({
         description: "",
         name: "",
         price: 0
-    }
+    },
+    newBookId: undefined
 }))
 
 // const map = produce<ProduceState<CategoriesState>>;
@@ -60,4 +76,20 @@ const getBookDetails = async (id: number) => {
     }
 }
 
-export const booksActions = {getBooksForBanner, getBookDetails}
+const createBook = async (book: NewBookRequest) => {
+    try {
+        const res = await apiController.callEndpoint((api) => api.apiBookPost(book));
+        if(res && res.data) {
+            booksStore.setState(() => ({
+                newBookId: res.data.id
+            }))
+            return true;
+        } 
+        return false;
+    } catch (err) {
+        console.error('Error while creating new book: ', err)
+        return false;
+    }
+}
+
+export const booksActions = {getBooksForBanner, getBookDetails, createBook}
