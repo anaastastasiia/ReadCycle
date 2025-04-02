@@ -87,7 +87,7 @@ export const AccountMenu = [
   {
     id: 1,
     key: AccountMenuEnum.CREATE,
-    link: "/",
+    link: "/create",
   },
   {
     id: 2,
