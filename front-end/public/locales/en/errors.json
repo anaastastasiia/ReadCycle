@@ -2,14 +2,12 @@
     "validation": {
         "required": "Field is required",
         "createBook": {
-            "type": {
-                "priceNumber": "Price must be a number",
-                "pricePositive": "Price must be positive",
-                "category": "Invalid category",
-                "pagesNumber": "Pages must be a number",
-                "pagesPositive": "Pages must be positive",
-                "year": "Year must be a valid 4-digit number"
-            }
+            "priceNumber": "Price must be a number",
+            "pricePositive": "Price must be positive",
+            "category": "Invalid category",
+            "pagesNumber": "Pages must be a number",
+            "pagesPositive": "Pages must be positive",
+            "year": "Year must be a valid 4-digit number"
         }
     }
 }
