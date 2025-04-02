@@ -1,0 +1,21 @@
+{
+    "validation": {
+        "createBook": {
+            "required": {
+                "name": "Pole nazwa jest wymagane",
+                "author": "Pole autor jest wymagane",
+                "description": "Pole opis jest wymagane",
+                "price": "Pole cena jest wymagane",
+                "categoryName": "Pole kategoria jest wymagane"
+            },
+            "type": {
+                "priceNumber": "Cena musi być liczbą",
+                "pricePositive": "Cena musi być dodatnia",
+                "category": "Nieprawidłowa kategoria",
+                "pagesNumber": "Liczba stron musi być liczbą",
+                "pagesPositive": "Liczba stron musi być dodatnia",
+                "year": "Rok musi być prawidłową 4-cyfrową liczbą"
+            }
+        }
+    }
+}
