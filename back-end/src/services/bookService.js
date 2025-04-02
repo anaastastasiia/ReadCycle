@@ -48,9 +48,9 @@ export const createBook = async (req) => {
             price,
             discount,
             year,
-            date_created,
+            new Date(),
             category_id,
-            num_reviews
+            0
         ]
     );
     return newBook.rows[0];
