@@ -53,11 +53,11 @@ export const CreateItemPage = () => {
     }));
 
     useEffect(() => {
-        const validateForm = async () => {
-            await trigger();
-        };
-        validateForm();
-    }, [i18n.language, trigger]);
+        Object.keys(errors).forEach((key) => {
+            const field = key as keyof CreateBookFormData;
+            trigger(field);
+        });
+    }, [i18n.language]);
 
     return (
         <div className="max-w-3xl mx-auto p-8 bg-white shadow-xl rounded-xl mb-6">

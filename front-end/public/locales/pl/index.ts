@@ -8,16 +8,18 @@ import authPage from './pages/authPage.json';
 import createBookPage from './pages/createBookPage.json';
 
 export default {
-    pages: {
-        mainPage,
-        bookDetails,
-        authPage,
-        createBookPage
-    },
-    components: {
-        bookFilter
-    },
-    common,
-    enums,
-    errors
-}
+    translation: {
+        pages: {
+            mainPage,
+            bookDetails,
+            authPage,
+            createBookPage
+        },
+        components: {
+            bookFilter
+        },
+        common,
+        enums,
+        errors
+    }
+};

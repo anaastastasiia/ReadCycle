@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LanguageType } from '../../model/types.ts';
 import { LANGUAGES } from '../../model/data.ts';
 
@@ -13,6 +13,19 @@ export const LanguageSwitcher = () => {
         i18n.changeLanguage(lang.value);
         setIsOpenLngSelect(false);
     };
+
+    useEffect(() => {
+        const storedLanguage = localStorage.getItem('i18nextLng');
+
+        if (storedLanguage) {
+            const language = LANGUAGES.find(
+                (lang) => lang.value === storedLanguage
+            );
+            if (language) {
+                setSelectedLanguage(language);
+            }
+        }
+    }, []);
 
     return (
         <div>
