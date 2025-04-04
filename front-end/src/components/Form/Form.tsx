@@ -5,7 +5,7 @@ import { ErrorMessage } from './ErrorMessage';
 
 interface FormProps {
     children: ReactNode;
-    onSubmit: () => void;
+    onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
     className?: string;
 }
 

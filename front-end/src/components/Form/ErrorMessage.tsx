@@ -8,16 +8,15 @@ interface ErrorMessageOptions {
 interface ErrorMessageProps {
     message?: React.ReactNode | ErrorMessageOptions;
 }
+
 export const ErrorMessage = ({ message }: ErrorMessageProps) => {
     const { t } = useTranslation();
-    let translation = '';
-    if (isObject(message)) {
-        const msgObj = message as ErrorMessageOptions;
-        translation = t(msgObj.message);
-    } else {
-        translation = t(message as string);
-    }
-    return message ? (
-        <div className="text-red-500 text-sm">{translation}</div>
-    ) : null;
+
+    if (!message) return null;
+
+    const translation = isObject(message)
+        ? t((message as ErrorMessageOptions).message)
+        : t(message as string);
+
+    return <div className="text-red-500 text-sm">{translation}</div>;
 };
