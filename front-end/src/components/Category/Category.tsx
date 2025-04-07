@@ -2,8 +2,6 @@ import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { categoriesActions, categoriesStore } from '../../store/useCategories';
 import { useEffect } from 'react';
-import { useState } from 'react';
-import { uploadActions } from '../../store/uploadStore';
 
 const Category = () => {
     const { t } = useTranslation();
@@ -14,33 +12,9 @@ const Category = () => {
         getCategories();
     }, []);
 
-    const [file, setFile] = useState<File | null>(null);
-
-    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const selectedFile = event.target.files?.[0];
-        if (selectedFile) {
-            setFile(selectedFile);
-        }
-    };
-
-    const handleUpload = async () => {
-        if (file) {
-            await uploadActions.uploadImage(file, 2);
-        }
-    };
-
     return (
         <>
             <div>
-                <div>
-                    <input
-                        type="file"
-                        id="fileInput"
-                        name="image"
-                        onChange={handleFileChange}
-                    />
-                    <button onClick={handleUpload}>Upload Image</button>
-                </div>
                 <div className="container py-14 bg-[#f9f9f9]">
                     <div className="space-y-4 px-6 pb-6 text-center max-w-[600px] mx-auto mb-5">
                         <h1 className="uppercase font-semibold text-orange-500">
