@@ -16,10 +16,11 @@ export const CreateItemPage = () => {
     const navigate = useNavigate();
     const { t, i18n } = useTranslation();
     const [file, setFile] = useState<File | null>(null);
+    const [files, setFiles] = useState<File[]>([]);
     const { createBook } = booksActions;
     const { getCategories } = categoriesActions;
     const { categories } = categoriesStore();
-    const { uploadImage } = uploadActions;
+    const { uploadImage, uploadImages } = uploadActions;
 
     useEffect(() => {
         getCategories();
@@ -42,21 +43,49 @@ export const CreateItemPage = () => {
         }
     };
 
+    const handleFilesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const selectedFiles = event.target.files;
+        if (selectedFiles) {
+            setFiles(Array.from(selectedFiles));
+        }
+    };
+
     const handleUpload = async (id: number) => {
         if (file) {
             await uploadImage(file, id);
-            return true;
         }
-        return false;
+    };
+
+    const handleUploadImages = async (id: number) => {
+        if (files.length > 0) {
+            await uploadImages(files, id);
+        }
     };
 
     const handleCreate = async (data: CreateBookFormData) => {
         const res = await createBook(BooksMapper.mapNewBook(data));
-        if (res) {
-            const uploaded = await handleUpload(res);
-            if (uploaded) {
-                navigate('/');
-            }
+        if (!res) return;
+
+        if (!file && files.length === 0) {
+            navigate('/');
+            return;
+        }
+
+        const promises: Promise<void>[] = [];
+        if (file) {
+            promises.push(handleUpload(res));
+        }
+
+        if (files.length > 0) {
+            promises.push(handleUploadImages(res));
+        }
+
+        try {
+            await Promise.all(promises);
+            navigate('/');
+        } catch (err) {
+            console.error('Upload failed: ', err);
+            //TODO dodać później toast
         }
     };
 
@@ -128,6 +157,7 @@ export const CreateItemPage = () => {
                     register={formRegister('images')}
                     clearable
                     onClear={handleClearFiles}
+                    onChange={handleFilesChange}
                 />
                 <FormInput
                     register={formRegister('edition')}
