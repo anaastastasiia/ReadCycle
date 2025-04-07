@@ -182,7 +182,7 @@ router.get('/details/:id', bookController.getBooksDetails);
  *         - author
  *         - description
  *         - price
- *         - categoryName
+ *         - category
  *       properties:
  *         name:
  *           type: string
@@ -216,9 +216,9 @@ router.get('/details/:id', bookController.getBooksDetails);
  *           type: number
  *           nullable: true
  *           example: 2.5
- *         categoryName:
- *           $ref: '#/components/schemas/BookTypeEnum'
- *           example: "fiction"
+ *         category:
+ *           type: number
+ *           example: 8
  *         edition:
  *           type: string
  *           nullable: true
@@ -228,7 +228,7 @@ router.get('/details/:id', bookController.getBooksDetails);
  *           nullable: true
  *           example: "2024"
  *
- * /api/book:
+ * /api/book/new:
  *   post:
  *     summary: Create a new book
  *     description: Adds a new book to the database.
@@ -254,6 +254,6 @@ router.get('/details/:id', bookController.getBooksDetails);
  *       500:
  *         description: Internal server error.
  */
-router.post('/book', bookController.createBook);
+router.post('/new', bookController.createBook);
 
 export default router;
