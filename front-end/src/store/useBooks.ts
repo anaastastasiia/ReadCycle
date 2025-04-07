@@ -22,7 +22,7 @@ export interface CreateBookFormData {
     price: number,
     pages?: number | null,
     discount?: number | null,
-    categoryName: BooksTypeEnum,
+    category: number,
     edition?: string | null,
     year?: string | null
 }
@@ -78,12 +78,12 @@ const getBookDetails = async (id: number) => {
 
 const createBook = async (book: NewBookRequest) => {
     try {
-        const res = await apiController.callEndpoint((api) => api.apiBookPost(book));
+        const res = await apiController.callEndpoint((api) => api.apiBookNewPost(book));
         if(res && res.data) {
             booksStore.setState(() => ({
                 newBookId: res.data.id
             }))
-            return true;
+            return booksStore.getState().newBookId;
         } 
         return false;
     } catch (err) {

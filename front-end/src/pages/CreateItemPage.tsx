@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -9,14 +9,17 @@ import BooksMapper from '../model/mapper/BooksMapper';
 import { createBookSchema } from '../validation/bookSchema';
 import { FormSelect } from '../components/Form/Select';
 import { booksActions, CreateBookFormData } from '../store/useBooks';
+import { uploadActions } from '../store/uploadStore';
 import { categoriesActions, categoriesStore } from '../store/useCategories';
 
 export const CreateItemPage = () => {
     const navigate = useNavigate();
     const { t, i18n } = useTranslation();
+    const [file, setFile] = useState<File | null>(null);
     const { createBook } = booksActions;
     const { getCategories } = categoriesActions;
     const { categories } = categoriesStore();
+    const { uploadImage } = uploadActions;
 
     useEffect(() => {
         getCategories();
@@ -32,10 +35,28 @@ export const CreateItemPage = () => {
         resolver: yupResolver(createBookSchema)
     });
 
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const selectedFile = event.target.files?.[0];
+        if (selectedFile) {
+            setFile(selectedFile);
+        }
+    };
+
+    const handleUpload = async (id: number) => {
+        if (file) {
+            await uploadImage(file, id);
+            return true;
+        }
+        return false;
+    };
+
     const handleCreate = async (data: CreateBookFormData) => {
         const res = await createBook(BooksMapper.mapNewBook(data));
         if (res) {
-            navigate('/');
+            const uploaded = await handleUpload(res);
+            if (uploaded) {
+                navigate('/');
+            }
         }
     };
 
@@ -73,6 +94,7 @@ export const CreateItemPage = () => {
                     error={errors.image}
                     onClear={handleClearFile}
                     clearable
+                    onChange={handleFileChange}
                 />
                 <FormInput
                     register={formRegister('name')}
@@ -94,7 +116,7 @@ export const CreateItemPage = () => {
                     error={errors.price}
                 />
                 <FormSelect
-                    register={formRegister('categoryName')}
+                    register={formRegister('category')}
                     label={t('pages:createBookPage.form.category')}
                     options={categoriesOptions}
                 />

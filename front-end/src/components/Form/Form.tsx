@@ -19,6 +19,7 @@ interface InputProps {
     multiple?: boolean;
     clearable?: boolean;
     onClear?: () => void;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const Form = ({ children, onSubmit, className }: FormProps) => {
@@ -38,7 +39,8 @@ export const FormInput = ({
     multiple,
     required,
     clearable = false,
-    onClear
+    onClear,
+    onChange
 }: InputProps) => {
     return (
         <div className="relative">
@@ -53,6 +55,7 @@ export const FormInput = ({
                     className={`w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-gray-400 ${
                         error ? 'border-red-500' : 'border-gray-300'
                     }`}
+                    onChange={onChange}
                 />
                 {clearable && (
                     <button

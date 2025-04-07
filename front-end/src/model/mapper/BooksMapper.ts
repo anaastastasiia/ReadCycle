@@ -30,11 +30,11 @@ const mapBookDetailsFromDb = (book: BookDetailsResponse): BookDetails => {
 const mapNewBook = (book: CreateBookFormData): NewBookRequest => {
     return {
         ...book,
-        image: book.image ? book.image : "",
+        image: "",
         edition: book.edition ? book.edition : "",
         pages: book.pages ? book.pages : undefined,
         year: book.year ? book.year : "",
-        categoryName: book.categoryName ? book.categoryName : BookTypeEnum.All,
+        category: book.category ? Number(book.category) : 8,
         images: book.images ? book.images : []
     }
 }

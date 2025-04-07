@@ -31,9 +31,7 @@ export const createBook = async (req) => {
         price,
         discount,
         year,
-        date_created,
-        category_id,
-        num_reviews
+        category
     } = req.body;
     const newBook = await query(
         `INSERT INTO book (name, author, image, images, pages, description, edition, price, discount, year, date_created, category_id, num_reviews) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *`,
@@ -49,7 +47,7 @@ export const createBook = async (req) => {
             discount,
             year,
             new Date(),
-            category_id,
+            category,
             0
         ]
     );
