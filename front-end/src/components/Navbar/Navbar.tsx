@@ -81,7 +81,10 @@ const Navbar = () => {
                 transition={{ duration: 0.5, delay: 0.5 }}
             >
                 <div className="container flex justify-between items-center">
-                    <div className="text-2xl flex items-center gap-2 font-bold">
+                    <div
+                        className="text-2xl flex items-center gap-2 font-bold cursor-pointer"
+                        onClick={() => navigate('/')}
+                    >
                         <img
                             src={Logo}
                             alt="logo"

@@ -32,6 +32,15 @@ export const uploadImageToS3 = async (file) => {
     return image_url;
 };
 
+export const uploadImagesToS3 = async (files) => {
+    const uploadedUrls = [];
+    for (const file of files) {
+        const imageUrl = await uploadImageToS3(file);
+        uploadedUrls.push(imageUrl);
+    }
+    return uploadedUrls;
+};
+
 export const uploadFile = async (req) => {
     if (!req.file) {
         throw new Error('No file uploaded');
@@ -52,5 +61,28 @@ export const uploadFile = async (req) => {
         return imageUrl;
     } catch (error) {
         throw new Error('Failed to upload image to S3');
+    }
+};
+
+export const uploadFiles = async (req) => {
+    if (!req.files || req.files.length === 0) {
+        throw new Error('No files uploaded');
+    }
+
+    try {
+        const imageUrls = await uploadImagesToS3(req.files);
+        const bookId = req.body.bookId;
+        const result = await query(
+            'UPDATE book SET images = $1 WHERE id = $2',
+            [imageUrls, bookId]
+        );
+
+        if (result.rowCount === 0) {
+            return res.status(404).json({ error: 'Book not found' });
+        }
+
+        return imageUrls;
+    } catch (error) {
+        throw new Error('Failed to upload images to S3');
     }
 };

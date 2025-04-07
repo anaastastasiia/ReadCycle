@@ -13,3 +13,17 @@ export const uploadImage = async (req, res) => {
         res.status(500).json({ error: 'Error uploading file' });
     }
 };
+
+export const uploadImages = async (req, res) => {
+    if (!req.files || req.files.length === 0) {
+        return res.status(400).json({ error: 'No files uploaded' });
+    }
+
+    try {
+        const imageUrls = await uploadService.uploadFiles(req);
+        res.json({ imageUrls });
+    } catch (err) {
+        console.error('Upload error:', err);
+        res.status(500).json({ error: 'Error uploading files' });
+    }
+};
