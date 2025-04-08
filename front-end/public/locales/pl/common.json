@@ -5,5 +5,8 @@
         "signUp": "Zarejestruj się",
         "signIn": "Zaloguj się",
         "add": "Dodaj"
+    },
+    "info": {
+        "noImages": "Brak zdjęć"
     }
 }
