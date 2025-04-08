@@ -32,6 +32,7 @@
         "createItem": "Utwórz nowy product",
         "ordersHistory": "Historia zamówień",
         "cart": "Koszyk",
-        "account": "Szczegóły konta"
+        "account": "Szczegóły konta",
+        "sell": "Sprzedaję"
     }
 }

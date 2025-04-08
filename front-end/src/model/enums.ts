@@ -21,6 +21,7 @@ enum AccountMenuEnum {
     HISTORY = "ordersHistory",
     CART = "cart",
     ACCOUNT = "account",
+    SELL = "sell"
 }
 
 export {NavbarEnum, BooksTypeEnum, AccountMenuEnum}
