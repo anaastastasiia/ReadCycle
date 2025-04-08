@@ -1,16 +1,37 @@
 import { useTranslation } from 'react-i18next';
 import Breadcrumb from '../Breadcrumb/Breadcrumb';
 import { useBookContext } from '../../contexts/BookContext';
+import 'react-image-gallery/styles/css/image-gallery.css';
+import ImageGallery from 'react-image-gallery';
 
 export const Book = () => {
     const { t } = useTranslation();
     const book = useBookContext();
     const name = book.name;
 
+    const allImages = [
+        {
+            original: book.image ? book.image : '',
+            thumbnail: book.image ? book.image : ''
+        },
+        ...(book.images?.map((imgUrl) => ({
+            original: imgUrl,
+            thumbnail: imgUrl
+        })) || [])
+    ];
+
     return (
         <div className="w-full flex lg:flex-row flex-col">
             <div className="lg:w-1/2 flex justify-center h-full w-full">
-                <img src={book.image} width={'400px'} />
+                <ImageGallery
+                    items={allImages}
+                    showPlayButton={false}
+                    showFullscreenButton={true}
+                    thumbnailPosition="bottom"
+                    showNav={true}
+                    slideOnThumbnailOver={true}
+                    autoPlay={false}
+                />
             </div>
             <div className="lg:w-1/2 w-full flex flex-col p-2 gap-y-2 sm:pt-6 lg:pt-0">
                 <Breadcrumb paths={[{ name, href: `/details/${book.id}` }]} />

@@ -90,6 +90,11 @@ export const AccountMenu = [
     link: "/create",
   },
   {
+    id: 3,
+    key: AccountMenuEnum.SELL,
+    link: "/iSell",
+  },
+  {
     id: 2,
     key: AccountMenuEnum.HISTORY,
     link: "/",

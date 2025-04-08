@@ -32,6 +32,7 @@
         "createItem": "Create new item",
         "ordersHistory": "Order history",
         "cart": "Cart",
-        "account": "Account details"
+        "account": "Account details",
+        "sell": "I sell"
     }
 }
