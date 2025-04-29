@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Logo from '../../../public/assets/logo.png';
 import { NavbarMenu } from '../../model/data';
 
@@ -24,12 +25,12 @@ const Footer = () => {
                         {NavbarMenu.map((item) => {
                             return (
                                 <li key={item.id}>
-                                    <a
-                                        href={item.link}
+                                    <Link
+                                        to={item.link}
                                         className="inline-block text-gray-600 text-sm xl:text-base py-1 px-2 xl:px-3 hover:text-secondary transition-all duration-300 font-semibold"
                                     >
                                         {item.key}
-                                    </a>
+                                    </Link>
                                 </li>
                             );
                         })}

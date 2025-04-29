@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { MdMenu } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useRef, useState } from 'react';
@@ -101,12 +101,12 @@ const Navbar = () => {
                             {NavbarMenu.map((item) => {
                                 return (
                                     <li key={item.id}>
-                                        <a
-                                            href={item.link}
+                                        <Link
+                                            to={item.link}
                                             className="inline-block text-gray-600 text-sm xl:text-base py-1 px-2 xl:px-3 hover:text-secondary transition-all duration-300 font-semibold"
                                         >
                                             {t(`enums:NavbarEnum.${item.key}`)}
-                                        </a>
+                                        </Link>
                                     </li>
                                 );
                             })}

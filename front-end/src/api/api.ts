@@ -469,6 +469,44 @@ export interface RegisterResponse {
      */
     'token': string;
 }
+/**
+ * 
+ * @export
+ * @interface UserBooksResponse
+ */
+export interface UserBooksResponse {
+    /**
+     * 
+     * @type {Array<UserBooksResponseBooksInner>}
+     * @memberof UserBooksResponse
+     */
+    'books'?: Array<UserBooksResponseBooksInner>;
+    /**
+     * 
+     * @type {number}
+     * @memberof UserBooksResponse
+     */
+    'totalPages'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof UserBooksResponse
+     */
+    'currentPage'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface UserBooksResponseBooksInner
+ */
+export interface UserBooksResponseBooksInner {
+    /**
+     * 
+     * @type {number}
+     * @memberof UserBooksResponseBooksInner
+     */
+    'id'?: number;
+}
 
 /**
  * AuthenticationApi - axios parameter creator
@@ -757,6 +795,53 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Fetches user books from the database for a specific user with pagination.
+         * @summary Get user books ids
+         * @param {number} userId ID of the user
+         * @param {number} [page] Page number for pagination
+         * @param {number} [limit] Number of items per page
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiBookUserBooksGet: async (userId: number, page?: number, limit?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('apiBookUserBooksGet', 'userId', userId)
+            const localVarPath = `/api/book/userBooks`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (userId !== undefined) {
+                localVarQueryParameter['userId'] = userId;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -805,6 +890,21 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['DefaultApi.apiBookOnSaleGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * Fetches user books from the database for a specific user with pagination.
+         * @summary Get user books ids
+         * @param {number} userId ID of the user
+         * @param {number} [page] Page number for pagination
+         * @param {number} [limit] Number of items per page
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiBookUserBooksGet(userId: number, page?: number, limit?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserBooksResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiBookUserBooksGet(userId, page, limit, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DefaultApi.apiBookUserBooksGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -843,6 +943,18 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         apiBookOnSaleGet(options?: RawAxiosRequestConfig): AxiosPromise<Array<BookResponse>> {
             return localVarFp.apiBookOnSaleGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Fetches user books from the database for a specific user with pagination.
+         * @summary Get user books ids
+         * @param {number} userId ID of the user
+         * @param {number} [page] Page number for pagination
+         * @param {number} [limit] Number of items per page
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiBookUserBooksGet(userId: number, page?: number, limit?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<UserBooksResponse>> {
+            return localVarFp.apiBookUserBooksGet(userId, page, limit, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -887,6 +999,20 @@ export class DefaultApi extends BaseAPI {
      */
     public apiBookOnSaleGet(options?: RawAxiosRequestConfig) {
         return DefaultApiFp(this.configuration).apiBookOnSaleGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Fetches user books from the database for a specific user with pagination.
+     * @summary Get user books ids
+     * @param {number} userId ID of the user
+     * @param {number} [page] Page number for pagination
+     * @param {number} [limit] Number of items per page
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public apiBookUserBooksGet(userId: number, page?: number, limit?: number, options?: RawAxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).apiBookUserBooksGet(userId, page, limit, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

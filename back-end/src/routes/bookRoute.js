@@ -259,6 +259,25 @@ router.post('/new', bookController.createBook);
 
 /**
  * @swagger
+ * components:
+ *   schemas:
+ *     UserBooksResponse:
+ *       type: object
+ *       properties:
+ *         books:
+ *           type: array
+ *           items:
+ *             type: object
+ *             properties:
+ *               id:
+ *                 type: number
+ *                 example: 1
+ *         totalPages:
+ *           type: number
+ *           example: 5
+ *         currentPage:
+ *           type: number
+ *           example: 1
  * /api/book/userBooks:
  *   get:
  *     summary: Get user books ids
