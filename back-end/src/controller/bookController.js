@@ -37,3 +37,17 @@ export const createBook = async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 };
+
+export const getUserBooks = async (req, res) => {
+    try {
+        const response = await bookService.getUserBooks(req, res);
+        if (response.books && response.books.length > 0) {
+            res.status(200).json(response);
+        } else {
+            res.status(204).json({ message: 'No books found for user' });
+        }
+    } catch (err) {
+        console.error('Error fetching books:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+};

@@ -91,6 +91,7 @@ export type BookDetails = {
     dateCreated?: string,
     categoryName: BookTypeEnum,
     numReviews?: number,
+    userId: number
 }
 
 export enum AuthEnum {
