@@ -1,5 +1,6 @@
 import express from 'express';
 import * as bookController from '../controller/bookController.js';
+import { verifyToken } from '../utils.js';
 const router = express.Router();
 
 /**
@@ -255,5 +256,44 @@ router.get('/details/:id', bookController.getBooksDetails);
  *         description: Internal server error.
  */
 router.post('/new', bookController.createBook);
+
+/**
+ * @swagger
+ * /api/book/userBooks:
+ *   get:
+ *     summary: Get user books ids
+ *     description: Fetches user books from the database for a specific user with pagination.
+ *     parameters:
+ *       - in: query
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: number
+ *         description: ID of the user
+ *       - in: query
+ *         name: page
+ *         required: false
+ *         schema:
+ *           type: number
+ *           default: 1
+ *         description: Page number for pagination
+ *       - in: query
+ *         name: limit
+ *         required: false
+ *         schema:
+ *           type: number
+ *           default: 10
+ *         description: Number of items per page
+ *     responses:
+ *       200:
+ *         description: A list of user book ids.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/UserBooksResponse'
+ */
+router.get('/userBooks', verifyToken('USER'), bookController.getUserBooks);
 
 export default router;

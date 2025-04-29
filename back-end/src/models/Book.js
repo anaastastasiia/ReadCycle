@@ -7,7 +7,8 @@ export class BookResponse {
         description,
         price,
         discount,
-        category_name
+        category_name,
+        user_id
     }) {
         this.id = id;
         this.name = name;
@@ -19,6 +20,7 @@ export class BookResponse {
         this.categoryName = Object.values(BookTypeEnum).includes(category_name)
             ? category_name
             : BookTypeEnum.ALL;
+        this.userId = user_id;
     }
 }
 
@@ -37,7 +39,8 @@ export class BookDetailsResponse {
         edition,
         year,
         date_created,
-        num_reviews
+        num_reviews,
+        user_id
     }) {
         this.id = id;
         this.name = name;
@@ -55,6 +58,7 @@ export class BookDetailsResponse {
         this.categoryName = Object.values(BookTypeEnum).includes(category_name)
             ? category_name
             : BookTypeEnum.ALL;
+        this.userId = user_id;
     }
 }
 
@@ -82,7 +86,8 @@ export class NewBookRequest {
         pages,
         edition,
         year,
-        num_reviews
+        num_reviews,
+        user_id
     }) {
         this.name = name;
         this.images = images;
@@ -99,5 +104,12 @@ export class NewBookRequest {
         this.categoryName = Object.values(BookTypeEnum).includes(category_name)
             ? category_name
             : BookTypeEnum.ALL;
+        this.userId = user_id;
+    }
+}
+
+export class UserBooksIdsResponse {
+    constructor({ id }) {
+        this.id = id;
     }
 }
