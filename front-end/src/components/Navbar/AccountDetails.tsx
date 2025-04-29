@@ -1,17 +1,14 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useUserContext } from '../../contexts/UserContext';
-import { ResponsiveMenuProps } from '../../model/types';
+import { MenuProps } from '../../model/types';
 import LogoutIcon from '@mui/icons-material/Logout';
 
-export const AccountDetails = ({
-    open,
-    options,
-    closeMenu
-}: ResponsiveMenuProps) => {
+const AccountDetails = ({ open, options, closeMenu }: MenuProps) => {
     const { t } = useTranslation();
     const { user, login, register, logout } = useUserContext();
 
+    console.log('a: ', user);
     return (
         <AnimatePresence mode="wait">
             {open && (
@@ -71,3 +68,5 @@ export const AccountDetails = ({
         </AnimatePresence>
     );
 };
+
+export default AccountDetails;

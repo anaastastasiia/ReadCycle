@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { AccountMenu, NavbarMenu } from '../../model/data.ts';
-import ResponsiveMenu from './ResponsiveMenu.js';
-import { AccountDetails } from './AccountDetails.tsx';
+import ResponsiveMenu from './ResponsiveMenu.tsx';
+import AccountDetails from './AccountDetails.tsx';
 import { LanguageSwitcher } from '../LanguageSwitcher/LanguageSwitcher.tsx';
 import { authActions, authStore } from '../../store/authStore.ts';
 import { UserContext } from '../../contexts/UserContext.ts';
@@ -41,18 +41,19 @@ const Navbar = () => {
         setIsOpenAccount(false);
     };
 
+    const logout = () => {
+        console.log('log out');
+        clearData();
+        navigate('/');
+        setIsOpen(false);
+    };
+
     useEffect(() => {
         loadUserData();
         if (!checkTokenExpiration) {
             clearData();
         }
     }, [loadUserData, checkTokenExpiration, clearData]);
-
-    const logout = () => {
-        clearData();
-        navigate('/');
-        setIsOpen(false);
-    };
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -70,6 +71,7 @@ const Navbar = () => {
             document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
+    console.log('user: ', user);
     return (
         <UserContext.Provider value={{ user, token, login, register, logout }}>
             {isOpen && (
@@ -130,15 +132,13 @@ const Navbar = () => {
                                 </div>
                                 <KeyboardArrowDownIcon />
                             </div>
-                            {isOpenAccount && (
-                                <div className="absolute right-0 mt-2 w-full bg-white shadow-lg rounded-lg z-50">
-                                    <AccountDetails
-                                        open={isOpenAccount}
-                                        options={AccountMenu}
-                                        closeMenu={onClickAccount}
-                                    />
-                                </div>
-                            )}
+                            <div className="absolute right-0 mt-2 w-full bg-white shadow-lg rounded-lg z-50">
+                                <AccountDetails
+                                    open={isOpenAccount}
+                                    options={AccountMenu}
+                                    closeMenu={onClickAccount}
+                                />
+                            </div>
                         </div>
                     ) : (
                         <div className="relative hidden lg:block space-x-6">
@@ -163,12 +163,12 @@ const Navbar = () => {
                         ></div>
                     )}
                 </div>
+                <ResponsiveMenu
+                    open={isOpen}
+                    options={NavbarMenu}
+                    closeMenu={onClickMenu}
+                />
             </motion.div>
-            <ResponsiveMenu
-                open={isOpen}
-                options={NavbarMenu}
-                closeMenu={onClickMenu}
-            />
         </UserContext.Provider>
     );
 };

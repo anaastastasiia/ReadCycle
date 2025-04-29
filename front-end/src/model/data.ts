@@ -100,12 +100,12 @@ export const AccountMenu = [
     link: "/",
   },
   {
-    id: 3,
+    id: 4,
     key: AccountMenuEnum.CART,
     link: "/",
   },
   {
-    id: 4,
+    id: 5,
     key: AccountMenuEnum.ACCOUNT,
     link: "/",
   },

@@ -129,9 +129,10 @@ const loadUserData = () => {
     const token = localStorage.getItem('token');
 
     if(token) {
-        const user = getUserFromToken(token);
+        const decoded = getUserFromToken(token);
         
-        if (user) {
+        if (decoded && decoded.user) {
+            const user = decoded.user;
             authStore.setState(() => ({
                 user: {
                     firstName: user.firstName,

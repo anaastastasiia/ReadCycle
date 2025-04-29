@@ -4,15 +4,15 @@ import { BookTypeEnum } from "../api";
 
 export type ProduceState<T> = (state: T) => void;
 
-export interface NavbarMenuProps {
+export interface MenuItemProps {
     id: number;
     key: string,
     link: string
 }
 
-export interface ResponsiveMenuProps {
+export interface MenuProps {
     open: boolean;
-    options: NavbarMenuProps[];
+    options: MenuItemProps[];
     closeMenu: () => void;
 }
 
