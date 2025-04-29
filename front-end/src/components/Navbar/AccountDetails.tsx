@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useUserContext } from '../../contexts/UserContext';
 import { MenuProps } from '../../model/types';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { Link } from 'react-router-dom';
 
 const AccountDetails = ({ open, options, closeMenu }: MenuProps) => {
     const { t } = useTranslation();
@@ -27,14 +28,14 @@ const AccountDetails = ({ open, options, closeMenu }: MenuProps) => {
                                         onClick={closeMenu}
                                         key={item.id}
                                     >
-                                        <a
-                                            href={item.link}
+                                        <Link
+                                            to={item.link}
                                             className="inline-block text-sm xl:text-base hover:text-secondary transition-all duration-300"
                                         >
                                             {t(
                                                 `pages:authPage.accountMenu.${item.key}`
                                             )}
-                                        </a>
+                                        </Link>
                                     </li>
                                 );
                             })}

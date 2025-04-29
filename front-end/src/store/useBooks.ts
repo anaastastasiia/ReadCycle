@@ -36,7 +36,8 @@ export const booksStore = create<BookState>(() => ({
         categoryName: BooksTypeEnum.ALL,
         description: "",
         name: "",
-        price: 0
+        price: 0,
+        userId: 0
     },
     newBookId: undefined
 }))
@@ -92,4 +93,31 @@ const createBook = async (book: NewBookRequest) => {
     }
 }
 
-export const booksActions = {getBooksForBanner, getBookDetails, createBook}
+const getBooksForUser = async (userId: number) => {
+    try {
+        const res = await apiController.callEndpoint((api) => api.apiBookUserBooksGet(
+            userId,
+            1,
+            10,
+            {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            }
+        ));
+        if(res && res.data) {
+        console.log(res.data)
+        // const books = res.data.map((book, index) => BooksMapper.mapBooksFromDb(book, index));
+        //     booksStore.setState(() => ({
+        //         books: books
+        //     }))
+            return res.data;
+        // } 
+        }
+        return null;
+    } catch (err) {
+        console.error('Error while getting books for user: ', err)
+    }
+}
+
+export const booksActions = {getBooksForBanner, getBookDetails, createBook, getBooksForUser}
