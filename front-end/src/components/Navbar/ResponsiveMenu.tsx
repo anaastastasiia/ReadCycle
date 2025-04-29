@@ -1,13 +1,14 @@
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ResponsiveMenuProps } from '../../model/types';
+import { MenuProps } from '../../model/types';
 import { LanguageSwitcher } from '../LanguageSwitcher/LanguageSwitcher';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useUserContext } from '../../contexts/UserContext';
 
-const ResponsiveMenu = ({ open, options, closeMenu }: ResponsiveMenuProps) => {
+const ResponsiveMenu = ({ open, options, closeMenu }: MenuProps) => {
     const { t } = useTranslation();
     const { user, login, register, logout } = useUserContext();
+    console.log('u: ', user);
 
     return (
         <AnimatePresence mode="wait">

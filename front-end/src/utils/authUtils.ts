@@ -1,6 +1,11 @@
 import { jwtDecode } from 'jwt-decode';
 
 interface DecodedToken {
+    user: UserData;
+    exp: number; 
+}
+
+interface UserData {
     id: number;
     email: string;
     firstName: string;
@@ -11,7 +16,6 @@ interface DecodedToken {
     houseNumber: string;
     apartment?: string;
     postalCode: string;
-    exp: number; 
 }
 
 export const getUserFromToken = (token: string | null): DecodedToken | null => {
