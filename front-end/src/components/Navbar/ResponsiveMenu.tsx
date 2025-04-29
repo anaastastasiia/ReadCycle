@@ -8,7 +8,6 @@ import { useUserContext } from '../../contexts/UserContext';
 const ResponsiveMenu = ({ open, options, closeMenu }: MenuProps) => {
     const { t } = useTranslation();
     const { user, login, register, logout } = useUserContext();
-    console.log('u: ', user);
 
     return (
         <AnimatePresence mode="wait">

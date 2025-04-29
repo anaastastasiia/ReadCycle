@@ -8,7 +8,6 @@ const AccountDetails = ({ open, options, closeMenu }: MenuProps) => {
     const { t } = useTranslation();
     const { user, login, register, logout } = useUserContext();
 
-    console.log('a: ', user);
     return (
         <AnimatePresence mode="wait">
             {open && (

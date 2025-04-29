@@ -42,7 +42,6 @@ const Navbar = () => {
     };
 
     const logout = () => {
-        console.log('log out');
         clearData();
         navigate('/');
         setIsOpen(false);
@@ -71,7 +70,6 @@ const Navbar = () => {
             document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    console.log('user: ', user);
     return (
         <UserContext.Provider value={{ user, token, login, register, logout }}>
             {isOpen && (
@@ -163,12 +161,14 @@ const Navbar = () => {
                         ></div>
                     )}
                 </div>
+            </motion.div>
+            <div ref={accountRef}>
                 <ResponsiveMenu
                     open={isOpen}
                     options={NavbarMenu}
                     closeMenu={onClickMenu}
                 />
-            </motion.div>
+            </div>
         </UserContext.Provider>
     );
 };
