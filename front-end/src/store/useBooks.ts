@@ -11,6 +11,7 @@ export interface BookState {
     books: BookResponse[];
     bookDetails: BookDetails;
     newBookId?: number;
+    userSellBooks: BookDetails[]
 }
 
 export interface CreateBookFormData {
@@ -39,7 +40,8 @@ export const booksStore = create<BookState>(() => ({
         price: 0,
         userId: 0
     },
-    newBookId: undefined
+    newBookId: undefined,
+    userSellBooks: []
 }))
 
 // const map = produce<ProduceState<CategoriesState>>;
@@ -105,14 +107,16 @@ const getBooksForUser = async (userId: number) => {
                 }
             }
         ));
-        if(res && res.data) {
-        console.log(res.data)
-        // const books = res.data.map((book, index) => BooksMapper.mapBooksFromDb(book, index));
-        //     booksStore.setState(() => ({
-        //         books: books
-        //     }))
-            return res.data;
-        // } 
+        if(res && res.data && res.data.books) {
+            const books = await Promise.all(
+                res.data.books.map(book => getBookDetails(book.id))
+            );
+            const filteredBooks = books.filter((book): book is BookDetails => book != null);
+
+            booksStore.setState(() => ({
+                userSellBooks: filteredBooks
+            }))
+            return books;
         }
         return null;
     } catch (err) {

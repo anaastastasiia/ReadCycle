@@ -261,17 +261,21 @@ router.post('/new', bookController.createBook);
  * @swagger
  * components:
  *   schemas:
+ *     BookId:
+ *       type: object
+ *       required:
+ *         - id
+ *       properties:
+ *         id:
+ *           type: number
+ *           example: 1
  *     UserBooksResponse:
  *       type: object
  *       properties:
  *         books:
  *           type: array
  *           items:
- *             type: object
- *             properties:
- *               id:
- *                 type: number
- *                 example: 1
+ *             $ref: '#/components/schemas/BookId'
  *         totalPages:
  *           type: number
  *           example: 5
@@ -309,9 +313,7 @@ router.post('/new', bookController.createBook);
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/UserBooksResponse'
+ *               $ref: '#/components/schemas/UserBooksResponse'
  */
 router.get('/userBooks', verifyToken('USER'), bookController.getUserBooks);
 
