@@ -210,6 +210,19 @@ export interface BookDetailsResponse {
 /**
  * 
  * @export
+ * @interface BookId
+ */
+export interface BookId {
+    /**
+     * 
+     * @type {number}
+     * @memberof BookId
+     */
+    'id': number;
+}
+/**
+ * 
+ * @export
  * @interface BookResponse
  */
 export interface BookResponse {
@@ -477,10 +490,10 @@ export interface RegisterResponse {
 export interface UserBooksResponse {
     /**
      * 
-     * @type {Array<UserBooksResponseBooksInner>}
+     * @type {Array<BookId>}
      * @memberof UserBooksResponse
      */
-    'books'?: Array<UserBooksResponseBooksInner>;
+    'books'?: Array<BookId>;
     /**
      * 
      * @type {number}
@@ -493,19 +506,6 @@ export interface UserBooksResponse {
      * @memberof UserBooksResponse
      */
     'currentPage'?: number;
-}
-/**
- * 
- * @export
- * @interface UserBooksResponseBooksInner
- */
-export interface UserBooksResponseBooksInner {
-    /**
-     * 
-     * @type {number}
-     * @memberof UserBooksResponseBooksInner
-     */
-    'id'?: number;
 }
 
 /**
@@ -899,7 +899,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiBookUserBooksGet(userId: number, page?: number, limit?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserBooksResponse>>> {
+        async apiBookUserBooksGet(userId: number, page?: number, limit?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserBooksResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiBookUserBooksGet(userId, page, limit, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['DefaultApi.apiBookUserBooksGet']?.[localVarOperationServerIndex]?.url;
@@ -953,7 +953,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiBookUserBooksGet(userId: number, page?: number, limit?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<UserBooksResponse>> {
+        apiBookUserBooksGet(userId: number, page?: number, limit?: number, options?: RawAxiosRequestConfig): AxiosPromise<UserBooksResponse> {
             return localVarFp.apiBookUserBooksGet(userId, page, limit, options).then((request) => request(axios, basePath));
         },
     };
