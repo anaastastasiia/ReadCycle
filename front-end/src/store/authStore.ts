@@ -164,18 +164,24 @@ const clearData = () => {
 const checkTokenExpiration = () => {
     const token = localStorage.getItem('token');
     if(token) {
-        const decodedToken = JSON.parse(atob(token.split('.')[1]));
-        const currentTime = Math.floor(Date.now() / 1000);
-        if(decodedToken.exp < currentTime) {
-            authStore.setState(() => ({
-                user: null,
-                token: null
-            }));
-            localStorage.removeItem('token');
-            localStorage.removeItem('userData');
+        try {
+            const decodedToken = JSON.parse(atob(token.split('.')[1]));
+            const currentTime = Math.floor(Date.now() / 1000);
+            if(decodedToken.exp < currentTime) {
+                authStore.setState(() => ({
+                    user: null,
+                    token: null
+                }));
+                localStorage.removeItem('token');
+                localStorage.removeItem('userData');
+                return false;
+            }
+            return true;
+        } catch(e) {
+            console.error("Invalid token format", e);
+            clearData();
             return false;
         }
-        return true;
     }
     return false;
 }

@@ -22,6 +22,8 @@ const Navbar = () => {
     const { clearData, loadUserData, checkTokenExpiration } = authActions;
     const accountRef = useRef<HTMLDivElement>(null);
 
+    console.log('user: ', user + ', token: ', token);
+
     const onClickMenu = () => {
         setIsOpen((prev) => !prev);
     };
