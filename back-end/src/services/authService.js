@@ -65,53 +65,46 @@ export const register = async (req) => {
 };
 
 export const login = async (req, res) => {
-    try {
-        const { email, password } = req.body;
-        if (!email || !password) {
-            return res
-                .status(400)
-                .json({ message: 'Email and password are required' });
-        }
-
-        const { rows } = await query('SELECT * FROM users WHERE email = $1', [
-            email
-        ]);
-        const user = rows[0];
-
-        if (!user) {
-            return res.status(401).json({ message: 'Invalid credentials' });
-        }
-
-        const isPasswordValid = await bcrypt.compare(password, user.password);
-        if (!isPasswordValid) {
-            return res.status(401).json({ message: 'Invalid credentials' });
-        }
-
-        const tokenPayload = {
-            user: {
-                id: user.id,
-                email: user.email,
-                firstName: user.first_name,
-                lastName: user.last_name,
-                phoneNumber: user.phone_number,
-                city: user.city,
-                street: user.street,
-                houseNumber: user.house_number,
-                apartment: user.apartment || '',
-                postalCode: user.postal_code,
-                role: user.role
-            }
-        };
-
-        const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, {
-            expiresIn: '1h'
-        });
-
-        return token;
-    } catch (error) {
-        console.error('Login error:', error);
-        if (!res.headersSent) {
-            return res.status(500).json({ message: 'Internal server error' });
-        }
+    const { email, password } = req.body;
+    if (!email || !password) {
+        return res
+            .status(400)
+            .json({ message: 'Email and password are required' });
     }
+
+    const { rows } = await query('SELECT * FROM users WHERE email = $1', [
+        email
+    ]);
+    const user = rows[0];
+
+    if (!user) {
+        return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+        return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+    const tokenPayload = {
+        user: {
+            id: user.id,
+            email: user.email,
+            firstName: user.first_name,
+            lastName: user.last_name,
+            phoneNumber: user.phone_number,
+            city: user.city,
+            street: user.street,
+            houseNumber: user.house_number,
+            apartment: user.apartment || '',
+            postalCode: user.postal_code,
+            role: user.role
+        }
+    };
+
+    const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, {
+        expiresIn: '1h'
+    });
+
+    return token;
 };

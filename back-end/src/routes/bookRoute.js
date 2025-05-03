@@ -317,4 +317,88 @@ router.post('/new', bookController.createBook);
  */
 router.get('/userBooks', verifyToken('USER'), bookController.getUserBooks);
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     UpdateBookRequest:
+ *       type: object
+ *       required:
+ *         - id
+ *       properties:
+ *         id:
+ *           type: number
+ *           example: 13
+ *         name:
+ *           type: string
+ *           example: "The great gatsby"
+ *         author:
+ *           type: string
+ *           example: "F. Scott Fitzgerald"
+ *         image:
+ *           type: string
+ *           nullable: true
+ *           example: "https://example.com/image.jpg"
+ *         images:
+ *           type: array
+ *           items:
+ *             type: string
+ *           nullable: true
+ *           example:
+ *             - "https://example.com/image1.jpg"
+ *             - "https://example.com/image2.jpg"
+ *         description:
+ *           type: string
+ *           example: "A classic novel set in the 1920s."
+ *         price:
+ *           type: number
+ *           example: 15.99
+ *         pages:
+ *           type: number
+ *           nullable: true
+ *           example: 155
+ *         discount:
+ *           type: number
+ *           nullable: true
+ *           example: 2.5
+ *         category:
+ *           type: number
+ *           example: 8
+ *         edition:
+ *           type: string
+ *           nullable: true
+ *           example: "New edition"
+ *         year:
+ *           type: string
+ *           nullable: true
+ *           example: "2024"
+ *
+ * /api/book/update/{id}:
+ *   patch:
+ *     summary: Update a book
+ *     description: Update a book in the database.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UpdateBookRequest'
+ *     responses:
+ *       201:
+ *         description: Book successfully updated.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: number
+ *                   example: 5
+ *       400:
+ *         description: Bad request (missing required fields or invalid data).
+ *       500:
+ *         description: Internal server error.
+ */
+router.patch('/update/:id', bookController.updateBook);
+
 export default router;

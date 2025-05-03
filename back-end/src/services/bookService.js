@@ -95,3 +95,61 @@ export const getUserBooks = async (req, res) => {
         currentPage: page
     };
 };
+
+export const updateBook = async (req, res) => {
+    const { id } = req.params;
+    const data = req.body;
+
+    if (!id || isNaN(Number(id))) {
+        return res.status(400).json({ message: 'Invalid book id' });
+    }
+
+    const allowedFields = [
+        'name',
+        'author',
+        'image',
+        'images',
+        'pages',
+        'description',
+        'edition',
+        'price',
+        'discount',
+        'year',
+        'category'
+    ];
+
+    const filtered = Object.entries(data).filter((item) =>
+        allowedFields.includes(item[0])
+    );
+    console.log('filtered: ', filtered);
+
+    if (filtered.length === 0) {
+        return res.status(400).json({ message: 'No valid fields to update' });
+    }
+
+    const setClause = filtered
+        .map(
+            (item, i) =>
+                `${item[0] === 'category' ? 'category_id' : item[0]} = $${
+                    i + 1
+                }`
+        )
+        .join(', ');
+
+    console.log('setClause: ', setClause);
+
+    const values = filtered.map((entry) => entry[1]);
+
+    const result = await query(
+        `UPDATE book SET ${setClause} WHERE id = $${
+            values.length + 1
+        } RETURNING *`,
+        [...values, id]
+    );
+
+    if (result.rows.length === 0) {
+        return res.status(404).json({ message: 'Book not found' });
+    }
+
+    return result.rows[0];
+};
