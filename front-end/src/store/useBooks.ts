@@ -3,7 +3,7 @@ import { create } from 'zustand';
 import BooksMapper from '../model/mapper/BooksMapper';
 // import { ProduceState } from '../model/types';
 import { apiController } from '../controllers/apiController';
-import { BookResponse, NewBookRequest } from '../api';
+import { BookResponse, NewBookRequest, UpdateBookRequest } from '../api';
 import { BookDetails } from '../model/types';
 import { BooksTypeEnum } from '../model/enums';
 
@@ -124,4 +124,13 @@ const getBooksForUser = async (userId: number) => {
     }
 }
 
-export const booksActions = {getBooksForBanner, getBookDetails, createBook, getBooksForUser}
+const updateBook = async (id: number, book: UpdateBookRequest) => {
+    try {
+        await apiController.callEndpoint((api) => api.apiBookUpdateIdPatch(id, book));
+    } catch (err) {
+        console.error('Error while updating book: ', err)
+        return false;
+    }
+}
+
+export const booksActions = {getBooksForBanner, getBookDetails, createBook, getBooksForUser, updateBook}
