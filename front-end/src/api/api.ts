@@ -485,6 +485,79 @@ export interface RegisterResponse {
 /**
  * 
  * @export
+ * @interface UpdateBookRequest
+ */
+export interface UpdateBookRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateBookRequest
+     */
+    'name'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateBookRequest
+     */
+    'author'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateBookRequest
+     */
+    'image'?: string | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof UpdateBookRequest
+     */
+    'images'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateBookRequest
+     */
+    'description'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateBookRequest
+     */
+    'price'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateBookRequest
+     */
+    'pages'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateBookRequest
+     */
+    'discount'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateBookRequest
+     */
+    'category'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateBookRequest
+     */
+    'edition'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateBookRequest
+     */
+    'year'?: string | null;
+}
+/**
+ * 
+ * @export
  * @interface UserBooksResponse
  */
 export interface UserBooksResponse {
@@ -796,6 +869,46 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
+         * Update a book in the database.
+         * @summary Update a book
+         * @param {number} id ID of the book to update
+         * @param {UpdateBookRequest} updateBookRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiBookUpdateIdPatch: async (id: number, updateBookRequest: UpdateBookRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('apiBookUpdateIdPatch', 'id', id)
+            // verify required parameter 'updateBookRequest' is not null or undefined
+            assertParamExists('apiBookUpdateIdPatch', 'updateBookRequest', updateBookRequest)
+            const localVarPath = `/api/book/update/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateBookRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Fetches user books from the database for a specific user with pagination.
          * @summary Get user books ids
          * @param {number} userId ID of the user
@@ -891,6 +1004,20 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * Update a book in the database.
+         * @summary Update a book
+         * @param {number} id ID of the book to update
+         * @param {UpdateBookRequest} updateBookRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiBookUpdateIdPatch(id: number, updateBookRequest: UpdateBookRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiBookNewPost201Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiBookUpdateIdPatch(id, updateBookRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DefaultApi.apiBookUpdateIdPatch']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Fetches user books from the database for a specific user with pagination.
          * @summary Get user books ids
          * @param {number} userId ID of the user
@@ -943,6 +1070,17 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         apiBookOnSaleGet(options?: RawAxiosRequestConfig): AxiosPromise<Array<BookResponse>> {
             return localVarFp.apiBookOnSaleGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Update a book in the database.
+         * @summary Update a book
+         * @param {number} id ID of the book to update
+         * @param {UpdateBookRequest} updateBookRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiBookUpdateIdPatch(id: number, updateBookRequest: UpdateBookRequest, options?: RawAxiosRequestConfig): AxiosPromise<ApiBookNewPost201Response> {
+            return localVarFp.apiBookUpdateIdPatch(id, updateBookRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * Fetches user books from the database for a specific user with pagination.
@@ -999,6 +1137,19 @@ export class DefaultApi extends BaseAPI {
      */
     public apiBookOnSaleGet(options?: RawAxiosRequestConfig) {
         return DefaultApiFp(this.configuration).apiBookOnSaleGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Update a book in the database.
+     * @summary Update a book
+     * @param {number} id ID of the book to update
+     * @param {UpdateBookRequest} updateBookRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public apiBookUpdateIdPatch(id: number, updateBookRequest: UpdateBookRequest, options?: RawAxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).apiBookUpdateIdPatch(id, updateBookRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
