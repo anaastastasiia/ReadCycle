@@ -51,3 +51,13 @@ export const getUserBooks = async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 };
+
+export const updateBook = async (req, res) => {
+    try {
+        const book = await bookService.updateBook(req, res);
+        res.status(200).json(book);
+    } catch (err) {
+        console.error('Error updating book:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+};
