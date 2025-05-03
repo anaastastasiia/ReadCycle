@@ -323,12 +323,7 @@ router.get('/userBooks', verifyToken('USER'), bookController.getUserBooks);
  *   schemas:
  *     UpdateBookRequest:
  *       type: object
- *       required:
- *         - id
  *       properties:
- *         id:
- *           type: number
- *           example: 13
  *         name:
  *           type: string
  *           example: "The great gatsby"
@@ -377,6 +372,13 @@ router.get('/userBooks', verifyToken('USER'), bookController.getUserBooks);
  *   patch:
  *     summary: Update a book
  *     description: Update a book in the database.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID of the book to update
  *     requestBody:
  *       required: true
  *       content:
