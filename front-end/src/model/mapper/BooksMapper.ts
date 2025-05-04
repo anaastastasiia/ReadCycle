@@ -1,4 +1,4 @@
-import { BookDetailsResponse, BookResponse, BookTypeEnum, NewBookRequest } from "../../api";
+import { BookDetailsResponse, BookResponse, BookTypeEnum, NewBookRequest, UpdateBookRequest } from "../../api";
 import { CreateBookFormData } from "../../store/useBooks";
 import { BookBanner, BookDetails } from "../types";
 
@@ -38,5 +38,11 @@ const mapNewBook = (book: CreateBookFormData): NewBookRequest => {
         images: book.images ? book.images : []
     }
 }
+
+const mapDiscount = (discount: string): UpdateBookRequest => {
+    return {
+        discount: discount ? Number(discount) : undefined
+    }
+}
   
-export default {mapBooksFromDb, mapBookDetailsFromDb, mapNewBook}
+export default {mapBooksFromDb, mapBookDetailsFromDb, mapNewBook, mapDiscount}

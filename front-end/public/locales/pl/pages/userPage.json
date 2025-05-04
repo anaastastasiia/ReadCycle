@@ -1,0 +1,11 @@
+{
+    "sell": {
+        "title": "Moje książki, które sprzedaję",
+        "price": "Cena",
+        "addDiscount": "Dodaj zniżkę",
+        "enter": "Wprowadź zniżkę (%)",
+        "cancel": "Anuluj",
+        "confirm": "Potwierdź",
+        "successfulAdding": "Rabat dodano pomyślnie"
+    }
+}
