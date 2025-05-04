@@ -4,7 +4,8 @@
         "addToCart": "Add To Cart",
         "signUp": "Sign up",
         "signIn": "Sign in",
-        "add": "Add"
+        "add": "Add",
+        "showMore": "Show more"
     },
     "info": {
         "noImages": "No images"

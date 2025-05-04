@@ -1,8 +1,10 @@
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import Logo from '../../../public/assets/logo.png';
 import { NavbarMenu } from '../../model/data';
 
 const Footer = () => {
+    const { t } = useTranslation();
     return (
         <div className="container bg-[#f9f9f9]">
             <div className="grid grid-cols-2 md:gap-4 py-5 border-t-2 border-gray-300/10 text-black">
@@ -29,7 +31,7 @@ const Footer = () => {
                                         to={item.link}
                                         className="inline-block text-gray-600 text-sm xl:text-base py-1 px-2 xl:px-3 hover:text-secondary transition-all duration-300 font-semibold"
                                     >
-                                        {item.key}
+                                        {t(`enums:NavbarEnum.${item.key}`)}
                                     </Link>
                                 </li>
                             );
