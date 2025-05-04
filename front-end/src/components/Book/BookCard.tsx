@@ -11,7 +11,7 @@ export const BookCard = ({ book }: { book: BookDetails }) => {
     const { t } = useTranslation();
     const [isDiscountModalOpen, setDiscountModalOpen] = useState(false);
     const [discountValue, setDiscountValue] = useState('');
-    const { updateBook } = booksActions;
+    const { updateBook, deleteBook } = booksActions;
 
     const handleAddDiscount = async () => {
         await updateBook(book.id, BooksMapper.mapDiscount(discountValue));
@@ -23,6 +23,10 @@ export const BookCard = ({ book }: { book: BookDetails }) => {
     const closeModal = () => {
         setDiscountModalOpen(false);
         setDiscountValue('');
+    };
+
+    const deleteItem = async () => {
+        await deleteBook(book.id);
     };
 
     return (
@@ -59,8 +63,7 @@ export const BookCard = ({ book }: { book: BookDetails }) => {
                             <label>4</label>
                             <FavoriteIcon />
                         </div>
-
-                        <button>
+                        <button onClick={deleteItem}>
                             <DeleteIcon />
                         </button>
                     </div>

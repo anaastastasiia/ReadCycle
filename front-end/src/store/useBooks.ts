@@ -142,4 +142,22 @@ const setShouldRefresh = (value: boolean) => {
     }))
 }
 
-export const booksActions = {getBooksForBanner, getBookDetails, createBook, getBooksForUser, updateBook, setShouldRefresh}
+const deleteBook = async (id: number) => {
+    try {
+        await apiController.callEndpoint((api) => api.apiBookDeleteIdDelete(id));
+        setShouldRefresh(true);
+    } catch (err) {
+        console.error('Error while updating book: ', err)
+        return false;
+    }
+}
+
+export const booksActions = {
+    getBooksForBanner, 
+    getBookDetails, 
+    createBook, 
+    getBooksForUser, 
+    updateBook, 
+    setShouldRefresh, 
+    deleteBook
+}

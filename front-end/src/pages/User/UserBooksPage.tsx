@@ -22,6 +22,7 @@ export const UserBooksPage = () => {
 
     useEffect(() => {
         if (shouldRefresh && user) {
+            console.log('wpada');
             (async () => {
                 await getBooksForUser(user.id);
                 setShouldRefresh(false);

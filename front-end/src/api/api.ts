@@ -769,6 +769,40 @@ export class AuthenticationApi extends BaseAPI {
 export const DefaultApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
+         * Removes a book from the database.
+         * @summary Delete a book
+         * @param {number} id ID of the book to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiBookDeleteIdDelete: async (id: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('apiBookDeleteIdDelete', 'id', id)
+            const localVarPath = `/api/book/delete/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Fetches book\'s details from the database.
          * @summary Get book\'s details
          * @param {number} id ID of the book
@@ -966,6 +1000,19 @@ export const DefaultApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = DefaultApiAxiosParamCreator(configuration)
     return {
         /**
+         * Removes a book from the database.
+         * @summary Delete a book
+         * @param {number} id ID of the book to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiBookDeleteIdDelete(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiBookNewPost201Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiBookDeleteIdDelete(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DefaultApi.apiBookDeleteIdDelete']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Fetches book\'s details from the database.
          * @summary Get book\'s details
          * @param {number} id ID of the book
@@ -1043,6 +1090,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
     const localVarFp = DefaultApiFp(configuration)
     return {
         /**
+         * Removes a book from the database.
+         * @summary Delete a book
+         * @param {number} id ID of the book to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiBookDeleteIdDelete(id: number, options?: RawAxiosRequestConfig): AxiosPromise<ApiBookNewPost201Response> {
+            return localVarFp.apiBookDeleteIdDelete(id, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Fetches book\'s details from the database.
          * @summary Get book\'s details
          * @param {number} id ID of the book
@@ -1104,6 +1161,18 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
  * @extends {BaseAPI}
  */
 export class DefaultApi extends BaseAPI {
+    /**
+     * Removes a book from the database.
+     * @summary Delete a book
+     * @param {number} id ID of the book to delete
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public apiBookDeleteIdDelete(id: number, options?: RawAxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).apiBookDeleteIdDelete(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * Fetches book\'s details from the database.
      * @summary Get book\'s details
