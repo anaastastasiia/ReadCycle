@@ -3,12 +3,16 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { BookDetails } from '../../model/types';
+import { booksActions } from '../../store/useBooks';
+import BooksMapper from '../../model/mapper/BooksMapper';
 
 export const BookCard = ({ book }: { book: BookDetails }) => {
     const [isDiscountModalOpen, setDiscountModalOpen] = useState(false);
     const [discountValue, setDiscountValue] = useState('');
+    const { updateBook } = booksActions;
 
     const handleAddDiscount = async () => {
+        await updateBook(book.id, BooksMapper.mapDiscount(discountValue));
         alert('Знижку додано успішно');
         setDiscountModalOpen(false);
         setDiscountValue('');

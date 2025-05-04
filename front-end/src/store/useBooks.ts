@@ -11,7 +11,8 @@ export interface BookState {
     books: BookResponse[];
     bookDetails: BookDetails;
     newBookId?: number;
-    userSellBooks: BookDetails[]
+    userSellBooks: BookDetails[];
+    shouldRefresh: boolean;
 }
 
 export interface CreateBookFormData {
@@ -41,7 +42,8 @@ export const booksStore = create<BookState>(() => ({
         userId: 0
     },
     newBookId: undefined,
-    userSellBooks: []
+    userSellBooks: [],
+    shouldRefresh: false
 }))
 
 // const map = produce<ProduceState<CategoriesState>>;
@@ -127,10 +129,17 @@ const getBooksForUser = async (userId: number) => {
 const updateBook = async (id: number, book: UpdateBookRequest) => {
     try {
         await apiController.callEndpoint((api) => api.apiBookUpdateIdPatch(id, book));
+        setShouldRefresh(true);
     } catch (err) {
         console.error('Error while updating book: ', err)
         return false;
     }
 }
 
-export const booksActions = {getBooksForBanner, getBookDetails, createBook, getBooksForUser, updateBook}
+const setShouldRefresh = (value: boolean) => {
+    booksStore.setState(() => ({
+        shouldRefresh: value
+    }))
+}
+
+export const booksActions = {getBooksForBanner, getBookDetails, createBook, getBooksForUser, updateBook, setShouldRefresh}

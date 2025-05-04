@@ -121,7 +121,6 @@ export const updateBook = async (req, res) => {
     const filtered = Object.entries(data).filter((item) =>
         allowedFields.includes(item[0])
     );
-    console.log('filtered: ', filtered);
 
     if (filtered.length === 0) {
         return res.status(400).json({ message: 'No valid fields to update' });
@@ -135,8 +134,6 @@ export const updateBook = async (req, res) => {
                 }`
         )
         .join(', ');
-
-    console.log('setClause: ', setClause);
 
     const values = filtered.map((entry) => entry[1]);
 
