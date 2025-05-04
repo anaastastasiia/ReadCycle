@@ -17,7 +17,7 @@ export const NavbarMenu = [
   {
     id: 3,
     key: NavbarEnum.ABOUT_US,
-    link: "#",
+    link: "/aboutUs",
   },
   {
     id: 5,

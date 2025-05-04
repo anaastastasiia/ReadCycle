@@ -7,6 +7,7 @@ import bookDetails from './pages/bookDetails.json';
 import authPage from './pages/authPage.json';
 import createBookPage from './pages/createBookPage.json';
 import userPage from './pages/userPage.json';
+import aboutUs from './pages/aboutUs.json';
 
 export default {
     translation: {
@@ -15,7 +16,8 @@ export default {
             bookDetails,
             authPage,
             createBookPage,
-            userPage
+            userPage,
+            aboutUs
         },
         components: {
             bookFilter
