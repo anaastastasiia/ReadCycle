@@ -81,7 +81,13 @@ const Banner = ({
                     whileInView={'visible'}
                     className="text-sm text-slate-500 overflow-hidden line-clamp-3"
                 >
-                    {description} <button>Show more</button>
+                    {description}{' '}
+                    <button
+                        onClick={getDetails}
+                        className="text-slate-700 underline"
+                    >
+                        {t('common:button.showMore')}
+                    </button>
                 </motion.p>
                 <motion.p
                     variants={SlideUp(1.0)}
