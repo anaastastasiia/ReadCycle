@@ -61,3 +61,16 @@ export const updateBook = async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 };
+
+export const deletBook = async (req, res) => {
+    try {
+        const book = await bookService.deleteBook(req, res);
+        res.status(200).json({
+            message: 'Book deleted successfully',
+            deletedBook: book
+        });
+    } catch (err) {
+        console.error('Error deleting book:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+};

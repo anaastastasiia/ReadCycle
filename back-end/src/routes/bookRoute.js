@@ -403,4 +403,35 @@ router.get('/userBooks', verifyToken('USER'), bookController.getUserBooks);
  */
 router.patch('/update/:id', bookController.updateBook);
 
+/**
+ * @swagger
+ * /api/book/delete/{id}:
+ *   delete:
+ *     summary: Delete a book
+ *     description: Removes a book from the database.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID of the book to delete
+ *     responses:
+ *       201:
+ *         description: Book successfully deleted.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: number
+ *                   example: 5
+ *       400:
+ *         description: Bad request (missing required fields or invalid data).
+ *       500:
+ *         description: Internal server error.
+ */
+router.delete('/delete/:id', bookController.deletBook);
+
 export default router;

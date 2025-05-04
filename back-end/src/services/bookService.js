@@ -1,9 +1,5 @@
 import { query } from '../../db.js';
-import {
-    BookResponse,
-    BookDetailsResponse,
-    UserBooksIdsResponse
-} from '../models/Book.js';
+import { BookResponse, BookDetailsResponse } from '../models/Book.js';
 
 export const getBooksOnSale = async () => {
     const { rows } = await query(
@@ -146,6 +142,20 @@ export const updateBook = async (req, res) => {
 
     if (result.rows.length === 0) {
         return res.status(404).json({ message: 'Book not found' });
+    }
+
+    return result.rows[0];
+};
+
+export const deleteBook = async (req, res) => {
+    const { id } = req.params;
+
+    const result = await query('DELETE FROM book WHERE id = $1 RETURNING *', [
+        id
+    ]);
+
+    if (result.rowCount === 0) {
+        return res.status(404).json({ error: 'Book not found' });
     }
 
     return result.rows[0];
