@@ -1,0 +1,22 @@
+import { useTranslation } from 'react-i18next';
+
+export const AboutUs = () => {
+    const { t } = useTranslation();
+
+    return (
+        <div className="container mx-auto px-4 py-12 text-gray-800">
+            <h1 className="text-4xl font-bold text-center mb-8">
+                {t('pages:aboutUs.title')}
+            </h1>
+            <div className="max-w-3xl mx-auto text-lg space-y-6">
+                <p>
+                    <strong>ReadCycle</strong> {t('pages:aboutUs.intro')}
+                </p>
+                <p>{t('pages:aboutUs.mission')}</p>
+                <p>{t('pages:aboutUs.vision')}</p>
+                <p>{t('pages:aboutUs.value')}</p>
+                <p>{t('pages:aboutUs.join')}</p>
+            </div>
+        </div>
+    );
+};
