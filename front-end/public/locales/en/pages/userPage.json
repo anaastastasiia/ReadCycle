@@ -1,0 +1,11 @@
+{
+    "sell": {
+        "title": "My books for sale",
+        "price": "Price",
+        "addDiscount": "Add a discount",
+        "enter": "Enter a discount (%)",
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "successfulAdding": "Discount added successfully"
+    }
+}

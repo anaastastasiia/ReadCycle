@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
@@ -7,13 +8,14 @@ import { booksActions } from '../../store/useBooks';
 import BooksMapper from '../../model/mapper/BooksMapper';
 
 export const BookCard = ({ book }: { book: BookDetails }) => {
+    const { t } = useTranslation();
     const [isDiscountModalOpen, setDiscountModalOpen] = useState(false);
     const [discountValue, setDiscountValue] = useState('');
     const { updateBook } = booksActions;
 
     const handleAddDiscount = async () => {
         await updateBook(book.id, BooksMapper.mapDiscount(discountValue));
-        alert('Знижку додано успішно');
+        alert({ message: t('pages:userPage.sell.successfulAdding') }.message);
         setDiscountModalOpen(false);
         setDiscountValue('');
     };
@@ -39,13 +41,14 @@ export const BookCard = ({ book }: { book: BookDetails }) => {
                         {book.author}
                     </p>
                     <p className="text-sm mt-1">
-                        Ціна: <b>{book.price} грн</b>
+                        {t('pages:userPage.sell.price')}:{' '}
+                        <b>{book.price} PLN</b>
                     </p>
                     <button
                         className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 mt-3"
                         onClick={() => setDiscountModalOpen(true)}
                     >
-                        Додати знижку
+                        {t('pages:userPage.sell.addDiscount')}
                     </button>
                     <div className="flex justify-between items-center my-3">
                         <div>
@@ -67,7 +70,7 @@ export const BookCard = ({ book }: { book: BookDetails }) => {
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                     <div className="bg-white p-6 rounded-lg shadow-lg w-80">
                         <h3 className="text-lg font-semibold mb-4">
-                            Додати знижку
+                            {t('pages:userPage.sell.addDiscount')}
                         </h3>
                         <input
                             type="number"
@@ -75,7 +78,7 @@ export const BookCard = ({ book }: { book: BookDetails }) => {
                             max="100"
                             value={discountValue}
                             onChange={(e) => setDiscountValue(e.target.value)}
-                            placeholder="Введіть знижку (%)"
+                            placeholder={t('pages:userPage.sell.enter')}
                             className="w-full border p-2 rounded mb-4"
                         />
                         <div className="flex justify-end gap-2">
@@ -83,13 +86,13 @@ export const BookCard = ({ book }: { book: BookDetails }) => {
                                 onClick={closeModal}
                                 className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
                             >
-                                Скасувати
+                                {t('pages:userPage.sell.cancel')}
                             </button>
                             <button
                                 onClick={handleAddDiscount}
                                 className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
                             >
-                                Підтвердити
+                                {t('pages:userPage.sell.confirm')}
                             </button>
                         </div>
                     </div>
