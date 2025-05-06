@@ -6,7 +6,6 @@ export const AboutUs = () => {
 
     return (
         <motion.div
-            className="flex-1 p-5"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.5 }}

@@ -19,11 +19,11 @@ export const NavbarMenu = [
     key: NavbarEnum.ABOUT_US,
     link: "/aboutUs",
   },
-  {
-    id: 5,
-    key: NavbarEnum.HELP,
-    link: "#",
-  },
+  // {
+  //   id: 5,
+  //   key: NavbarEnum.HELP,
+  //   link: "#",
+  // },
 ];
 
 export const BooksTypesList = [
