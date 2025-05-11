@@ -28,7 +28,7 @@ const BookItem = ({
 
     return (
         <div
-            className={`flex justify-start items-center max-w-1/2  content-start py-6 relative gap-2 flex-col  ${
+            className={`flex justify-start items-center max-w-1/2 content-start py-6 relative gap-2 flex-col  ${
                 reverse && 'md:order-last md:justify-end'
             }`}
         >
@@ -52,7 +52,7 @@ const BookItem = ({
                 ) : null}
             </motion.div>
 
-            <div className="flex flex-col justify-center text-center md:text-left space-y-2 lg:max-w-1/2 px-6">
+            <div className="flex flex-col justify-center text-center md:text-left space-y-2 lg:max-w-1/2">
                 <motion.p
                     variants={SlideUp(0.5)}
                     initial="hidden"
@@ -73,7 +73,7 @@ const BookItem = ({
                     variants={SlideUp(1.0)}
                     initial="hidden"
                     whileInView={'visible'}
-                    className="text-xl capitalize font-semibold"
+                    className="text-md capitalize font-semibold"
                 >
                     {discount ? (
                         <div>
@@ -92,9 +92,9 @@ const BookItem = ({
                     variants={SlideUp(1.1)}
                     initial="hidden"
                     whileInView={'visible'}
-                    className="flex justify-center md:justify-start"
+                    className="capitalize"
                 >
-                    <button className="primary-btn">
+                    <button className="primary-btn text-md">
                         {t('common:button.addToCart')}
                     </button>
                 </motion.div>
