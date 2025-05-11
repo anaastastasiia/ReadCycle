@@ -1,8 +1,8 @@
-import { Book } from '../components/Book/Book';
+import { Book } from '../components/UserBook/Book';
 import { BookFilters } from '../components/BookFilters/BookFilters';
 import { booksStore } from '../store/useBooks';
 import { BookContext } from '../contexts/BookContext';
-import { BookDetails } from '../components/Book/BookDetails';
+import { BookDetails } from '../components/UserBook/BookDetails';
 
 export const BookDetailsPage = () => {
     const { bookDetails } = booksStore();

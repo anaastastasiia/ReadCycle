@@ -12,7 +12,7 @@ const mapBooksFromDb = (book: BookResponse, index: number): BookBanner => {
     }
 }
 
-const mapBookDetailsFromDb = (book: BookDetailsResponse): BookDetails => {
+const mapBookDetailsFromDb = (book: BookDetailsResponse, userId?: number): BookDetails => {
     return {
         ...book,
         id: book.id,
@@ -23,7 +23,8 @@ const mapBookDetailsFromDb = (book: BookDetailsResponse): BookDetails => {
         dateCreated: book.dateCreated ? book.dateCreated : "",
         numReviews: book.numReviews ? book.numReviews : undefined,
         categoryName: book.categoryName ? book.categoryName : BookTypeEnum.All,
-        images: book.images ? book.images : []
+        images: book.images ? book.images : [],
+        userId: userId ? userId : 0
     }
 }
 

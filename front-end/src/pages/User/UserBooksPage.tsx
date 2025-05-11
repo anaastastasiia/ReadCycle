@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { booksActions, booksStore } from '../../store/useBooks';
-import { BookCard } from '../../components/Book/BookCard';
+import { BookCard } from '../../components/UserBook/BookCard';
 import { authStore } from '../../store/authStore';
 import { BookDetails } from '../../model/types';
 

@@ -274,6 +274,12 @@ export interface BookResponse {
      * @memberof BookResponse
      */
     'categoryName': BookTypeEnum;
+    /**
+     * 
+     * @type {number}
+     * @memberof BookResponse
+     */
+    'userId'?: number;
 }
 
 
@@ -769,6 +775,36 @@ export class AuthenticationApi extends BaseAPI {
 export const DefaultApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
+         * Fetches books from the database.
+         * @summary Get all books
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiBookAllGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/book/all`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Removes a book from the database.
          * @summary Delete a book
          * @param {number} id ID of the book to delete
@@ -1000,6 +1036,18 @@ export const DefaultApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = DefaultApiAxiosParamCreator(configuration)
     return {
         /**
+         * Fetches books from the database.
+         * @summary Get all books
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiBookAllGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<BookResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiBookAllGet(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DefaultApi.apiBookAllGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Removes a book from the database.
          * @summary Delete a book
          * @param {number} id ID of the book to delete
@@ -1090,6 +1138,15 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
     const localVarFp = DefaultApiFp(configuration)
     return {
         /**
+         * Fetches books from the database.
+         * @summary Get all books
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiBookAllGet(options?: RawAxiosRequestConfig): AxiosPromise<Array<BookResponse>> {
+            return localVarFp.apiBookAllGet(options).then((request) => request(axios, basePath));
+        },
+        /**
          * Removes a book from the database.
          * @summary Delete a book
          * @param {number} id ID of the book to delete
@@ -1161,6 +1218,17 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
  * @extends {BaseAPI}
  */
 export class DefaultApi extends BaseAPI {
+    /**
+     * Fetches books from the database.
+     * @summary Get all books
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public apiBookAllGet(options?: RawAxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).apiBookAllGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * Removes a book from the database.
      * @summary Delete a book

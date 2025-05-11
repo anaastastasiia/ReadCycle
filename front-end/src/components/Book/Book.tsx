@@ -1,121 +1,106 @@
 import { useTranslation } from 'react-i18next';
-import Breadcrumb from '../Breadcrumb/Breadcrumb';
-import { useBookContext } from '../../contexts/BookContext';
-import 'react-image-gallery/styles/css/image-gallery.css';
-import ImageGallery from 'react-image-gallery';
+import { motion } from 'framer-motion';
+import { SlideUp } from '../../utils/animations';
+import { BookBanner } from '../../model/types';
+import { booksActions } from '../../store/useBooks';
+import { useNavigate } from 'react-router-dom';
+import { getPriceWithDiscount } from '../../utils/functions';
 
-export const Book = () => {
+const BookItem = ({
+    id,
+    image,
+    name,
+    author,
+    reverse,
+    price,
+    discount
+}: BookBanner) => {
     const { t } = useTranslation();
-    const book = useBookContext();
-    const name = book.name;
+    const navigate = useNavigate();
+    const { getBookDetails } = booksActions;
 
-    const allImages =
-        book.image || (book.images && book.images.length > 0)
-            ? [
-                  {
-                      original: book.image ? book.image : '',
-                      thumbnail: book.image ? book.image : ''
-                  },
-                  ...(book.images?.map((imgUrl) => ({
-                      original: imgUrl,
-                      thumbnail: imgUrl
-                  })) || [])
-              ]
-            : null;
+    const getDetails = async () => {
+        const res = await getBookDetails(id);
+        if (res) {
+            navigate(`/details/${id}`);
+        }
+    };
 
     return (
-        <div className="w-full flex lg:flex-row flex-col">
-            <div className="lg:w-1/2 flex justify-center h-full w-full">
-                {allImages ? (
-                    <ImageGallery
-                        items={allImages}
-                        showPlayButton={false}
-                        showFullscreenButton={true}
-                        thumbnailPosition="bottom"
-                        showNav={true}
-                        slideOnThumbnailOver={true}
-                        autoPlay={false}
-                    />
-                ) : (
-                    <div className="text-center text-gray-400 italic">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-12 w-12 mx-auto mb-2"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M3 3l18 18M4 4h16v16H4V4zm8 4a4 4 0 100 8 4 4 0 000-8z"
-                            />
-                        </svg>
-                        {t('common:info.noImages')}
+        <div
+            className={`flex justify-start items-center max-w-1/2  content-start py-6 relative gap-2 flex-col  ${
+                reverse && 'md:order-last md:justify-end'
+            }`}
+        >
+            <motion.div
+                initial={{ opacity: 0, scale: 0.5 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ type: 'spring', stiffness: 100, delay: 0.2 }}
+                className="min-w-[150px] min-h-[250px] max-h-[250px] max-w-[200px] bg-gray-500 flex 
+                            justify-center items-center relative overflow-hidden flex-col"
+            >
+                <motion.img
+                    src={image ? image : ''}
+                    alt=""
+                    className="w-full h-full object-cover cursor-pointer"
+                    onClick={getDetails}
+                />
+                {discount ? (
+                    <div className="absolute m-1 top-0 left-0  bg-red-500 text-white md:text-lg  font-bold rounded-full px-2 py-1">
+                        -{discount}%
                     </div>
-                )}
-            </div>
-            <div className="lg:w-1/2 w-full flex flex-col p-2 gap-y-2 sm:pt-6 lg:pt-0">
-                <Breadcrumb paths={[{ name, href: `/details/${book.id}` }]} />
-                <div className="text-[28px] text-xl">{name}</div>
-                <div className="mt-4 p-4 bg-gray-100 rounded-lg w-full">
-                    <h3 className="font-semibold text-lg mb-2">
-                        {t('pages:bookDetails.characteristics.header')}
-                    </h3>
-                    <table className="w-full text-sm">
-                        <tbody>
-                            <tr className="border-b">
-                                <td className="font-medium py-1">
-                                    {t(
-                                        'pages:bookDetails.characteristics.author'
-                                    )}
-                                    :
-                                </td>
-                                <td className="py-1 text-right">
-                                    {book.author}
-                                </td>
-                            </tr>
-                            {book.edition ? (
-                                <tr className="border-b">
-                                    <td className="font-medium py-1">
-                                        {t(
-                                            'pages:bookDetails.characteristics.edition'
-                                        )}
-                                        :
-                                    </td>
-                                    <td className="py-1 text-right">
-                                        {book.edition}
-                                    </td>
-                                </tr>
-                            ) : null}
-                            <tr className="border-b">
-                                <td className="font-medium py-1">
-                                    {t(
-                                        'pages:bookDetails.characteristics.pages'
-                                    )}
-                                    :
-                                </td>
-                                <td className="py-1 text-right">
-                                    {book.pages}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="font-medium py-1">
-                                    {t(
-                                        'pages:bookDetails.characteristics.year'
-                                    )}
-                                    :
-                                </td>
-                                <td className="py-1 text-right">{book.year}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <button className="mt-2 text-blue-500 font-medium hover:underline">
-                        {t('pages:bookDetails.characteristics.showAll')}
+                ) : null}
+            </motion.div>
+
+            <div className="flex flex-col justify-center text-center md:text-left space-y-2 lg:max-w-1/2 px-6">
+                <motion.p
+                    variants={SlideUp(0.5)}
+                    initial="hidden"
+                    whileInView={'visible'}
+                    className="text-sm text-orange-600 font-semibold capitalize"
+                >
+                    {author}
+                </motion.p>
+                <motion.p
+                    variants={SlideUp(0.7)}
+                    initial="hidden"
+                    whileInView={'visible'}
+                    className="text-md lg:text-xl capitalize font-semibold"
+                >
+                    {name}
+                </motion.p>
+                <motion.p
+                    variants={SlideUp(1.0)}
+                    initial="hidden"
+                    whileInView={'visible'}
+                    className="text-xl capitalize font-semibold"
+                >
+                    {discount ? (
+                        <div>
+                            <span className="text-red-700">
+                                {getPriceWithDiscount(price, discount)} PLN{' '}
+                            </span>
+                            <span className="line-through">
+                                {price.toFixed(2)} PLN
+                            </span>
+                        </div>
+                    ) : (
+                        <span>{price} PLN</span>
+                    )}
+                </motion.p>
+                <motion.div
+                    variants={SlideUp(1.1)}
+                    initial="hidden"
+                    whileInView={'visible'}
+                    className="flex justify-center md:justify-start"
+                >
+                    <button className="primary-btn">
+                        {t('common:button.addToCart')}
                     </button>
-                </div>
+                </motion.div>
             </div>
         </div>
     );
 };
+
+export default BookItem;
