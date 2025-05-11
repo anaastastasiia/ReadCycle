@@ -9,6 +9,14 @@ export const getBooksOnSale = async () => {
     return books;
 };
 
+export const getAllBooks = async () => {
+    const { rows } = await query(
+        'SELECT b.id, b.name, b.author, b.image, b.description, b.price, c.name as category_name, b.discount, b.image, b.user_id FROM book b JOIN category c ON b.category_id = c.id WHERE b.discount IS NOT NULL;'
+    );
+    const books = rows.map((row) => new BookResponse(row));
+    return books;
+};
+
 export const getBooksDetails = async (req) => {
     const bookId = req.params.id;
     if (!bookId) {

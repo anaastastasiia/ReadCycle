@@ -4,6 +4,7 @@ import { SlideUp } from '../../utils/animations';
 import { BookBanner } from '../../model/types';
 import { booksActions } from '../../store/useBooks';
 import { useNavigate } from 'react-router-dom';
+import { getPriceWithDiscount } from '../../utils/functions';
 
 const Banner = ({
     id,
@@ -18,13 +19,6 @@ const Banner = ({
     const { t } = useTranslation();
     const navigate = useNavigate();
     const { getBookDetails } = booksActions;
-
-    const getPriceWithDiscount = (price: number, discount?: number): string => {
-        if (discount) {
-            return (price * (1 - discount / 100)).toFixed(2);
-        }
-        return '';
-    };
 
     const getDetails = async () => {
         const res = await getBookDetails(id);
@@ -48,7 +42,7 @@ const Banner = ({
                 <motion.img
                     src={image ? image : ''}
                     alt=""
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover cursor-pointer"
                     onClick={getDetails}
                 />
                 {discount ? (

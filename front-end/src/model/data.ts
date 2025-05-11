@@ -12,7 +12,7 @@ export const NavbarMenu = [
   {
     id: 2,
     key: NavbarEnum.LIBRARY,
-    link: "#",
+    link: "/library",
   },
   {
     id: 3,

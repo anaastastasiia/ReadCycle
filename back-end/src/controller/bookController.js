@@ -14,6 +14,20 @@ export const getBooksOnSale = async (req, res) => {
     }
 };
 
+export const getAllBooks = async (req, res) => {
+    try {
+        const books = await bookService.getAllBooks();
+        if (books.length) {
+            res.status(200).json(books);
+        } else {
+            res.status(204).json({ message: 'No books found' });
+        }
+    } catch (err) {
+        console.error('Error fetching books:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+};
+
 export const getBooksDetails = async (req, res) => {
     try {
         const books = await bookService.getBooksDetails(req);
