@@ -1,9 +1,8 @@
-import { useTranslation } from 'react-i18next';
 import { booksStore } from '../store/useBooks';
 import BookItem from '../components/Book/Book';
+import { BookFilters } from '../components/BookFilters/BookFilters';
 
 export const LibraryPage = () => {
-    const { t } = useTranslation();
     const { booksOnSale } = booksStore();
 
     return (
@@ -11,18 +10,19 @@ export const LibraryPage = () => {
             <div>
                 {booksOnSale.length ? (
                     <div className="container bg-[#f9f9f9]">
-                        <div className="space-y-4 px-6 pb-6 text-center max-w-[700px] mx-auto mb-5">
-                            <p className="font-semibold text-3xl ">
-                                {t('pages:mainPage.sales.title')}
-                                <span className="text-red-600">
-                                    {t('pages:mainPage.sales.onSale')}
-                                </span>
-                            </p>
-                        </div>
-                        <div className="grid lg:grid-cols-4 space-y-6 md:space-y-0 gap-6">
-                            {booksOnSale.map((item, index) => {
-                                return <BookItem {...item} key={index} />;
-                            })}
+                        <div className="flex md:flex-row flex-col">
+                            <div className="lg:w-1/4 p-4 w-full">
+                                <BookFilters />
+                            </div>
+                            <div className="lg:w-3/4 p-6 w-full">
+                                <div className="grid lg:grid-cols-4 md:grid-cols-2 space-y-6 md:space-y-0 gap-6">
+                                    {booksOnSale.map((item, index) => {
+                                        return (
+                                            <BookItem {...item} key={index} />
+                                        );
+                                    })}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 ) : null}
