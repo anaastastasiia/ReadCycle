@@ -2,6 +2,7 @@
     "filters": {
         "header": "Filtry" ,
         "byName": "Wyszukaj według nazwy",
+        "byAuthor": "Wyszukaj według autora",
         "byGenre": "Gatunek",
         "byPrice": "Cena",
         "from": "Od",

@@ -31,6 +31,14 @@ export interface CreateBookFormData {
     year?: string | null
 }
 
+export interface FilterFormData {
+    name?: string,
+    author?: string,
+    category?: string,
+    priceFrom?: string,
+    priceTo?: string
+}
+
 //STORE
 export const booksStore = create<BookState>(() => ({
     books: [],

@@ -15,7 +15,7 @@ export const LibraryPage = () => {
         <div className="overflow-x-hidden">
             <div>
                 {books.length ? (
-                    <div className="container bg-[#f9f9f9]">
+                    <div className="container">
                         <div className="flex md:flex-row flex-col">
                             <div className="lg:w-1/4 p-4 w-full">
                                 <BookFilters />
