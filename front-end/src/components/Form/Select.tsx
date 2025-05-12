@@ -27,7 +27,7 @@ export const FormSelect = ({
                     error ? 'border-red-500' : 'border-gray-300'
                 }`}
             >
-                <option value="">-- Wybierz opcję --</option>
+                <option value=""></option>
                 {options.map((option) => (
                     <option key={option.value} value={option.value}>
                         {option.label}
