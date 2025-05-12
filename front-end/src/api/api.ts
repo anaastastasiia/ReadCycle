@@ -873,6 +873,61 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
+         * Returns a filtered list of books based on optional query parameters: - Partial match on name or author - Genre (category) - Price range (from / to) 
+         * @summary Get filtered list of books
+         * @param {string} [name] Filter by partial book name
+         * @param {string} [author] Filter by partial author name
+         * @param {number} [priceFrom] Minimum price
+         * @param {number} [priceTo] Maximum price
+         * @param {BookTypeEnum} [category] Category of the book
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiBookFilterGet: async (name?: string, author?: string, priceFrom?: number, priceTo?: number, category?: BookTypeEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/book/filter`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (name !== undefined) {
+                localVarQueryParameter['name'] = name;
+            }
+
+            if (author !== undefined) {
+                localVarQueryParameter['author'] = author;
+            }
+
+            if (priceFrom !== undefined) {
+                localVarQueryParameter['priceFrom'] = priceFrom;
+            }
+
+            if (priceTo !== undefined) {
+                localVarQueryParameter['priceTo'] = priceTo;
+            }
+
+            if (category !== undefined) {
+                localVarQueryParameter['category'] = category;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Adds a new book to the database.
          * @summary Create a new book
          * @param {NewBookRequest} newBookRequest 
@@ -1074,6 +1129,23 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * Returns a filtered list of books based on optional query parameters: - Partial match on name or author - Genre (category) - Price range (from / to) 
+         * @summary Get filtered list of books
+         * @param {string} [name] Filter by partial book name
+         * @param {string} [author] Filter by partial author name
+         * @param {number} [priceFrom] Minimum price
+         * @param {number} [priceTo] Maximum price
+         * @param {BookTypeEnum} [category] Category of the book
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiBookFilterGet(name?: string, author?: string, priceFrom?: number, priceTo?: number, category?: BookTypeEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<BookResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiBookFilterGet(name, author, priceFrom, priceTo, category, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DefaultApi.apiBookFilterGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Adds a new book to the database.
          * @summary Create a new book
          * @param {NewBookRequest} newBookRequest 
@@ -1167,6 +1239,20 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.apiBookDetailsIdGet(id, options).then((request) => request(axios, basePath));
         },
         /**
+         * Returns a filtered list of books based on optional query parameters: - Partial match on name or author - Genre (category) - Price range (from / to) 
+         * @summary Get filtered list of books
+         * @param {string} [name] Filter by partial book name
+         * @param {string} [author] Filter by partial author name
+         * @param {number} [priceFrom] Minimum price
+         * @param {number} [priceTo] Maximum price
+         * @param {BookTypeEnum} [category] Category of the book
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiBookFilterGet(name?: string, author?: string, priceFrom?: number, priceTo?: number, category?: BookTypeEnum, options?: RawAxiosRequestConfig): AxiosPromise<Array<BookResponse>> {
+            return localVarFp.apiBookFilterGet(name, author, priceFrom, priceTo, category, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Adds a new book to the database.
          * @summary Create a new book
          * @param {NewBookRequest} newBookRequest 
@@ -1251,6 +1337,22 @@ export class DefaultApi extends BaseAPI {
      */
     public apiBookDetailsIdGet(id: number, options?: RawAxiosRequestConfig) {
         return DefaultApiFp(this.configuration).apiBookDetailsIdGet(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns a filtered list of books based on optional query parameters: - Partial match on name or author - Genre (category) - Price range (from / to) 
+     * @summary Get filtered list of books
+     * @param {string} [name] Filter by partial book name
+     * @param {string} [author] Filter by partial author name
+     * @param {number} [priceFrom] Minimum price
+     * @param {number} [priceTo] Maximum price
+     * @param {BookTypeEnum} [category] Category of the book
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public apiBookFilterGet(name?: string, author?: string, priceFrom?: number, priceTo?: number, category?: BookTypeEnum, options?: RawAxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).apiBookFilterGet(name, author, priceFrom, priceTo, category, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

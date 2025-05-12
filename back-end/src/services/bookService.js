@@ -168,3 +168,49 @@ export const deleteBook = async (req, res) => {
 
     return result.rows[0];
 };
+
+export const getFilteredBooks = async (req, res) => {
+    const { name, author, priceFrom, priceTo, categoryId } = req.query;
+    console.log(req.query);
+
+    const filters = [];
+    const values = [];
+
+    if (name) {
+        values.push(`%${name}`);
+        filters.push(`b.name ILIKE $${values.length}`);
+    }
+
+    if (author) {
+        values.push(`%${author}`);
+        filters.push(`b.author ILIKE $${values.length}`);
+    }
+
+    if (priceFrom) {
+        values.push(Number(priceFrom));
+        filters.push(`b.price >= $${values.length}`);
+    }
+
+    if (priceTo) {
+        values.push(Number(priceTo));
+        filters.push(`b.price <= $${values.length}`);
+    }
+
+    if (categoryId) {
+        values.push(`%${categoryId}`);
+        filters.push(`c.id == $${values.length}`);
+    }
+
+    const whereClause =
+        filters.length > 0 ? `WHERE ${filters.join(' AND ')}` : '';
+
+    const queryText = `SELECT b.id, b.name, b.author, b.image, b.description, b.price,
+                        c.name as category_name, b.discount, b.user_id
+                        FROM book b
+                        JOIN category c ON b.category_id = c.id
+                        ${whereClause}`;
+
+    const { rows } = await query(queryText, values);
+    const books = rows.map((row) => new BookResponse(row));
+    return books;
+};

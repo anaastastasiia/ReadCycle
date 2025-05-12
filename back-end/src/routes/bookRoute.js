@@ -502,6 +502,54 @@ router.patch('/update/:id', bookController.updateBook);
  *       500:
  *         description: Internal server error.
  */
-router.delete('/delete/:id', bookController.deletBook);
+router.delete('/delete/:id', bookController.deleteBook);
+
+/**
+ * @swagger
+ * /api/book/filter:
+ *   get:
+ *     summary: Get filtered list of books
+ *     description: |
+ *       Returns a filtered list of books based on optional query parameters:
+ *       - Partial match on name or author
+ *       - Genre (category)
+ *       - Price range (from / to)
+ *     parameters:
+ *       - in: query
+ *         name: name
+ *         schema:
+ *           type: string
+ *         description: Filter by partial book name
+ *       - in: query
+ *         name: author
+ *         schema:
+ *           type: string
+ *         description: Filter by partial author name
+ *       - in: query
+ *         name: priceFrom
+ *         schema:
+ *           type: number
+ *         description: Minimum price
+ *       - in: query
+ *         name: priceTo
+ *         schema:
+ *           type: number
+ *         description: Maximum price
+ *       - in: query
+ *         name: category
+ *         schema:
+ *           $ref: '#/components/schemas/BookTypeEnum'
+ *         description: Category of the book
+ *     responses:
+ *       200:
+ *         description: Filtered list of books
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/BookResponse'
+ */
+router.get('/filter', bookController.getFilteredBooks);
 
 export default router;

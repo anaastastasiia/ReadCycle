@@ -76,7 +76,7 @@ export const updateBook = async (req, res) => {
     }
 };
 
-export const deletBook = async (req, res) => {
+export const deleteBook = async (req, res) => {
     try {
         const book = await bookService.deleteBook(req, res);
         res.status(200).json({
@@ -85,6 +85,20 @@ export const deletBook = async (req, res) => {
         });
     } catch (err) {
         console.error('Error deleting book:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+};
+
+export const getFilteredBooks = async (req, res) => {
+    try {
+        const books = await bookService.getFilteredBooks(req, res);
+        if (books.length) {
+            res.status(200).json(books);
+        } else {
+            res.status(204).json({ message: 'No books found' });
+        }
+    } catch (err) {
+        console.error('Error fetching books:', err);
         res.status(500).json({ message: 'Internal Server Error' });
     }
 };
