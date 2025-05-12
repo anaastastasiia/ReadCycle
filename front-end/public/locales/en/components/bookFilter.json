@@ -1,8 +1,8 @@
 {
     "filters": {
         "header": "Filters" ,
-        "byName": "Search by name",
-        "byAuthor": "Search by author",
+        "byName": "Name",
+        "byAuthor": "Author",
         "byGenre": "Genre",
         "byPrice": "Price",
         "from": "From",

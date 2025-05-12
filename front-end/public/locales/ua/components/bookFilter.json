@@ -1,8 +1,8 @@
 {
     "filters": {
         "header": "Фільтри" ,
-        "byName": "Пошук за назвою",
-        "byAuthor": "Пошук за письменником",
+        "byName": "Назва",
+        "byAuthor": "Письменник",
         "byGenre": "Жанр",
         "byPrice": "Ціна",
         "from": "Від",
