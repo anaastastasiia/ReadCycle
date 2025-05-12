@@ -1,8 +1,8 @@
 {
     "filters": {
         "header": "Filtry" ,
-        "byName": "Wyszukaj według nazwy",
-        "byAuthor": "Wyszukaj według autora",
+        "byName": "Nazwa",
+        "byAuthor": "Autor",
         "byGenre": "Gatunek",
         "byPrice": "Cena",
         "from": "Od",
