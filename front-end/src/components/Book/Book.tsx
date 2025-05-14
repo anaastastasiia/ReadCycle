@@ -28,7 +28,7 @@ const BookItem = ({
 
     return (
         <div
-            className={`flex justify-start items-center max-w-1/2 content-start py-6 relative gap-2 flex-col  ${
+            className={`flex justify-start items-center max-w-1/2 content-start py-6 relative gap-2 flex-col ml-2 ${
                 reverse && 'md:order-last md:justify-end'
             }`}
         >
@@ -36,13 +36,12 @@ const BookItem = ({
                 initial={{ opacity: 0, scale: 0.5 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ type: 'spring', stiffness: 100, delay: 0.2 }}
-                className="min-w-[150px] min-h-[250px] max-h-[250px] max-w-[200px] bg-gray-500 flex 
-                            justify-center items-center relative overflow-hidden flex-col"
+                className="w-full flex justify-center items-center relative overflow-hidden flex-col bg-gray-100"
             >
                 <motion.img
                     src={image ? image : ''}
                     alt=""
-                    className="w-full h-full object-cover cursor-pointer"
+                    className="object-cover cursor-pointer min-w-[150px] min-h-[250px] max-h-[250px] max-w-[200px]"
                     onClick={getDetails}
                 />
                 {discount ? (
@@ -52,7 +51,7 @@ const BookItem = ({
                 ) : null}
             </motion.div>
 
-            <div className="flex flex-col justify-center text-center md:text-left space-y-2 lg:max-w-1/2">
+            <div className="flex flex-col justify-center text-center md:text-left space-y-2 w-full">
                 <motion.p
                     variants={SlideUp(0.5)}
                     initial="hidden"
@@ -92,9 +91,9 @@ const BookItem = ({
                     variants={SlideUp(1.1)}
                     initial="hidden"
                     whileInView={'visible'}
-                    className="capitalize"
+                    className="flex justify-center md:justify-start"
                 >
-                    <button className="primary-btn text-md">
+                    <button className="primary-btn">
                         {t('common:button.addToCart')}
                     </button>
                 </motion.div>

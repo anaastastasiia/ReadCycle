@@ -21,7 +21,7 @@ export const LibraryPage = () => {
                                 <BookFilters />
                             </div>
                             <div className="lg:w-3/4 p-6 w-full">
-                                <div className="grid lg:grid-cols-4 md:grid-cols-2 space-y-6 md:space-y-0 gap-6">
+                                <div className="grid lg:grid-cols-4 md:grid-cols-2 space-y-6 md:space-y-0">
                                     {books.map((item, index) => {
                                         return (
                                             <BookItem {...item} key={index} />
