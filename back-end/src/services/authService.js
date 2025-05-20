@@ -60,16 +60,14 @@ export const register = async (req) => {
 
         return token;
     } else {
-        return res.status(401).json({ message: 'Invalid credentials' });
+        throw new Error('Invalid credentials: no user');
     }
 };
 
 export const login = async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
-        return res
-            .status(400)
-            .json({ message: 'Email and password are required' });
+        throw new Error('Email and password are required');
     }
 
     const { rows } = await query('SELECT * FROM users WHERE email = $1', [
@@ -78,12 +76,12 @@ export const login = async (req, res) => {
     const user = rows[0];
 
     if (!user) {
-        return res.status(401).json({ message: 'Invalid credentials' });
+        throw new Error('Invalid credentials: no user');
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-        return res.status(401).json({ message: 'Invalid credentials' });
+        throw new Error('Invalid credentials: password');
     }
 
     const tokenPayload = {

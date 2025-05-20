@@ -20,7 +20,7 @@ export const getAllBooks = async () => {
 export const getBooksDetails = async (req) => {
     const bookId = req.params.id;
     if (!bookId) {
-        return res.status(400).json({ error: 'There is no id' });
+        throw new Error('There is no id');
     }
     const { rows } = await query('SELECT * FROM book WHERE id = $1', [bookId]);
     const books = rows.map((row) => new BookDetailsResponse(row));
@@ -83,7 +83,7 @@ export const getUserBooks = async (req, res) => {
     const userId = req.token.user?.id;
 
     if (!userId) {
-        return res.status(400).json({ message: 'Missing user ID' });
+        throw new Error('Missing user ID');
     }
 
     const limit = Number(req.query.limit) || 10;
@@ -105,7 +105,7 @@ export const updateBook = async (req, res) => {
     const data = req.body;
 
     if (!id || isNaN(Number(id))) {
-        return res.status(400).json({ message: 'Invalid book id' });
+        throw new Error('Invalid book id');
     }
 
     const allowedFields = [
@@ -127,7 +127,7 @@ export const updateBook = async (req, res) => {
     );
 
     if (filtered.length === 0) {
-        return res.status(400).json({ message: 'No valid fields to update' });
+        throw new Error('No valid fields to update');
     }
 
     const setClause = filtered
@@ -149,7 +149,7 @@ export const updateBook = async (req, res) => {
     );
 
     if (result.rows.length === 0) {
-        return res.status(404).json({ message: 'Book not found' });
+        throw new Error('Book not found');
     }
 
     return result.rows[0];
@@ -163,7 +163,7 @@ export const deleteBook = async (req, res) => {
     ]);
 
     if (result.rowCount === 0) {
-        return res.status(404).json({ error: 'Book not found' });
+        throw new Error('Book not found');
     }
 
     return result.rows[0];
@@ -171,7 +171,6 @@ export const deleteBook = async (req, res) => {
 
 export const getFilteredBooks = async (req, res) => {
     const { name, author, priceFrom, priceTo, categoryId } = req.query;
-    console.log(req.query);
 
     const filters = [];
     const values = [];

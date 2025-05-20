@@ -254,6 +254,7 @@ router.get('/details/:id', bookController.getBooksDetails);
  *         - description
  *         - price
  *         - category
+ *         - userId
  *       properties:
  *         name:
  *           type: string
@@ -298,6 +299,9 @@ router.get('/details/:id', bookController.getBooksDetails);
  *           type: string
  *           nullable: true
  *           example: "2024"
+ *         userId:
+ *           type: number
+ *           example: 17
  *
  * /api/book/new:
  *   post:

@@ -1,4 +1,5 @@
 import { BookDetailsResponse, BookResponse, BookTypeEnum, NewBookRequest, UpdateBookRequest } from "../../api";
+import { UserData } from "../../store/authStore";
 import { CreateBookFormData } from "../../store/useBooks";
 import { BookBanner, BookDetails } from "../types";
 
@@ -28,7 +29,7 @@ const mapBookDetailsFromDb = (book: BookDetailsResponse, userId?: number): BookD
     }
 }
 
-const mapNewBook = (book: CreateBookFormData): NewBookRequest => {
+const mapNewBook = (book: CreateBookFormData, user: UserData): NewBookRequest => {
     return {
         ...book,
         image: "",
@@ -36,7 +37,8 @@ const mapNewBook = (book: CreateBookFormData): NewBookRequest => {
         pages: book.pages ? book.pages : undefined,
         year: book.year ? book.year : "",
         category: book.category ? Number(book.category) : 8,
-        images: book.images ? book.images : []
+        images: book.images ? book.images : [],
+        userId: user.id
     }
 }
 
