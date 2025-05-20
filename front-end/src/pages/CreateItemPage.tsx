@@ -11,6 +11,7 @@ import { FormSelect } from '../components/Form/Select';
 import { booksActions, CreateBookFormData } from '../store/useBooks';
 import { uploadActions } from '../store/uploadStore';
 import { categoriesActions, categoriesStore } from '../store/useCategories';
+import { authStore } from '../store/authStore';
 
 export const CreateItemPage = () => {
     const navigate = useNavigate();
@@ -21,6 +22,7 @@ export const CreateItemPage = () => {
     const { getCategories } = categoriesActions;
     const { categories } = categoriesStore();
     const { uploadImage, uploadImages } = uploadActions;
+    const { user } = authStore();
 
     useEffect(() => {
         getCategories();
@@ -63,29 +65,31 @@ export const CreateItemPage = () => {
     };
 
     const handleCreate = async (data: CreateBookFormData) => {
-        const res = await createBook(BooksMapper.mapNewBook(data));
-        if (!res) return;
+        if (user) {
+            const res = await createBook(BooksMapper.mapNewBook(data, user));
+            if (!res) return;
 
-        if (!file && files.length === 0) {
-            navigate('/');
-            return;
-        }
+            if (!file && files.length === 0) {
+                navigate('/');
+                return;
+            }
 
-        const promises: Promise<void>[] = [];
-        if (file) {
-            promises.push(handleUpload(res));
-        }
+            const promises: Promise<void>[] = [];
+            if (file) {
+                promises.push(handleUpload(res));
+            }
 
-        if (files.length > 0) {
-            promises.push(handleUploadImages(res));
-        }
+            if (files.length > 0) {
+                promises.push(handleUploadImages(res));
+            }
 
-        try {
-            await Promise.all(promises);
-            navigate('/');
-        } catch (err) {
-            console.error('Upload failed: ', err);
-            //TODO dodać później toast
+            try {
+                await Promise.all(promises);
+                navigate('/');
+            } catch (err) {
+                console.error('Upload failed: ', err);
+                //TODO dodać później toast
+            }
         }
     };
 

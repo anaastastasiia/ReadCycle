@@ -407,6 +407,12 @@ export interface NewBookRequest {
      * @memberof NewBookRequest
      */
     'year'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof NewBookRequest
+     */
+    'userId': number;
 }
 /**
  * 
