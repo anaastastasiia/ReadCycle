@@ -31,11 +31,11 @@ export const BookCard = ({ book }: { book: BookDetails }) => {
 
     return (
         <>
-            <div className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition p-4 flex flex-col justify-between">
+            <div className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition p-8 flex flex-col justify-between">
                 <img
                     src={book.image || '/placeholder.png'}
                     alt={book.name}
-                    className="w-full h-48 object-cover rounded"
+                    className="w-full h-72 object-cover rounded"
                 />
                 <div className="mt-2">
                     <h2 className="text-lg font-semibold line-clamp-1">
