@@ -55,7 +55,7 @@ export const uploadFile = async (req) => {
         ]);
 
         if (result.rowCount === 0) {
-            return res.status(404).json({ error: 'Book not found' });
+            throw new Error('Book not found');
         }
 
         return imageUrl;
@@ -78,7 +78,7 @@ export const uploadFiles = async (req) => {
         );
 
         if (result.rowCount === 0) {
-            return res.status(404).json({ error: 'Book not found' });
+            throw new Error('Book not found');
         }
 
         return imageUrls;
