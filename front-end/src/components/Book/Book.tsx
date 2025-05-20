@@ -51,7 +51,7 @@ const BookItem = ({
                 ) : null}
             </motion.div>
 
-            <div className="flex flex-col justify-center text-center md:text-left space-y-2 w-full">
+            <div className="flex flex-col justify-center text-center md:text-center space-y-2 w-full">
                 <motion.p
                     variants={SlideUp(0.5)}
                     initial="hidden"
@@ -90,8 +90,8 @@ const BookItem = ({
                 <motion.div
                     variants={SlideUp(1.1)}
                     initial="hidden"
-                    whileInView={'visible'}
-                    className="flex justify-center md:justify-start"
+                    animate="visible"
+                    className="flex justify-center"
                 >
                     <button className="primary-btn">
                         {t('common:button.addToCart')}

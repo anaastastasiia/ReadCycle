@@ -22,7 +22,6 @@ export const UserBooksPage = () => {
 
     useEffect(() => {
         if (shouldRefresh && user) {
-            console.log('wpada');
             (async () => {
                 await getBooksForUser(user.id);
                 setShouldRefresh(false);
@@ -40,7 +39,7 @@ export const UserBooksPage = () => {
                 {t('pages:userPage.sell.title')}
             </h1>
 
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
                 {localBooks.map((book) => (
                     <BookCard key={book.id} book={book} />
                 ))}
