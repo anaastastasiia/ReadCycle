@@ -6,6 +6,8 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { BookDetails } from '../../model/types';
 import { booksActions } from '../../store/useBooks';
 import BooksMapper from '../../model/mapper/BooksMapper';
+import { motion } from 'framer-motion';
+import { SlideRight, SlideUp } from '../../utils/animations';
 
 export const BookCard = ({ book }: { book: BookDetails }) => {
     const { t } = useTranslation();
@@ -32,40 +34,84 @@ export const BookCard = ({ book }: { book: BookDetails }) => {
     return (
         <>
             <div className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition p-8 flex flex-col justify-between">
-                <img
-                    src={book.image || '/placeholder.png'}
-                    alt={book.name}
-                    className="w-full h-72 object-cover rounded"
-                />
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ type: 'spring', stiffness: 100, delay: 0.2 }}
+                    className="w-full flex justify-center items-center relative overflow-hidden flex-col bg-gray-100"
+                >
+                    <motion.img
+                        src={book.image || '/placeholder.png'}
+                        alt={book.name}
+                        className="w-full h-72 object-cover rounded"
+                    />
+                    {book.discount ? (
+                        <div className="absolute m-1 top-0 left-0  bg-red-500 text-white md:text-lg  font-bold rounded-full px-2 py-1">
+                            -{book.discount}%
+                        </div>
+                    ) : null}
+                </motion.div>
+
                 <div className="mt-2">
-                    <h2 className="text-lg font-semibold line-clamp-1">
+                    <motion.h2
+                        variants={SlideUp(0.5)}
+                        initial="hidden"
+                        whileInView={'visible'}
+                        className="text-lg font-semibold line-clamp-1"
+                    >
                         {book.name}
-                    </h2>
-                    <p className="text-sm text-gray-600 line-clamp-1">
+                    </motion.h2>
+                    <motion.p
+                        variants={SlideUp(0.7)}
+                        initial="hidden"
+                        whileInView={'visible'}
+                        className="text-sm text-gray-600 line-clamp-1"
+                    >
                         {book.author}
-                    </p>
-                    <p className="text-sm mt-1">
+                    </motion.p>
+                    <motion.p
+                        variants={SlideUp(1.0)}
+                        initial="hidden"
+                        whileInView={'visible'}
+                        className="text-sm mt-1"
+                    >
                         {t('pages:userPage.sell.price')}:{' '}
                         <b>{book.price} PLN</b>
-                    </p>
-                    <button
+                    </motion.p>
+                    <motion.button
+                        variants={SlideUp(1.1)}
+                        initial="hidden"
+                        whileInView={'visible'}
                         className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 mt-3"
                         onClick={() => setDiscountModalOpen(true)}
                     >
                         {t('pages:userPage.sell.addDiscount')}
-                    </button>
+                    </motion.button>
                     <div className="flex justify-between items-center my-3">
-                        <div>
+                        <motion.div
+                            variants={SlideRight(0.8)}
+                            initial="hidden"
+                            animate="visible"
+                        >
                             <label>5</label>
                             <RemoveRedEyeIcon />
-                        </div>
-                        <div>
+                        </motion.div>
+                        <motion.div
+                            variants={SlideRight(0.9)}
+                            initial="hidden"
+                            animate="visible"
+                        >
                             <label>4</label>
                             <FavoriteIcon />
-                        </div>
-                        <button onClick={deleteItem}>
+                        </motion.div>
+                        <motion.button
+                            variants={SlideRight(1.0)}
+                            initial="hidden"
+                            animate="visible"
+                            onClick={deleteItem}
+                        >
                             <DeleteIcon />
-                        </button>
+                        </motion.button>
                     </div>
                 </div>
             </div>
