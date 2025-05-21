@@ -95,6 +95,7 @@ router.get('/onSale', bookController.getBooksOnSale);
  *         - description
  *         - price
  *         - categoryName
+ *         - userId
  *       properties:
  *         id:
  *           type: number

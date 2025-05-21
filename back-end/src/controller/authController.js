@@ -19,3 +19,13 @@ export const login = async (req, res) => {
         res.status(401).json({ error: err.message });
     }
 };
+
+export const getUserNameById = async (req, res) => {
+    try {
+        const user = await authService.getUserNameById(req);
+        res.status(200).json({ user });
+    } catch (err) {
+        console.error('Getting user error:', err);
+        res.status(401).json({ error: err.message });
+    }
+};

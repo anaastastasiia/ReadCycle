@@ -73,7 +73,8 @@ export type BookBanner = {
     price: number,
     discount?: number,
     reverse?: boolean,
-    categoryName: BookTypeEnum
+    categoryName: BookTypeEnum,
+    userId: number
 }
 
 export type BookDetails = {

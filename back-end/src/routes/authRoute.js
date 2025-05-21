@@ -136,4 +136,45 @@ router.post('/register', authController.register);
  */
 router.post('/login', authController.login);
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     UserNameResponse:
+ *       type: object
+ *       required:
+ *         - id
+ *         - firstName
+ *         - lastName
+ *       properties:
+ *         id:
+ *           type: number
+ *           example: 1
+ *         firstName:
+ *           type: string
+ *           example: "Jan"
+ *         lastName:
+ *           type: string
+ *           example: "Kowalski"
+ * /api/auth/user/{id}:
+ *   get:
+ *     summary: Get username by id
+ *     description: Fetches user's name by id from the database.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: number
+ *         description: ID of the book
+ *     responses:
+ *       200:
+ *         description: A user.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/UserNameResponse'
+ */
+router.get('/user/:id', authController.getUserNameById);
+
 export default router;

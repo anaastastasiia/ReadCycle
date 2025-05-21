@@ -2,6 +2,7 @@ import { query } from '../../db.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import env from 'dotenv';
+import { UserNameResponse } from '../models/Auth.js';
 
 env.config();
 
@@ -105,4 +106,21 @@ export const login = async (req, res) => {
     });
 
     return token;
+};
+
+export const getUserNameById = async (req) => {
+    const userId = req.params.id;
+
+    if (!userId) {
+        throw new Error('User id is required');
+    }
+
+    const { rows } = await query(
+        'SELECT u.id, u.first_name, u.last_name FROM users u WHERE u.id = $1',
+        [userId]
+    );
+
+    const user = rows[0];
+    const data = new UserNameResponse(user.id, user.first_name, user.last_name);
+    return data;
 };

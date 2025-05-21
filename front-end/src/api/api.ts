@@ -279,7 +279,7 @@ export interface BookResponse {
      * @type {number}
      * @memberof BookResponse
      */
-    'userId'?: number;
+    'userId': number;
 }
 
 
