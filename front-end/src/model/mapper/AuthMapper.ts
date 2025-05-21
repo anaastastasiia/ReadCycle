@@ -1,5 +1,6 @@
-import { RegisterRequest } from "../../api";
-import { RegisterFormData, UserData } from "../../store/authStore";
+import { RegisterRequest, UserNameResponse } from "../../api";
+import { RegisterFormData } from "../../store/authStore";
+import { UsersNameData } from "../types";
 
 const mapRegisterData = (formData: RegisterFormData): RegisterRequest => {
     return {
@@ -8,11 +9,29 @@ const mapRegisterData = (formData: RegisterFormData): RegisterRequest => {
     }
 }
 
-const mapUserData = (formData: RegisterFormData): UserData => {
+const mapUserNameData = (data: UserNameResponse): UsersNameData => {
+    console.log(data);
+    console.log(data.firstName);
+    console.log(data.lastName);
+
+    let fullName = '';
+
+    if (data.firstName && data.firstName.length > 0) {
+        fullName += data.firstName;
+    }
+    
+    if (data.lastName && data.lastName.length > 0) {
+        if (fullName.length > 0) {
+            fullName += ' ';
+        }
+        fullName += data.lastName;
+    }
+    console.log(fullName);
+
     return {
-        ...formData,
-        apartment: formData.apartment ? formData.apartment : ''
+        id: data.id,
+        fullName: fullName
     }
 }
-  
-export default {mapRegisterData, mapUserData}
+
+export default {mapRegisterData, mapUserNameData}

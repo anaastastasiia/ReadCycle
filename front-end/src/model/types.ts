@@ -99,3 +99,8 @@ export enum AuthEnum {
     REGISTER,
     LOGIN
 }
+
+export type UsersNameData = {
+    id: number,
+    fullName: string
+}

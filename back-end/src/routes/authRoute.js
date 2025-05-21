@@ -160,6 +160,8 @@ router.post('/login', authController.login);
  *   get:
  *     summary: Get username by id
  *     description: Fetches user's name by id from the database.
+ *     tags:
+ *       - Authentication
  *     parameters:
  *       - in: path
  *         name: id
