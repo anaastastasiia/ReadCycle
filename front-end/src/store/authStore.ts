@@ -2,12 +2,15 @@ import { create } from 'zustand';
 import { authController } from '../controllers/authController.ts';
 import { RegisterRequest } from '../api/api.ts';
 import { getUserFromToken } from '../utils/authUtils.ts';
+import AuthMapper from '../model/mapper/AuthMapper.ts';
+import { UsersNameData } from '../model/types.ts';
 
 export interface AuthState {
     registerData: RegisterFormData,
     loginData: LoginFormData,
     user: UserData | null,
     token: string | null,
+    username: UsersNameData;
 }
 
 export interface RegisterFormData {
@@ -61,7 +64,11 @@ export const authStore = create<AuthState>(() => ({
         password: ''
     },
     user: null,
-    token: null
+    token: null,
+    username: {
+        id: 0,
+        fullName: ''
+    }
 }));
 
 //ACTIONS
@@ -186,6 +193,22 @@ const checkTokenExpiration = () => {
     return false;
 }
 
+const getUserNameById = async (id: number) => {
+    try {
+        const res = await authController.callEndpoint((api) => api.apiAuthUserIdGet(id));
+        if(res && res.data) {
+            const user = AuthMapper.mapUserNameData(res.data);
+            authStore.setState(() => ({
+                username: user
+            }))
+            return user;
+        } 
+        return null;
+    } catch (err) {
+        console.error('Error while getting users name: ', err)
+    }
+}
+
 export const authActions = { 
     register, 
     setToken, 
@@ -193,5 +216,6 @@ export const authActions = {
     setUserData, 
     loadUserData, 
     clearData,
-    checkTokenExpiration
+    checkTokenExpiration,
+    getUserNameById
 };
