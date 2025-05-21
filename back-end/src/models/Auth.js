@@ -23,3 +23,11 @@ export class AuthRequest {
         this.password = password;
     }
 }
+
+export class UserNameResponse {
+    constructor(id, first_name, last_name) {
+        this.id = id;
+        this.firstName = first_name;
+        this.lastName = last_name;
+    }
+}

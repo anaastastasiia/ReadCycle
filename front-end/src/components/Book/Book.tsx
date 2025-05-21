@@ -13,7 +13,8 @@ const BookItem = ({
     author,
     reverse,
     price,
-    discount
+    discount,
+    userId
 }: BookBanner) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -86,6 +87,14 @@ const BookItem = ({
                     ) : (
                         <span>{price} PLN</span>
                     )}
+                </motion.p>
+                <motion.p
+                    variants={SlideUp(1.1)}
+                    initial="hidden"
+                    whileInView={'visible'}
+                    className="text-md lg:text-xl capitalize font-semibold"
+                >
+                    {userId}
                 </motion.p>
                 <motion.div
                     variants={SlideUp(1.1)}

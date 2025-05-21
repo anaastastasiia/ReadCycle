@@ -9,7 +9,8 @@ const mapBooksFromDb = (book: BookResponse, index: number): BookBanner => {
         id: book.id,
         image: book.image ? book.image : "",
         reverse: index % 2 !== 0,
-        categoryName: book.categoryName ? book.categoryName : BookTypeEnum.All
+        categoryName: book.categoryName ? book.categoryName : BookTypeEnum.All,
+        userId: book.userId
     }
 }
 
