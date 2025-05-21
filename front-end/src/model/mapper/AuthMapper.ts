@@ -10,7 +10,23 @@ const mapRegisterData = (formData: RegisterFormData): RegisterRequest => {
 }
 
 const mapUserNameData = (data: UserNameResponse): UsersNameData => {
-    const fullName = [data.firstName, data.lastName].filter(Boolean).join(' ');
+    console.log(data);
+    console.log(data.firstName);
+    console.log(data.lastName);
+
+    let fullName = '';
+
+    if (data.firstName && data.firstName.length > 0) {
+        fullName += data.firstName;
+    }
+    
+    if (data.lastName && data.lastName.length > 0) {
+        if (fullName.length > 0) {
+            fullName += ' ';
+        }
+        fullName += data.lastName;
+    }
+    console.log(fullName);
 
     return {
         id: data.id,

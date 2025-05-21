@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { SlideUp } from '../../utils/animations';
@@ -5,6 +6,7 @@ import { BookBanner } from '../../model/types';
 import { booksActions } from '../../store/useBooks';
 import { useNavigate } from 'react-router-dom';
 import { getPriceWithDiscount } from '../../utils/functions';
+import { authActions, authStore } from '../../store/authStore';
 
 const BookItem = ({
     id,
@@ -19,6 +21,8 @@ const BookItem = ({
     const { t } = useTranslation();
     const navigate = useNavigate();
     const { getBookDetails } = booksActions;
+    const { getUserNameById } = authActions;
+    const { username } = authStore();
 
     const getDetails = async () => {
         const res = await getBookDetails(id);
@@ -26,6 +30,10 @@ const BookItem = ({
             navigate(`/details/${id}`);
         }
     };
+
+    useEffect(() => {
+        getUserNameById(userId);
+    }, [userId]);
 
     return (
         <div
@@ -94,7 +102,7 @@ const BookItem = ({
                     whileInView={'visible'}
                     className="text-md lg:text-xl capitalize font-semibold"
                 >
-                    {userId}
+                    ggg{username.fullName}
                 </motion.p>
                 <motion.div
                     variants={SlideUp(1.1)}
