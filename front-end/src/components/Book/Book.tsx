@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { SlideUp } from '../../utils/animations';
@@ -6,7 +6,8 @@ import { BookBanner } from '../../model/types';
 import { booksActions } from '../../store/useBooks';
 import { useNavigate } from 'react-router-dom';
 import { getPriceWithDiscount } from '../../utils/functions';
-import { authActions, authStore } from '../../store/authStore';
+import { authActions } from '../../store/authStore';
+import PersonIcon from '@mui/icons-material/Person';
 
 const BookItem = ({
     id,
@@ -22,7 +23,7 @@ const BookItem = ({
     const navigate = useNavigate();
     const { getBookDetails } = booksActions;
     const { getUserNameById } = authActions;
-    const { username } = authStore();
+    const [userFullName, setUserFullName] = useState('');
 
     const getDetails = async () => {
         const res = await getBookDetails(id);
@@ -32,8 +33,14 @@ const BookItem = ({
     };
 
     useEffect(() => {
-        getUserNameById(userId);
-    }, [userId]);
+        (async () => {
+            const user = await getUserNameById(userId);
+
+            if (user) {
+                setUserFullName(user);
+            }
+        })();
+    }, []);
 
     return (
         <div
@@ -100,9 +107,9 @@ const BookItem = ({
                     variants={SlideUp(1.1)}
                     initial="hidden"
                     whileInView={'visible'}
-                    className="text-md lg:text-xl capitalize font-semibold"
+                    className="text-md lg:text-l"
                 >
-                    ggg{username.fullName}
+                    <PersonIcon /> {userFullName}
                 </motion.p>
                 <motion.div
                     variants={SlideUp(1.1)}
