@@ -197,8 +197,11 @@ const getUserNameById = async (id: number) => {
     console.log('id: ', id)
     try {
         const res = await authController.callEndpoint((api) => api.apiAuthUserIdGet(id));
-        if(res && res.data) {
-            const user = AuthMapper.mapUserNameData(res.data);
+    console.log('res: ', res)
+    if(res && res.data) {
+    console.log('res data: ', res.data)
+    console.log('res data: ', res.data.firstName)
+    const user = AuthMapper.mapUserNameData(res.data);
             authStore.setState(() => ({
                 username: user
             }))
