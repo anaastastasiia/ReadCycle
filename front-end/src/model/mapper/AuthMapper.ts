@@ -10,10 +10,6 @@ const mapRegisterData = (formData: RegisterFormData): RegisterRequest => {
 }
 
 const mapUserNameData = (data: UserNameResponse): UsersNameData => {
-    console.log(data);
-    console.log(data.firstName);
-    console.log(data.lastName);
-
     let fullName = '';
 
     if (data.firstName && data.firstName.length > 0) {
@@ -26,7 +22,6 @@ const mapUserNameData = (data: UserNameResponse): UsersNameData => {
         }
         fullName += data.lastName;
     }
-    console.log(fullName);
 
     return {
         id: data.id,
