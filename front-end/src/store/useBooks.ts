@@ -209,9 +209,9 @@ const deleteBook = async (id: number) => {
 };
 
 const getFilteredBooks = async (
-    data: FilterData
+    data?: FilterData
 ) => {
-    const {name, author, priceFrom, priceTo, category} = data;
+    const {name, author, priceFrom, priceTo, category} = data ?? {};
     try {
         const res = await apiController.callEndpoint((api) =>
             api.apiBookFilterGet(name, author, priceFrom, priceTo, category)

@@ -4,17 +4,17 @@ import { BookFilters } from '../components/BookFilters/BookFilters';
 import { useEffect } from 'react';
 
 export const LibraryPage = () => {
-    const { books } = booksStore();
-    const { getAllBooks } = booksActions;
+    const { filteredBooks } = booksStore();
+    const { getFilteredBooks } = booksActions;
 
     useEffect(() => {
-        getAllBooks();
+        getFilteredBooks();
     }, []);
 
     return (
         <div className="overflow-x-hidden">
             <div>
-                {books.length ? (
+                {filteredBooks.length ? (
                     <div className="container">
                         <div className="flex md:flex-row flex-col">
                             <div className="lg:w-1/4 p-4 w-full">
@@ -22,7 +22,7 @@ export const LibraryPage = () => {
                             </div>
                             <div className="lg:w-3/4 p-6 w-full">
                                 <div className="grid lg:grid-cols-4 md:grid-cols-2 space-y-6 md:space-y-0">
-                                    {books.map((item, index) => {
+                                    {filteredBooks.map((item, index) => {
                                         return (
                                             <BookItem {...item} key={index} />
                                         );
