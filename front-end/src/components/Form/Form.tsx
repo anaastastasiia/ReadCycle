@@ -43,7 +43,7 @@ export const FormInput = ({
     onChange
 }: InputProps) => {
     return (
-        <div className="relative">
+        <div className="relative w-full">
             <label className="block text-sm font-medium">{label}</label>
             <div className="relative">
                 <input

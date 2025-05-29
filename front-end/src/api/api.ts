@@ -979,11 +979,11 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {string} [author] Filter by partial author name
          * @param {number} [priceFrom] Minimum price
          * @param {number} [priceTo] Maximum price
-         * @param {BookTypeEnum} [category] Category of the book
+         * @param {number} [category] Category id of the book
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiBookFilterGet: async (name?: string, author?: string, priceFrom?: number, priceTo?: number, category?: BookTypeEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiBookFilterGet: async (name?: string, author?: string, priceFrom?: number, priceTo?: number, category?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/book/filter`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1235,11 +1235,11 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {string} [author] Filter by partial author name
          * @param {number} [priceFrom] Minimum price
          * @param {number} [priceTo] Maximum price
-         * @param {BookTypeEnum} [category] Category of the book
+         * @param {number} [category] Category id of the book
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiBookFilterGet(name?: string, author?: string, priceFrom?: number, priceTo?: number, category?: BookTypeEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<BookResponse>>> {
+        async apiBookFilterGet(name?: string, author?: string, priceFrom?: number, priceTo?: number, category?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<BookResponse>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiBookFilterGet(name, author, priceFrom, priceTo, category, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['DefaultApi.apiBookFilterGet']?.[localVarOperationServerIndex]?.url;
@@ -1345,11 +1345,11 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {string} [author] Filter by partial author name
          * @param {number} [priceFrom] Minimum price
          * @param {number} [priceTo] Maximum price
-         * @param {BookTypeEnum} [category] Category of the book
+         * @param {number} [category] Category id of the book
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiBookFilterGet(name?: string, author?: string, priceFrom?: number, priceTo?: number, category?: BookTypeEnum, options?: RawAxiosRequestConfig): AxiosPromise<Array<BookResponse>> {
+        apiBookFilterGet(name?: string, author?: string, priceFrom?: number, priceTo?: number, category?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<BookResponse>> {
             return localVarFp.apiBookFilterGet(name, author, priceFrom, priceTo, category, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1446,12 +1446,12 @@ export class DefaultApi extends BaseAPI {
      * @param {string} [author] Filter by partial author name
      * @param {number} [priceFrom] Minimum price
      * @param {number} [priceTo] Maximum price
-     * @param {BookTypeEnum} [category] Category of the book
+     * @param {number} [category] Category id of the book
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public apiBookFilterGet(name?: string, author?: string, priceFrom?: number, priceTo?: number, category?: BookTypeEnum, options?: RawAxiosRequestConfig) {
+    public apiBookFilterGet(name?: string, author?: string, priceFrom?: number, priceTo?: number, category?: number, options?: RawAxiosRequestConfig) {
         return DefaultApiFp(this.configuration).apiBookFilterGet(name, author, priceFrom, priceTo, category, options).then((request) => request(this.axios, this.basePath));
     }
 
