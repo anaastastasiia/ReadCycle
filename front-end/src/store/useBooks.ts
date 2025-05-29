@@ -224,8 +224,12 @@ const getFilteredBooks = async (
                 filteredBooks: books
             }));
             return books;
+        } else {
+            booksStore.setState(() => ({
+                filteredBooks: []
+            }));
+            return [];
         }
-        return null;
     } catch (err) {
         console.error('Error while getting books: ', err);
     }
