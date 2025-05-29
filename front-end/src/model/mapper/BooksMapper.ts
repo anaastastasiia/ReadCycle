@@ -1,6 +1,6 @@
 import { BookDetailsResponse, BookResponse, BookTypeEnum, NewBookRequest, UpdateBookRequest } from "../../api";
 import { UserData } from "../../store/authStore";
-import { CreateBookFormData } from "../../store/useBooks";
+import { CreateBookFormData, FilterData, FilterFormData } from "../../store/useBooks";
 import { BookBanner, BookDetails } from "../types";
 
 const mapBooksFromDb = (book: BookResponse, index: number): BookBanner => {
@@ -43,10 +43,20 @@ const mapNewBook = (book: CreateBookFormData, user: UserData): NewBookRequest =>
     }
 }
 
+const mapBookFilters = (data: FilterFormData): FilterData => {
+    return {
+        category: data.category ? Number(data.category) : undefined,
+        author: data.author ?? '',
+        name: data.name ?? '',
+        priceTo: data.priceTo ? Number(data.priceTo) : undefined,
+        priceFrom: data.priceFrom ? Number(data.priceFrom) : undefined
+    }
+}
+
 const mapDiscount = (discount: string): UpdateBookRequest => {
     return {
         discount: discount ? Number(discount) : undefined
     }
 }
   
-export default {mapBooksFromDb, mapBookDetailsFromDb, mapNewBook, mapDiscount}
+export default {mapBooksFromDb, mapBookDetailsFromDb, mapNewBook, mapDiscount, mapBookFilters}

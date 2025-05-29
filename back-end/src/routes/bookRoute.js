@@ -543,8 +543,8 @@ router.delete('/delete/:id', bookController.deleteBook);
  *       - in: query
  *         name: category
  *         schema:
- *           $ref: '#/components/schemas/BookTypeEnum'
- *         description: Category of the book
+ *           type: number
+ *         description: Category id of the book
  *     responses:
  *       200:
  *         description: Filtered list of books

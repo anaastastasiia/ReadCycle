@@ -4,11 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { Form, FormInput } from '../Form/Form';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
-import { FilterFormData } from '../../store/useBooks';
+import { booksActions, FilterFormData } from '../../store/useBooks';
 import { FormSelect } from '../Form/Select';
+import BooksMapper from '../../model/mapper/BooksMapper';
 
 export const BookFilters = () => {
     const { t } = useTranslation();
+    const { getFilteredBooks } = booksActions;
     const { getCategories } = categoriesActions;
     const { categories } = categoriesStore();
 
@@ -19,13 +21,14 @@ export const BookFilters = () => {
     const { register: formRegister, handleSubmit } = useForm();
 
     const onSubmit = async (data: FilterFormData) => {
-        console.log(data);
+        await getFilteredBooks(BooksMapper.mapBookFilters(data));
     };
 
     const categoriesOptions = categories.reverse().map((item) => ({
         value: item.id.toString(),
         label: t(`enums:BooksTypeEnum.${item.key}`)
     }));
+
     return (
         <motion.div
             className="flex-1 p-5"
