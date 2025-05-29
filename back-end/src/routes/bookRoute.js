@@ -541,7 +541,7 @@ router.delete('/delete/:id', bookController.deleteBook);
  *           type: number
  *         description: Maximum price
  *       - in: query
- *         name: category
+ *         name: categoryId
  *         schema:
  *           type: number
  *         description: Category id of the book

@@ -209,9 +209,9 @@ const deleteBook = async (id: number) => {
 };
 
 const getFilteredBooks = async (
-    data: FilterData
+    data?: FilterData
 ) => {
-    const {name, author, priceFrom, priceTo, category} = data;
+    const {name, author, priceFrom, priceTo, category} = data ?? {};
     try {
         const res = await apiController.callEndpoint((api) =>
             api.apiBookFilterGet(name, author, priceFrom, priceTo, category)
@@ -224,8 +224,12 @@ const getFilteredBooks = async (
                 filteredBooks: books
             }));
             return books;
+        } else {
+            booksStore.setState(() => ({
+                filteredBooks: []
+            }));
+            return [];
         }
-        return null;
     } catch (err) {
         console.error('Error while getting books: ', err);
     }
